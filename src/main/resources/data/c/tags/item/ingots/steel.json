@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:metal/ingot/steel",
+    "tfc:metal/ingot/black_steel",
+    "tfc:metal/ingot/blue_steel",
+    "tfc:metal/ingot/red_steel"
+  ]
+}

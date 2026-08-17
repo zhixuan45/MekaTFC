@@ -1,0 +1,12 @@
+﻿{
+  "type": "minecraft:blasting",
+  "cookingtime": 50,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "mekatfc:ore/small_native_osmium"
+  },
+  "result": {
+    "count": 1,
+    "id": "mekanism:nugget_osmium"
+  }
+}

@@ -1,0 +1,14 @@
+﻿{
+  "type": "mekanism:injecting",
+  "chemical_input": {
+    "amount": 1,
+    "chemical": "mekanism:hydrogen_chloride"
+  },
+  "item_input": {
+    "item": "mekatfc:ore/rich_native_osmium"
+  },
+  "output": {
+    "count": 4,
+    "id": "mekanism:shard_osmium"
+  }
+}

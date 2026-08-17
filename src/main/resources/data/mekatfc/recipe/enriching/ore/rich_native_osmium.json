@@ -1,0 +1,10 @@
+﻿{
+  "type": "mekanism:enriching",
+  "input": {
+    "item": "mekatfc:ore/rich_native_osmium"
+  },
+  "output": {
+    "count": 3,
+    "id": "mekanism:dust_osmium"
+  }
+}

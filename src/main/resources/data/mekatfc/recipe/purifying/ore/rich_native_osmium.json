@@ -1,0 +1,14 @@
+﻿{
+  "type": "mekanism:purifying",
+  "chemical_input": {
+    "amount": 1,
+    "chemical": "mekanism:oxygen"
+  },
+  "item_input": {
+    "item": "mekatfc:ore/rich_native_osmium"
+  },
+  "output": {
+    "count": 3,
+    "id": "mekanism:clump_osmium"
+  }
+}

@@ -1,0 +1,11 @@
+﻿{
+  "type": "tfc:heating",
+  "ingredient": {
+    "item": "mekatfc:ore/poor_native_osmium/phyllite"
+  },
+  "result_fluid": {
+    "amount": 15,
+    "id": "mekatfc:metal/osmium"
+  },
+  "temperature": 1230.0
+}

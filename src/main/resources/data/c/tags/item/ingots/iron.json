@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:iron_ingot",
+    "tfc:metal/ingot/wrought_iron",
+    "#c:ingots/wrought_iron"
+  ]
+}

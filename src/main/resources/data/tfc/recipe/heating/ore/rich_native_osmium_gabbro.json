@@ -1,0 +1,11 @@
+﻿{
+  "type": "tfc:heating",
+  "ingredient": {
+    "item": "mekatfc:ore/rich_native_osmium/gabbro"
+  },
+  "result_fluid": {
+    "amount": 35,
+    "id": "mekatfc:metal/osmium"
+  },
+  "temperature": 1230.0
+}

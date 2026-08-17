@@ -1,0 +1,7 @@
+﻿{
+  "replace": false,
+  "values": [
+    "mekatfc:metal/osmium",
+    "mekatfc:metal/flowing_osmium"
+  ]
+}

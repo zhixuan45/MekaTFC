@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:metal/ingot/gold",
+    "tfc:metal/ingot/rose_gold"
+  ]
+}

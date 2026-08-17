@@ -1,0 +1,11 @@
+﻿{
+  "type": "tfc:heating",
+  "ingredient": {
+    "tag": "c:double_ingots/osmium"
+  },
+  "result_fluid": {
+    "amount": 200,
+    "id": "mekatfc:metal/osmium"
+  },
+  "temperature": 1230.0
+}

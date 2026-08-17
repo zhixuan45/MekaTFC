@@ -1,0 +1,10 @@
+﻿{
+  "variants": {
+    "": [
+      {"model": "mekatfc:block/groundcover/native_osmium", "y": 90},
+      {"model": "mekatfc:block/groundcover/native_osmium"},
+      {"model": "mekatfc:block/groundcover/native_osmium", "y": 180},
+      {"model": "mekatfc:block/groundcover/native_osmium", "y": 270}
+    ]
+  }
+}

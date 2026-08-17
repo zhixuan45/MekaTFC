@@ -1,0 +1,8 @@
+﻿{
+  "parent": "tfc:block/ore",
+  "render_type": "minecraft:cutout_mipped",
+  "textures": {
+    "all": "tfc:block/rock/raw/slate",
+    "overlay": "mekatfc:block/ore/poor_native_osmium"
+  }
+}

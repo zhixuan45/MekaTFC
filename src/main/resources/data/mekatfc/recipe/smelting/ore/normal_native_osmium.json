@@ -1,0 +1,12 @@
+﻿{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "mekatfc:ore/normal_native_osmium"
+  },
+  "result": {
+    "count": 1,
+    "id": "mekanism:ingot_osmium"
+  }
+}

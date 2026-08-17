@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:powder/hematite",
+    "tfc:powder/magnetite",
+    "tfc:powder/limonite"
+  ]
+}

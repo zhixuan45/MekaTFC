@@ -1,0 +1,6 @@
+﻿{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mekatfc:item/ore/normal_native_osmium"
+  }
+}

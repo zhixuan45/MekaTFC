@@ -1,0 +1,9 @@
+﻿{
+  "replace": false,
+  "values": [
+    "mekatfc:ore/poor_native_osmium",
+    "mekatfc:ore/normal_native_osmium",
+    "mekatfc:ore/rich_native_osmium",
+    "mekatfc:ore/small_native_osmium"
+  ]
+}
