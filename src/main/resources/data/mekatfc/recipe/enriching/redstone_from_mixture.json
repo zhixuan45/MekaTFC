@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:enriching",
+  "input": {
+    "count": 1,
+    "item": "mekatfc:redstone_mixture"
+  },
+  "output": {
+    "count": 16,
+    "id": "minecraft:redstone"
+  }
+}

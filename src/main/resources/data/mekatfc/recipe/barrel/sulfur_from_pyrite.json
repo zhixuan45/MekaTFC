@@ -1,0 +1,16 @@
+{
+  "type": "tfc:barrel_sealed",
+  "duration": 3600,
+  "input_fluid": {
+    "amount": 500,
+    "fluid": "tfc:tannin"
+  },
+  "input_item": {
+    "count": 1,
+    "item": "tfc:powder/pyrite"
+  },
+  "output_item": {
+    "count": 1,
+    "id": "tfc:powder/sulfur"
+  }
+}
