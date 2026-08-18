@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:powder/lapis_lazuli",
+    {
+      "id": "mekanism:dust_lapis_lazuli",
+      "required": false
+    }
+  ]
+}

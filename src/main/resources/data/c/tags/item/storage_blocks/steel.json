@@ -1,0 +1,13 @@
+﻿{
+    "replace":  false,
+    "values":  [
+                   "tfc:metal/block/steel",
+                   "tfc:metal/block/black_steel",
+                   "tfc:metal/block/blue_steel",
+                   "tfc:metal/block/red_steel",
+                   {
+                       "id":  "mekanism:block_steel",
+                       "required":  false
+                   }
+               ]
+}

@@ -1,0 +1,9 @@
+﻿{
+    "replace":  false,
+    "values":  [
+                   {
+                       "id":  "mekanism:block_raw_osmium",
+                       "required":  false
+                   }
+               ]
+}

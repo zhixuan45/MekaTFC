@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:ore/small_cassiterite",
+    "tfc:ore/poor_cassiterite",
+    "tfc:ore/normal_cassiterite",
+    "tfc:ore/rich_cassiterite",
+    {
+      "id": "mekanism:raw_tin",
+      "required": false
+    }
+  ]
+}

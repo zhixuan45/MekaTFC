@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:raw_gold",
+    "tfc:ore/small_native_gold",
+    "tfc:ore/poor_native_gold",
+    "tfc:ore/normal_native_gold",
+    "tfc:ore/rich_native_gold"
+  ]
+}

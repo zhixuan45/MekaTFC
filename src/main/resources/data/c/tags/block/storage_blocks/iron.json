@@ -1,0 +1,8 @@
+﻿{
+    "replace":  false,
+    "values":  [
+                   "minecraft:iron_block",
+                   "tfc:metal/block/wrought_iron",
+                   "tfc:metal/block/cast_iron"
+               ]
+}

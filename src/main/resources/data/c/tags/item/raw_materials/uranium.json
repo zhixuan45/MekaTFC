@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "mekanism:raw_uranium",
+      "required": false
+    }
+  ]
+}

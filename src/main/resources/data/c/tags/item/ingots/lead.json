@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:metal/ingot/lead",
+    {
+      "id": "mekanism:ingot_lead",
+      "required": false
+    }
+  ]
+}

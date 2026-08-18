@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:ore/small_sphalerite",
+    "tfc:ore/poor_sphalerite",
+    "tfc:ore/normal_sphalerite",
+    "tfc:ore/rich_sphalerite"
+  ]
+}

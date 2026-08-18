@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "tfc:powder/coal",
+      "required": false
+    },
+    {
+      "id": "mekanism:dust_coal",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+﻿{
+    "replace":  false,
+    "values":  [
+                   "tfc:metal/block/bronze",
+                   "tfc:metal/block/bismuth_bronze",
+                   "tfc:metal/block/black_bronze",
+                   {
+                       "id":  "mekanism:block_bronze",
+                       "required":  false
+                   }
+               ]
+}

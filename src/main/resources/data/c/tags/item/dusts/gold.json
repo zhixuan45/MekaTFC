@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:powder/native_gold",
+    {
+      "id": "mekanism:dust_gold",
+      "required": false
+    }
+  ]
+}

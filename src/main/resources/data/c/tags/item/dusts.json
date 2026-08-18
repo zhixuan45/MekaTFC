@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "#c:dusts/copper",
+    "#c:dusts/iron",
+    "#c:dusts/gold",
+    "#c:dusts/tin",
+    "#c:dusts/lead",
+    "#c:dusts/silver",
+    "#c:dusts/osmium",
+    "#c:dusts/uranium",
+    "#c:dusts/bronze",
+    "#c:dusts/steel",
+    "#c:dusts/sulfur",
+    "#c:dusts/charcoal",
+    "#c:dusts/coal",
+    "#c:dusts/diamond",
+    "#c:dusts/emerald",
+    "#c:dusts/lapis_lazuli",
+    "#c:dusts/quartz",
+    "#c:dusts/fluorite"
+  ]
+}

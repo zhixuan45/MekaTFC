@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "#c:ingots/copper",
+    "#c:ingots/iron",
+    "#c:ingots/gold",
+    "#c:ingots/steel",
+    "#c:ingots/tin",
+    "#c:ingots/lead",
+    "#c:ingots/bronze",
+    "#c:ingots/osmium",
+    "#c:ingots/uranium",
+    "#c:ingots/silver",
+    "#c:ingots/zinc",
+    "#c:ingots/nickel",
+    "#c:ingots/brass",
+    "#c:ingots/cupronickel",
+    "#c:ingots/bismuth"
+  ]
+}

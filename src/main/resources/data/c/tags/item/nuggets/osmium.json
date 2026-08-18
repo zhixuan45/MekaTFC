@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "mekanism:nugget_osmium",
+      "required": false
+    }
+  ]
+}

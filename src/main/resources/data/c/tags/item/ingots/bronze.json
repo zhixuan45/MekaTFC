@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:metal/ingot/bronze",
+    "tfc:metal/ingot/bismuth_bronze",
+    "tfc:metal/ingot/black_bronze",
+    {
+      "id": "mekanism:ingot_bronze",
+      "required": false
+    }
+  ]
+}

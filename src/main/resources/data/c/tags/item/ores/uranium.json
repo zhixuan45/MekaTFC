@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "mekanism:uranium_ore",
+      "required": false
+    },
+    {
+      "id": "mekanism:deepslate_uranium_ore",
+      "required": false
+    }
+  ]
+}

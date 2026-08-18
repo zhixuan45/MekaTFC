@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "mekanism:dust_osmium",
+      "required": false
+    }
+  ]
+}

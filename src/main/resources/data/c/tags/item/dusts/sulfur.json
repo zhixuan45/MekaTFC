@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:powder/sulfur",
+    {
+      "id": "mekanism:dust_sulfur",
+      "required": false
+    }
+  ]
+}

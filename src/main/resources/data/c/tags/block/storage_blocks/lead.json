@@ -1,0 +1,10 @@
+﻿{
+    "replace":  false,
+    "values":  [
+                   "tfc:metal/block/lead",
+                   {
+                       "id":  "mekanism:block_lead",
+                       "required":  false
+                   }
+               ]
+}

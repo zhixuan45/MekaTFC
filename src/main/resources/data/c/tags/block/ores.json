@@ -1,6 +1,16 @@
-﻿{
+{
   "replace": false,
   "values": [
-    "#c:ores/osmium"
+    "#c:ores/copper",
+    "#c:ores/iron",
+    "#c:ores/gold",
+    "#c:ores/tin",
+    "#c:ores/lead",
+    "#c:ores/osmium",
+    "#c:ores/uranium",
+    "#c:ores/silver",
+    "#c:ores/zinc",
+    "#c:ores/nickel",
+    "#c:ores/bismuth"
   ]
 }

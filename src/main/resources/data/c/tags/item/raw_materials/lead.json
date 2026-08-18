@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:ore/small_galena",
+    "tfc:ore/poor_galena",
+    "tfc:ore/normal_galena",
+    "tfc:ore/rich_galena",
+    {
+      "id": "mekanism:raw_lead",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:powder/charcoal",
+    {
+      "id": "mekanism:dust_charcoal",
+      "required": false
+    }
+  ]
+}

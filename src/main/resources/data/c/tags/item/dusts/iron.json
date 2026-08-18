@@ -3,6 +3,10 @@
   "values": [
     "tfc:powder/hematite",
     "tfc:powder/magnetite",
-    "tfc:powder/limonite"
+    "tfc:powder/limonite",
+    {
+      "id": "mekanism:dust_iron",
+      "required": false
+    }
   ]
 }

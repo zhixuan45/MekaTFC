@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:ore/small_garnierite",
+    "tfc:ore/poor_garnierite",
+    "tfc:ore/normal_garnierite",
+    "tfc:ore/rich_garnierite"
+  ]
+}

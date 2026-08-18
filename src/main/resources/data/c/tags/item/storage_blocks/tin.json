@@ -1,0 +1,10 @@
+﻿{
+    "replace":  false,
+    "values":  [
+                   "tfc:metal/block/tin",
+                   {
+                       "id":  "mekanism:block_tin",
+                       "required":  false
+                   }
+               ]
+}

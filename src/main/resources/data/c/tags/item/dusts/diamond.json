@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:powder/diamond",
+    {
+      "id": "mekanism:dust_diamond",
+      "required": false
+    }
+  ]
+}

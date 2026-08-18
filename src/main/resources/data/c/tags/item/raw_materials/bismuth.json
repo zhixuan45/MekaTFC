@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:ore/small_bismuthinite",
+    "tfc:ore/poor_bismuthinite",
+    "tfc:ore/normal_bismuthinite",
+    "tfc:ore/rich_bismuthinite"
+  ]
+}

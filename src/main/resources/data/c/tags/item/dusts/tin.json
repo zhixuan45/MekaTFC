@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:powder/cassiterite",
+    {
+      "id": "mekanism:dust_tin",
+      "required": false
+    }
+  ]
+}
