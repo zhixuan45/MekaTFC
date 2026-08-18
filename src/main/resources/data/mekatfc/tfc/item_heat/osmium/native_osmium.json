@@ -1,0 +1,11 @@
+﻿{
+  "forging_temperature": 924.0,
+  "heat_capacity": 1.1428572,
+  "ingredient": [
+    {"item": "mekatfc:ore/small_native_osmium"},
+    {"item": "mekatfc:ore/poor_native_osmium"},
+    {"item": "mekatfc:ore/normal_native_osmium"},
+    {"item": "mekatfc:ore/rich_native_osmium"}
+  ],
+  "welding_temperature": 1232.0
+}

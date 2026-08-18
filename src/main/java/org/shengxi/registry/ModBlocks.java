@@ -103,6 +103,22 @@ public class ModBlocks {
     }
 
     /**
+     * 为所有 21 种岩石类型的原生锇矿石注册探矿镐代表方块（Representative Blocks）
+     * 将贫瘠 (POOR) 和富集 (RICH) 矿石映射到普通品级 (NORMAL)，
+     * 使 TFC 探矿镐在地下探测时能够将同区域内的所有品级锇矿合并统计数量并统一输出报告。
+     */
+    public static void registerRepresentativeBlocks() {
+        for (Rock rock : Rock.values()) {
+            DeferredBlock<Block> normal = getOre(rock, Ore.Grade.NORMAL);
+            DeferredBlock<Block> poor = getOre(rock, Ore.Grade.POOR);
+            DeferredBlock<Block> rich = getOre(rock, Ore.Grade.RICH);
+            if (normal != null && poor != null && rich != null) {
+                net.dries007.tfc.common.items.PropickItem.registerRepresentative(normal.get(), poor.get(), rich.get());
+            }
+        }
+    }
+
+    /**
      * 注册到 Mod 事件总线
      */
     public static void register(IEventBus modEventBus) {

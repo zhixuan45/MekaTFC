@@ -1,7 +1,13 @@
 ﻿{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanismtools"
+    }
+  ],
   "type": "tfc:heating",
   "ingredient": {
-    "tag": "c:double_ingots/osmium"
+    "item": "mekanismtools:osmium_hoe"
   },
   "result_fluid": {
     "amount": 200,

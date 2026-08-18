@@ -1,10 +1,10 @@
 ﻿{
   "type": "tfc:heating",
   "ingredient": {
-    "item": "mekatfc:ore/rich_native_osmium"
+    "tag": "c:dusts/osmium"
   },
   "result_fluid": {
-    "amount": 35,
+    "amount": 100,
     "id": "mekatfc:metal/osmium"
   },
   "temperature": 1540.0

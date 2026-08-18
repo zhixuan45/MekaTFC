@@ -139,6 +139,14 @@ dependencies {
     // 运行期加载 Mekanism 完整模组，以便在测试客户端与服务端运行完整的 Mekanism 环境
     runtimeOnly "mekanism:Mekanism:${mekanism_version}"
 
+    // 通用机械可选子模组：Mekanism: Tools (工具/防具)
+    compileOnly "mekanism:Mekanism:${mekanism_version}:tools"
+    runtimeOnly "mekanism:Mekanism:${mekanism_version}:tools"
+
+    // 通用机械可选子模组：Mekanism: Generators (发电机)
+    compileOnly "mekanism:Mekanism:${mekanism_version}:generators"
+    runtimeOnly "mekanism:Mekanism:${mekanism_version}:generators"
+
     // 群峦传说 (TerraFirmaCraft) 依赖
     // 编译期依赖 TFC，便于引用 TFC 的物品、方块、能力与配方类型
     compileOnly "maven.modrinth:terrafirmacraft:${tfc_version}"

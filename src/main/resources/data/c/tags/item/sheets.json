@@ -1,17 +1,16 @@
 {
   "replace": false,
   "values": [
-    "#c:sheets/iron",
+    "#c:sheets/bismuth",
+    "#c:sheets/brass",
+    "#c:sheets/bronze",
     "#c:sheets/copper",
     "#c:sheets/gold",
+    "#c:sheets/iron",
+    "#c:sheets/nickel",
+    "#c:sheets/silver",
     "#c:sheets/steel",
     "#c:sheets/tin",
-    "#c:sheets/lead",
-    "#c:sheets/bronze",
-    "#c:sheets/silver",
-    "#c:sheets/zinc",
-    "#c:sheets/nickel",
-    "#c:sheets/brass",
-    "#c:sheets/bismuth"
+    "#c:sheets/zinc"
   ]
 }

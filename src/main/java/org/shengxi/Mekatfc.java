@@ -77,7 +77,15 @@ public class Mekatfc {
         LOGGER.info("Initializing MekaTFC Compatibility Layer...");
         LOGGER.info("Detected Mekanism modid: {}", MekanismAPI.MEKANISM_MODID);
         LOGGER.info("Detected TerraFirmaCraft modid: {}", TerraFirmaCraft.MOD_ID);
+        LOGGER.info("Optional Mod [Mekanism: Tools] Loaded: {}", net.neoforged.fml.ModList.get().isLoaded("mekanismtools"));
+        LOGGER.info("Optional Mod [Mekanism: Generators] Loaded: {}", net.neoforged.fml.ModList.get().isLoaded("mekanismgenerators"));
         LOGGER.info("Current MekaTFC Recipe Mode: {}", Config.recipeMode);
+
+        // 异步任务：为所有 21 种岩石的原生锇矿石注册 TFC 探矿镐代表方块映射
+        event.enqueueWork(() -> {
+            LOGGER.info("Registering representative blocks for MekaTFC graded osmium ores...");
+            ModBlocks.registerRepresentativeBlocks();
+        });
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

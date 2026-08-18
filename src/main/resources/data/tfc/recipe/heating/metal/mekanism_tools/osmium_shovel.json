@@ -1,7 +1,13 @@
 ﻿{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanismtools"
+    }
+  ],
   "type": "tfc:heating",
   "ingredient": {
-    "tag": "c:ingots/osmium"
+    "item": "mekanismtools:osmium_shovel"
   },
   "result_fluid": {
     "amount": 100,

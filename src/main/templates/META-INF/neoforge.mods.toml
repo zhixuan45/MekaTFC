@@ -88,6 +88,22 @@ versionRange = "${tfc_version_range}"
 ordering = "AFTER"
 side = "BOTH"
 
+# 通用机械：工具 (Mekanism: Tools) 可选前置依赖声明
+[[dependencies."${mod_id}"]]
+modId = "mekanismtools"
+type = "optional"
+versionRange = "${mekanism_version_range}"
+ordering = "AFTER"
+side = "BOTH"
+
+# 通用机械：发电机 (Mekanism: Generators) 可选前置依赖声明
+[[dependencies."${mod_id}"]]
+modId = "mekanismgenerators"
+type = "optional"
+versionRange = "${mekanism_version_range}"
+ordering = "AFTER"
+side = "BOTH"
+
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
 # stop your mod loading on the server for example.
