@@ -1,0 +1,13 @@
+﻿{
+  "replace": false,
+  "values": [
+    "mekatfc:metal/saw/osmium",
+    "mekatfc:metal/propick/osmium",
+    "mekatfc:metal/knife/osmium",
+    "mekatfc:metal/scythe/osmium",
+    "mekatfc:metal/hammer/osmium",
+    "mekatfc:metal/chisel/osmium",
+    "mekatfc:metal/javelin/osmium",
+    "mekatfc:metal/mace/osmium"
+  ]
+}

@@ -1,0 +1,11 @@
+﻿{
+  "type": "tfc:heating",
+  "ingredient": {
+    "item": "mekatfc:metal/shovel_head/osmium"
+  },
+  "result_fluid": {
+    "amount": 100,
+    "id": "mekatfc:metal/osmium"
+  },
+  "temperature": 1540.0
+}

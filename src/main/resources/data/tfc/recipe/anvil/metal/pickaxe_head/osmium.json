@@ -1,0 +1,15 @@
+﻿{
+  "type": "tfc:anvil",
+  "apply_bonus": true,
+  "ingredient": {
+    "tag": "c:ingots/osmium"
+  },
+  "result": {
+    "count": 1,
+    "id": "mekatfc:metal/pickaxe_head/osmium"
+  },
+  "rules": [
+    "punch_last", "draw_not_last", "bend_not_last"
+  ],
+  "tier": 3
+}

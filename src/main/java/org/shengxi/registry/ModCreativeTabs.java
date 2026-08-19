@@ -46,10 +46,37 @@ public class ModCreativeTabs {
                 output.accept(ModItems.URANIUM_DOUBLE_INGOT.get());
                 output.accept(ModItems.MOLTEN_URANIUM_BUCKET.get());
 
-                // 4. 特殊合成中间件
+                // 4. 原有工具对应的锇工具头
+                output.accept(ModItems.OSMIUM_PICKAXE_HEAD.get());
+                output.accept(ModItems.OSMIUM_AXE_HEAD.get());
+                output.accept(ModItems.OSMIUM_SHOVEL_HEAD.get());
+                output.accept(ModItems.OSMIUM_HOE_HEAD.get());
+                output.accept(ModItems.OSMIUM_SWORD_BLADE.get());
+
+                // 5. 新增 TFC 专属锇工具头与部件
+                output.accept(ModItems.OSMIUM_SAW_BLADE.get());
+                output.accept(ModItems.OSMIUM_PROPICK_HEAD.get());
+                output.accept(ModItems.OSMIUM_KNIFE_BLADE.get());
+                output.accept(ModItems.OSMIUM_SCYTHE_BLADE.get());
+                output.accept(ModItems.OSMIUM_HAMMER_HEAD.get());
+                output.accept(ModItems.OSMIUM_CHISEL_HEAD.get());
+                output.accept(ModItems.OSMIUM_JAVELIN_HEAD.get());
+                output.accept(ModItems.OSMIUM_MACE_HEAD.get());
+
+                // 6. 新增 TFC 专属锇成品工具
+                output.accept(ModItems.OSMIUM_SAW.get());
+                output.accept(ModItems.OSMIUM_PROPICK.get());
+                output.accept(ModItems.OSMIUM_KNIFE.get());
+                output.accept(ModItems.OSMIUM_SCYTHE.get());
+                output.accept(ModItems.OSMIUM_HAMMER.get());
+                output.accept(ModItems.OSMIUM_CHISEL.get());
+                output.accept(ModItems.OSMIUM_JAVELIN.get());
+                output.accept(ModItems.OSMIUM_MACE.get());
+
+                // 7. 特殊合成中间件
                 output.accept(ModItems.REDSTONE_MIXTURE.get());
 
-                // 5. 各岩石的矿石方块（锇、方铅矿、沥青铀矿）
+                // 8. 各岩石的矿石方块（锇、方铅矿、沥青铀矿）
                 String[] oreTypes = {"native_osmium", "galena", "pitchblende"};
                 for (String oreType : oreTypes) {
                     for (Rock rock : Rock.values()) {
