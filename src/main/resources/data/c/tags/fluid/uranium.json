@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "mekatfc:metal/uranium",
+    "mekatfc:metal/flowing_uranium"
+  ]
+}

@@ -92,20 +92,32 @@ public class Mekatfc {
         LOGGER.info("Configuring MekaTFC Client Render Layers...");
 
         event.enqueueWork(() -> {
-            // 为所有 63 种原生锇矿石方块配置 CutoutMipped 渲染层，使矿石 Overlay 贴图的透明通道正常混合，避免底层岩石被黑色遮挡
-            for (Rock rock : Rock.values()) {
-                for (Ore.Grade grade : Ore.Grade.values()) {
-                    Block oreBlock = ModBlocks.getOre(rock, grade).get();
-                    ItemBlockRenderTypes.setRenderLayer(oreBlock, RenderType.cutoutMipped());
+            // 为所有 189 种矿石方块（锇、方铅矿、沥青铀矿）配置 CutoutMipped 渲染层，
+            // 使矿石 Overlay 贴图的透明通道正常混合，避免底层岩石被黑色遮挡
+            String[] oreTypes = {"native_osmium", "galena", "pitchblende"};
+            for (String oreType : oreTypes) {
+                for (Rock rock : Rock.values()) {
+                    for (Ore.Grade grade : Ore.Grade.values()) {
+                        var oreBlockHolder = ModBlocks.getOre(oreType, rock, grade);
+                        if (oreBlockHolder != null) {
+                            ItemBlockRenderTypes.setRenderLayer(oreBlockHolder.get(), RenderType.cutoutMipped());
+                        }
+                    }
                 }
             }
 
             // 为地表小矿石指示物配置 Cutout 渲染层
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.SMALL_NATIVE_OSMIUM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.SMALL_GALENA.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.SMALL_PITCHBLENDE.get(), RenderType.cutout());
 
-            // 为熔融锇流体配置 Translucent 半透明渲染层
+            // 为熔融金属流体配置 Translucent 半透明渲染层
             ItemBlockRenderTypes.setRenderLayer(ModFluids.MOLTEN_OSMIUM.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MOLTEN_OSMIUM.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.MOLTEN_LEAD.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MOLTEN_LEAD.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.MOLTEN_URANIUM.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MOLTEN_URANIUM.get(), RenderType.translucent());
         });
 
         LOGGER.info("MekaTFC Client Setup completed for user: {}", Minecraft.getInstance().getUser().getName());

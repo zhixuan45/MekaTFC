@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mekatfc:block/groundcover/pitchblende",
+        "y": 90
+      },
+      {
+        "model": "mekatfc:block/groundcover/pitchblende"
+      },
+      {
+        "model": "mekatfc:block/groundcover/pitchblende",
+        "y": 180
+      },
+      {
+        "model": "mekatfc:block/groundcover/pitchblende",
+        "y": 270
+      }
+    ]
+  }
+}

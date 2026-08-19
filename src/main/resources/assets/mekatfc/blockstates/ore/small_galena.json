@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mekatfc:block/groundcover/galena",
+        "y": 90
+      },
+      {
+        "model": "mekatfc:block/groundcover/galena"
+      },
+      {
+        "model": "mekatfc:block/groundcover/galena",
+        "y": 180
+      },
+      {
+        "model": "mekatfc:block/groundcover/galena",
+        "y": 270
+      }
+    ]
+  }
+}

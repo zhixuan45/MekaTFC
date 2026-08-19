@@ -1,0 +1,195 @@
+{
+  "type": "tfc:cluster_vein",
+  "config": {
+    "rarity": 65,
+    "density": 0.4,
+    "min_y": -60,
+    "max_y": 20,
+    "size": 24,
+    "random_name": "pitchblende",
+    "blocks": [
+      {
+        "replace": [
+          "tfc:rock/raw/granite"
+        ],
+        "with": [
+          {
+            "weight": 35,
+            "block": "mekatfc:ore/poor_pitchblende/granite"
+          },
+          {
+            "weight": 40,
+            "block": "mekatfc:ore/normal_pitchblende/granite"
+          },
+          {
+            "weight": 25,
+            "block": "mekatfc:ore/rich_pitchblende/granite"
+          }
+        ]
+      },
+      {
+        "replace": [
+          "tfc:rock/raw/gabbro"
+        ],
+        "with": [
+          {
+            "weight": 35,
+            "block": "mekatfc:ore/poor_pitchblende/gabbro"
+          },
+          {
+            "weight": 40,
+            "block": "mekatfc:ore/normal_pitchblende/gabbro"
+          },
+          {
+            "weight": 25,
+            "block": "mekatfc:ore/rich_pitchblende/gabbro"
+          }
+        ]
+      },
+      {
+        "replace": [
+          "tfc:rock/raw/rhyolite"
+        ],
+        "with": [
+          {
+            "weight": 35,
+            "block": "mekatfc:ore/poor_pitchblende/rhyolite"
+          },
+          {
+            "weight": 40,
+            "block": "mekatfc:ore/normal_pitchblende/rhyolite"
+          },
+          {
+            "weight": 25,
+            "block": "mekatfc:ore/rich_pitchblende/rhyolite"
+          }
+        ]
+      },
+      {
+        "replace": [
+          "tfc:rock/raw/dacite"
+        ],
+        "with": [
+          {
+            "weight": 35,
+            "block": "mekatfc:ore/poor_pitchblende/dacite"
+          },
+          {
+            "weight": 40,
+            "block": "mekatfc:ore/normal_pitchblende/dacite"
+          },
+          {
+            "weight": 25,
+            "block": "mekatfc:ore/rich_pitchblende/dacite"
+          }
+        ]
+      },
+      {
+        "replace": [
+          "tfc:rock/raw/basalt"
+        ],
+        "with": [
+          {
+            "weight": 35,
+            "block": "mekatfc:ore/poor_pitchblende/basalt"
+          },
+          {
+            "weight": 40,
+            "block": "mekatfc:ore/normal_pitchblende/basalt"
+          },
+          {
+            "weight": 25,
+            "block": "mekatfc:ore/rich_pitchblende/basalt"
+          }
+        ]
+      },
+      {
+        "replace": [
+          "tfc:rock/raw/gneiss"
+        ],
+        "with": [
+          {
+            "weight": 35,
+            "block": "mekatfc:ore/poor_pitchblende/gneiss"
+          },
+          {
+            "weight": 40,
+            "block": "mekatfc:ore/normal_pitchblende/gneiss"
+          },
+          {
+            "weight": 25,
+            "block": "mekatfc:ore/rich_pitchblende/gneiss"
+          }
+        ]
+      },
+      {
+        "replace": [
+          "tfc:rock/raw/phyllite"
+        ],
+        "with": [
+          {
+            "weight": 35,
+            "block": "mekatfc:ore/poor_pitchblende/phyllite"
+          },
+          {
+            "weight": 40,
+            "block": "mekatfc:ore/normal_pitchblende/phyllite"
+          },
+          {
+            "weight": 25,
+            "block": "mekatfc:ore/rich_pitchblende/phyllite"
+          }
+        ]
+      },
+      {
+        "replace": [
+          "tfc:rock/raw/quartzite"
+        ],
+        "with": [
+          {
+            "weight": 35,
+            "block": "mekatfc:ore/poor_pitchblende/quartzite"
+          },
+          {
+            "weight": 40,
+            "block": "mekatfc:ore/normal_pitchblende/quartzite"
+          },
+          {
+            "weight": 25,
+            "block": "mekatfc:ore/rich_pitchblende/quartzite"
+          }
+        ]
+      },
+      {
+        "replace": [
+          "tfc:rock/raw/tuff"
+        ],
+        "with": [
+          {
+            "weight": 35,
+            "block": "mekatfc:ore/poor_pitchblende/tuff"
+          },
+          {
+            "weight": 40,
+            "block": "mekatfc:ore/normal_pitchblende/tuff"
+          },
+          {
+            "weight": 25,
+            "block": "mekatfc:ore/rich_pitchblende/tuff"
+          }
+        ]
+      }
+    ],
+    "indicator": {
+      "rarity": 18,
+      "depth": 40,
+      "underground_rarity": 1,
+      "underground_count": 0,
+      "blocks": [
+        {
+          "block": "mekatfc:ore/small_pitchblende"
+        }
+      ]
+    }
+  }
+}

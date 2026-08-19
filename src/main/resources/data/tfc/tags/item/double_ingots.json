@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "mekatfc:metal/double_ingot/osmium"
+    "#c:double_ingots/osmium",
+    "#c:double_ingots/lead",
+    "#c:double_ingots/uranium"
   ]
 }

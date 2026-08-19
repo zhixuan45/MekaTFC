@@ -1,9 +1,17 @@
-﻿{
+{
   "replace": false,
   "values": [
     "mekatfc:ore/poor_native_osmium",
     "mekatfc:ore/normal_native_osmium",
     "mekatfc:ore/rich_native_osmium",
-    "mekatfc:ore/small_native_osmium"
+    "mekatfc:ore/small_native_osmium",
+    "mekatfc:ore/poor_galena",
+    "mekatfc:ore/normal_galena",
+    "mekatfc:ore/rich_galena",
+    "mekatfc:ore/small_galena",
+    "mekatfc:ore/poor_pitchblende",
+    "mekatfc:ore/normal_pitchblende",
+    "mekatfc:ore/rich_pitchblende",
+    "mekatfc:ore/small_pitchblende"
   ]
 }

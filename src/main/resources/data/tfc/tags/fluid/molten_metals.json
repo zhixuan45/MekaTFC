@@ -1,7 +1,11 @@
-﻿{
+{
   "replace": false,
   "values": [
     "mekatfc:metal/osmium",
-    "mekatfc:metal/flowing_osmium"
+    "mekatfc:metal/flowing_osmium",
+    "mekatfc:metal/lead",
+    "mekatfc:metal/flowing_lead",
+    "mekatfc:metal/uranium",
+    "mekatfc:metal/flowing_uranium"
   ]
 }
