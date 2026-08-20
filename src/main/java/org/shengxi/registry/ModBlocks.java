@@ -11,9 +11,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.shengxi.Mekatfc;
 
 import java.util.Collections;
@@ -29,27 +30,27 @@ import java.util.Map;
  */
 public class ModBlocks {
     // 方块延迟注册器
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Mekatfc.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Mekatfc.MODID);
 
-    // 矿石方块映射表：OreType -> Rock -> Grade -> DeferredBlock<Block>
-    private static final Map<String, Map<Rock, Map<Ore.Grade, DeferredBlock<Block>>>> ALL_GRADED_ORES = new HashMap<>();
+    // 矿石方块映射表：OreType -> Rock -> Grade -> RegistryObject<Block>
+    private static final Map<String, Map<Rock, Map<Ore.Grade, RegistryObject<Block>>>> ALL_GRADED_ORES = new HashMap<>();
 
     // 原生锇矿石映射表（保持向前兼容）
-    private static final Map<Rock, Map<Ore.Grade, DeferredBlock<Block>>> OSMIUM_ORES;
+    private static final Map<Rock, Map<Ore.Grade, RegistryObject<Block>>> OSMIUM_ORES;
     // 方铅矿映射表
-    private static final Map<Rock, Map<Ore.Grade, DeferredBlock<Block>>> GALENA_ORES;
+    private static final Map<Rock, Map<Ore.Grade, RegistryObject<Block>>> GALENA_ORES;
     // 沥青铀矿映射表
-    private static final Map<Rock, Map<Ore.Grade, DeferredBlock<Block>>> PITCHBLENDE_ORES;
+    private static final Map<Rock, Map<Ore.Grade, RegistryObject<Block>>> PITCHBLENDE_ORES;
 
     // 地表指示物小矿石方块 (Loose Ore Groundcover)
-    public static final DeferredBlock<Block> SMALL_NATIVE_OSMIUM;
-    public static final DeferredBlock<Block> SMALL_GALENA;
-    public static final DeferredBlock<Block> SMALL_PITCHBLENDE;
+    public static final RegistryObject<Block> SMALL_NATIVE_OSMIUM;
+    public static final RegistryObject<Block> SMALL_GALENA;
+    public static final RegistryObject<Block> SMALL_PITCHBLENDE;
 
     // 熔融金属流体方块
-    public static final DeferredBlock<LiquidBlock> MOLTEN_OSMIUM_BLOCK;
-    public static final DeferredBlock<LiquidBlock> MOLTEN_LEAD_BLOCK;
-    public static final DeferredBlock<LiquidBlock> MOLTEN_URANIUM_BLOCK;
+    public static final RegistryObject<LiquidBlock> MOLTEN_OSMIUM_BLOCK;
+    public static final RegistryObject<LiquidBlock> MOLTEN_LEAD_BLOCK;
+    public static final RegistryObject<LiquidBlock> MOLTEN_URANIUM_BLOCK;
 
     static {
         // 注册 3 种矿物在 21 种岩石与 3 种品级下的方块
@@ -64,7 +65,7 @@ public class ModBlocks {
 
         // 注册熔融金属流体方块
         MOLTEN_OSMIUM_BLOCK = BLOCKS.register("metal/osmium", () -> new LiquidBlock(
-                ModFluids.MOLTEN_OSMIUM.get(),
+                ModFluids.MOLTEN_OSMIUM,
                 BlockBehaviour.Properties.of()
                         .mapColor(MapColor.COLOR_LIGHT_BLUE)
                         .noCollission()
@@ -75,7 +76,7 @@ public class ModBlocks {
         ));
 
         MOLTEN_LEAD_BLOCK = BLOCKS.register("metal/lead", () -> new LiquidBlock(
-                ModFluids.MOLTEN_LEAD.get(),
+                ModFluids.MOLTEN_LEAD,
                 BlockBehaviour.Properties.of()
                         .mapColor(MapColor.COLOR_GRAY)
                         .noCollission()
@@ -86,7 +87,7 @@ public class ModBlocks {
         ));
 
         MOLTEN_URANIUM_BLOCK = BLOCKS.register("metal/uranium", () -> new LiquidBlock(
-                ModFluids.MOLTEN_URANIUM.get(),
+                ModFluids.MOLTEN_URANIUM,
                 BlockBehaviour.Properties.of()
                         .mapColor(MapColor.COLOR_LIGHT_GREEN)
                         .noCollission()
@@ -100,10 +101,10 @@ public class ModBlocks {
     /**
      * 辅助方法：为指定矿石名称批量注册 21 种岩石 * 3 种品级的方块
      */
-    private static Map<Rock, Map<Ore.Grade, DeferredBlock<Block>>> registerGradedOreType(String oreName) {
-        Map<Rock, Map<Ore.Grade, DeferredBlock<Block>>> rockMap = new EnumMap<>(Rock.class);
+    private static Map<Rock, Map<Ore.Grade, RegistryObject<Block>>> registerGradedOreType(String oreName) {
+        Map<Rock, Map<Ore.Grade, RegistryObject<Block>>> rockMap = new EnumMap<>(Rock.class);
         for (Rock rock : Rock.values()) {
-            Map<Ore.Grade, DeferredBlock<Block>> gradeMap = new EnumMap<>(Ore.Grade.class);
+            Map<Ore.Grade, RegistryObject<Block>> gradeMap = new EnumMap<>(Ore.Grade.class);
             RockCategory category = rock.displayCategory().category();
             float hardness = category.hardness(6.5F);
 
@@ -112,7 +113,7 @@ public class ModBlocks {
                 String rockName = rock.getSerializedName();
                 String blockId = "ore/" + gradeName + "_" + oreName + "/" + rockName;
 
-                DeferredBlock<Block> oreBlock = BLOCKS.register(blockId, () -> new Block(
+                RegistryObject<Block> oreBlock = BLOCKS.register(blockId, () -> new Block(
                         BlockBehaviour.Properties.of()
                                 .mapColor(rock.color())
                                 .instrument(NoteBlockInstrument.BASEDRUM)
@@ -124,7 +125,7 @@ public class ModBlocks {
             }
             rockMap.put(rock, Collections.unmodifiableMap(gradeMap));
         }
-        Map<Rock, Map<Ore.Grade, DeferredBlock<Block>>> unmodifiableRockMap = Collections.unmodifiableMap(rockMap);
+        Map<Rock, Map<Ore.Grade, RegistryObject<Block>>> unmodifiableRockMap = Collections.unmodifiableMap(rockMap);
         ALL_GRADED_ORES.put(oreName, unmodifiableRockMap);
         return unmodifiableRockMap;
     }
@@ -132,7 +133,7 @@ public class ModBlocks {
     /**
      * 辅助方法：注册地表小矿石指示物方块
      */
-    private static DeferredBlock<Block> registerSmallOreGroundcover(String blockId, MapColor mapColor) {
+    private static RegistryObject<Block> registerSmallOreGroundcover(String blockId, MapColor mapColor) {
         return BLOCKS.register(blockId, () -> GroundcoverBlock.looseOre(
                 BlockBehaviour.Properties.of()
                         .mapColor(mapColor)
@@ -145,17 +146,17 @@ public class ModBlocks {
     /**
      * 获取指定岩石和品级的原生锇矿石方块（保持兼容）
      */
-    public static DeferredBlock<Block> getOre(Rock rock, Ore.Grade grade) {
+    public static RegistryObject<Block> getOre(Rock rock, Ore.Grade grade) {
         return getOre("native_osmium", rock, grade);
     }
 
     /**
      * 获取指定矿物、岩石和品级的矿石方块
      */
-    public static DeferredBlock<Block> getOre(String oreName, Rock rock, Ore.Grade grade) {
-        Map<Rock, Map<Ore.Grade, DeferredBlock<Block>>> rockMap = ALL_GRADED_ORES.get(oreName);
+    public static RegistryObject<Block> getOre(String oreName, Rock rock, Ore.Grade grade) {
+        Map<Rock, Map<Ore.Grade, RegistryObject<Block>>> rockMap = ALL_GRADED_ORES.get(oreName);
         if (rockMap != null) {
-            Map<Ore.Grade, DeferredBlock<Block>> gradeMap = rockMap.get(rock);
+            Map<Ore.Grade, RegistryObject<Block>> gradeMap = rockMap.get(rock);
             if (gradeMap != null) {
                 return gradeMap.get(grade);
             }
@@ -163,26 +164,26 @@ public class ModBlocks {
         return null;
     }
 
-    public static DeferredBlock<Block> getOsmiumOre(Rock rock, Ore.Grade grade) {
+    public static RegistryObject<Block> getOsmiumOre(Rock rock, Ore.Grade grade) {
         return getOre("native_osmium", rock, grade);
     }
 
-    public static DeferredBlock<Block> getGalenaOre(Rock rock, Ore.Grade grade) {
+    public static RegistryObject<Block> getGalenaOre(Rock rock, Ore.Grade grade) {
         return getOre("galena", rock, grade);
     }
 
-    public static DeferredBlock<Block> getPitchblendeOre(Rock rock, Ore.Grade grade) {
+    public static RegistryObject<Block> getPitchblendeOre(Rock rock, Ore.Grade grade) {
         return getOre("pitchblende", rock, grade);
     }
 
     /**
      * 获取原生锇矿石映射（保持向后兼容）
      */
-    public static Map<Rock, Map<Ore.Grade, DeferredBlock<Block>>> getAllGradedOres() {
+    public static Map<Rock, Map<Ore.Grade, RegistryObject<Block>>> getAllGradedOres() {
         return OSMIUM_ORES;
     }
 
-    public static Map<Rock, Map<Ore.Grade, DeferredBlock<Block>>> getGradedOres(String oreName) {
+    public static Map<Rock, Map<Ore.Grade, RegistryObject<Block>>> getGradedOres(String oreName) {
         return ALL_GRADED_ORES.getOrDefault(oreName, Collections.emptyMap());
     }
 
@@ -199,9 +200,9 @@ public class ModBlocks {
 
     private static void registerRepresentativeForOre(String oreName) {
         for (Rock rock : Rock.values()) {
-            DeferredBlock<Block> normal = getOre(oreName, rock, Ore.Grade.NORMAL);
-            DeferredBlock<Block> poor = getOre(oreName, rock, Ore.Grade.POOR);
-            DeferredBlock<Block> rich = getOre(oreName, rock, Ore.Grade.RICH);
+            RegistryObject<Block> normal = getOre(oreName, rock, Ore.Grade.NORMAL);
+            RegistryObject<Block> poor = getOre(oreName, rock, Ore.Grade.POOR);
+            RegistryObject<Block> rich = getOre(oreName, rock, Ore.Grade.RICH);
             if (normal != null && poor != null && rich != null) {
                 net.dries007.tfc.common.items.PropickItem.registerRepresentative(normal.get(), poor.get(), rich.get());
             }
@@ -215,3 +216,4 @@ public class ModBlocks {
         BLOCKS.register(modEventBus);
     }
 }
+

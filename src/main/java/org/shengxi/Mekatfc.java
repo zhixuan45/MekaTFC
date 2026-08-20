@@ -1,7 +1,6 @@
 package org.shengxi;
 
 import com.mojang.logging.LogUtils;
-import com.mojang.serialization.MapCodec;
 import mekanism.api.MekanismAPI;
 import net.dries007.tfc.TerraFirmaCraft;
 import net.dries007.tfc.common.blocks.rock.Ore;
@@ -10,21 +9,21 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.conditions.ICondition;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.registries.RegistryObject;
 import org.shengxi.condition.RecipeModeCondition;
 import org.shengxi.registry.ModBlocks;
 import org.shengxi.registry.ModCreativeTabs;
@@ -33,7 +32,7 @@ import org.shengxi.registry.ModItems;
 import org.slf4j.Logger;
 
 /**
- * MekaTFC 模组主类
+ * MekaTFC 模组主类 (Forge 1.20.1)
  */
 @Mod(Mekatfc.MODID)
 public class Mekatfc {
@@ -41,20 +40,18 @@ public class Mekatfc {
     public static final String MODID = "mekatfc";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    // 注册自定义配方条件（支持根据合成模式动态过滤配方）
-    public static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS = DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, MODID);
-    public static final java.util.function.Supplier<MapCodec<RecipeModeCondition>> RECIPE_MODE_CONDITION = CONDITION_CODECS.register("recipe_mode", () -> RecipeModeCondition.CODEC);
-
     // 向后兼容引用
-    public static final DeferredItem<Item> REDSTONE_MIXTURE = ModItems.REDSTONE_MIXTURE;
-    public static final DeferredItem<Item> OSMIUM_DOUBLE_INGOT = ModItems.OSMIUM_DOUBLE_INGOT;
+    public static final RegistryObject<Item> REDSTONE_MIXTURE = ModItems.REDSTONE_MIXTURE;
+    public static final RegistryObject<Item> OSMIUM_DOUBLE_INGOT = ModItems.OSMIUM_DOUBLE_INGOT;
 
-    public Mekatfc(IEventBus modEventBus, ModContainer modContainer, Dist dist) {
+    public Mekatfc() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         // 注册通用初始化事件
         modEventBus.addListener(this::commonSetup);
 
         // 如果在客户端运行，注册客户端渲染初始化事件
-        if (dist.isClient()) {
+        if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(this::clientSetup);
         }
 
@@ -64,26 +61,26 @@ public class Mekatfc {
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
 
-        // 注册配方条件
-        CONDITION_CODECS.register(modEventBus);
+        // 注册自定义配方条件序列化器
+        CraftingHelper.register(RecipeModeCondition.Serializer.INSTANCE);
 
-        NeoForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(this);
 
         // 注册模组配置文件
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        LOGGER.info("Initializing MekaTFC Compatibility Layer...");
+        LOGGER.info("Initializing MekaTFC Compatibility Layer (Forge 1.20.1)...");
         LOGGER.info("Detected Mekanism modid: {}", MekanismAPI.MEKANISM_MODID);
         LOGGER.info("Detected TerraFirmaCraft modid: {}", TerraFirmaCraft.MOD_ID);
-        LOGGER.info("Optional Mod [Mekanism: Tools] Loaded: {}", net.neoforged.fml.ModList.get().isLoaded("mekanismtools"));
-        LOGGER.info("Optional Mod [Mekanism: Generators] Loaded: {}", net.neoforged.fml.ModList.get().isLoaded("mekanismgenerators"));
+        LOGGER.info("Optional Mod [Mekanism: Tools] Loaded: {}", ModList.get().isLoaded("mekanismtools"));
+        LOGGER.info("Optional Mod [Mekanism: Generators] Loaded: {}", ModList.get().isLoaded("mekanismgenerators"));
         LOGGER.info("Current MekaTFC Recipe Mode: {}", Config.recipeMode);
 
-        // 异步任务：为所有 21 种岩石的原生锇矿石注册 TFC 探矿镐代表方块映射
+        // 异步任务：为所有 21 种岩石的原生锇矿石、方铅矿和沥青铀矿注册 TFC 探矿镐代表方块映射
         event.enqueueWork(() -> {
-            LOGGER.info("Registering representative blocks for MekaTFC graded osmium ores...");
+            LOGGER.info("Registering representative blocks for MekaTFC graded ores...");
             ModBlocks.registerRepresentativeBlocks();
         });
     }
@@ -128,3 +125,4 @@ public class Mekatfc {
         LOGGER.info("MekaTFC Server Starting...");
     }
 }
+

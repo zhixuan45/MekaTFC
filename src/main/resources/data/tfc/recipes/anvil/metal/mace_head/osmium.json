@@ -1,0 +1,17 @@
+{
+  "type": "tfc:anvil",
+  "apply_bonus": true,
+  "ingredient": {
+    "tag": "forge:double_ingots/osmium"
+  },
+  "result": {
+    "count": 1,
+    "item": "mekatfc:metal/mace_head/osmium"
+  },
+  "rules": [
+    "hit_last",
+    "bend_not_last",
+    "shrink_not_last"
+  ],
+  "tier": 3
+}

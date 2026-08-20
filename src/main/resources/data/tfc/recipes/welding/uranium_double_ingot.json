@@ -1,0 +1,14 @@
+{
+  "type": "tfc:welding",
+  "first_input": {
+    "tag": "forge:ingots/uranium"
+  },
+  "second_input": {
+    "tag": "forge:ingots/uranium"
+  },
+  "result": {
+    "count": 1,
+    "item": "mekatfc:metal/double_ingot/uranium"
+  },
+  "tier": 3
+}

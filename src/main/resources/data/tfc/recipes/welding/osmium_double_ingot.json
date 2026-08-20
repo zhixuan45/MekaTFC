@@ -1,0 +1,14 @@
+{
+  "type": "tfc:welding",
+  "first_input": {
+    "tag": "forge:ingots/osmium"
+  },
+  "second_input": {
+    "tag": "forge:ingots/osmium"
+  },
+  "result": {
+    "count": 1,
+    "item": "mekatfc:metal/double_ingot/osmium"
+  },
+  "tier": 3
+}

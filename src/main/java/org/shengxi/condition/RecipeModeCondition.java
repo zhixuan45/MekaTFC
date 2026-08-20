@@ -1,10 +1,11 @@
 package org.shengxi.condition;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.neoforged.neoforge.common.conditions.ICondition;
+import com.google.gson.JsonObject;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 import org.shengxi.Config;
+import org.shengxi.Mekatfc;
 import org.shengxi.config.RecipeMode;
 
 import java.util.Optional;
@@ -12,18 +13,29 @@ import java.util.Optional;
 /**
  * 根据配置中的合成模式（简单/普通/硬核）判断当前配方是否启用的条件
  */
-public record RecipeModeCondition(Optional<RecipeMode> minMode, Optional<RecipeMode> maxMode) implements ICondition {
+public class RecipeModeCondition implements ICondition {
+    public static final ResourceLocation NAME = new ResourceLocation(Mekatfc.MODID, "recipe_mode");
 
-    public static final MapCodec<RecipeModeCondition> CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
-            Codec.STRING.xmap(
-                    s -> RecipeMode.valueOf(s.toUpperCase()),
-                    RecipeMode::name
-            ).optionalFieldOf("min_mode").forGetter(RecipeModeCondition::minMode),
-            Codec.STRING.xmap(
-                    s -> RecipeMode.valueOf(s.toUpperCase()),
-                    RecipeMode::name
-            ).optionalFieldOf("max_mode").forGetter(RecipeModeCondition::maxMode)
-    ).apply(builder, RecipeModeCondition::new));
+    private final Optional<RecipeMode> minMode;
+    private final Optional<RecipeMode> maxMode;
+
+    public RecipeModeCondition(Optional<RecipeMode> minMode, Optional<RecipeMode> maxMode) {
+        this.minMode = minMode;
+        this.maxMode = maxMode;
+    }
+
+    public Optional<RecipeMode> minMode() {
+        return minMode;
+    }
+
+    public Optional<RecipeMode> maxMode() {
+        return maxMode;
+    }
+
+    @Override
+    public ResourceLocation getID() {
+        return NAME;
+    }
 
     @Override
     public boolean test(IContext context) {
@@ -45,8 +57,33 @@ public record RecipeModeCondition(Optional<RecipeMode> minMode, Optional<RecipeM
         return true;
     }
 
-    @Override
-    public MapCodec<? extends ICondition> codec() {
-        return CODEC;
+    /**
+     * 1.20.1 Forge 配方条件序列化器
+     */
+    public static class Serializer implements IConditionSerializer<RecipeModeCondition> {
+        public static final Serializer INSTANCE = new Serializer();
+
+        @Override
+        public void write(JsonObject json, RecipeModeCondition value) {
+            value.minMode.ifPresent(mode -> json.addProperty("min_mode", mode.name().toLowerCase()));
+            value.maxMode.ifPresent(mode -> json.addProperty("max_mode", mode.name().toLowerCase()));
+        }
+
+        @Override
+        public RecipeModeCondition read(JsonObject json) {
+            Optional<RecipeMode> min = json.has("min_mode")
+                    ? Optional.of(RecipeMode.valueOf(json.get("min_mode").getAsString().toUpperCase()))
+                    : Optional.empty();
+            Optional<RecipeMode> max = json.has("max_mode")
+                    ? Optional.of(RecipeMode.valueOf(json.get("max_mode").getAsString().toUpperCase()))
+                    : Optional.empty();
+            return new RecipeModeCondition(min, max);
+        }
+
+        @Override
+        public ResourceLocation getID() {
+            return NAME;
+        }
     }
 }
+

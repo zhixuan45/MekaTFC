@@ -1,0 +1,17 @@
+{
+  "type": "tfc:anvil",
+  "apply_bonus": true,
+  "ingredient": {
+    "tag": "forge:double_ingots/osmium"
+  },
+  "result": {
+    "count": 1,
+    "item": "mekatfc:metal/sword_blade/osmium"
+  },
+  "rules": [
+    "hit_last",
+    "bend_second_last",
+    "bend_third_last"
+  ],
+  "tier": 3
+}

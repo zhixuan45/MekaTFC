@@ -1,0 +1,11 @@
+{
+  "type": "tfc:heating",
+  "ingredient": {
+    "tag": "forge:nuggets/osmium"
+  },
+  "result_fluid": {
+    "amount": 10,
+    "id": "mekatfc:metal/osmium"
+  },
+  "temperature": 1540.0
+}

@@ -1,6 +1,6 @@
 {
   "ingredient": {
-    "tag": "c:double_ingots/osmium"
+    "tag": "forge:double_ingots/osmium"
   },
   "heat_capacity": 5.714,
   "forging_temperature": 920,

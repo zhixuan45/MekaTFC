@@ -1,20 +1,20 @@
 package org.shengxi;
 
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.config.ModConfigEvent;
-import net.neoforged.neoforge.common.ModConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.shengxi.config.RecipeMode;
 
 /**
  * MekaTFC 模组配置文件
  */
-@EventBusSubscriber(modid = Mekatfc.MODID)
+@Mod.EventBusSubscriber(modid = Mekatfc.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config {
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
     // 合成模式配置：简单 (EASY)、普通 (NORMAL)、硬核 (HARDCORE)
-    private static final ModConfigSpec.EnumValue<RecipeMode> RECIPE_MODE = BUILDER
+    private static final ForgeConfigSpec.EnumValue<RecipeMode> RECIPE_MODE = BUILDER
             .comment(
                     "MekaTFC 的合成模式与难度档位：",
                     "  EASY (简单模式，模组默认值)：所有配方默认开放，保留通用机械与原版快捷工作台通道。",
@@ -23,7 +23,7 @@ public class Config {
             )
             .defineEnum("recipeMode", RecipeMode.EASY);
 
-    static final ModConfigSpec SPEC = BUILDER.build();
+    static final ForgeConfigSpec SPEC = BUILDER.build();
 
     // 当前生效的合成模式
     public static RecipeMode recipeMode = RecipeMode.EASY;
@@ -33,3 +33,4 @@ public class Config {
         recipeMode = RECIPE_MODE.get();
     }
 }
+

@@ -1,0 +1,15 @@
+{
+  "type": "tfc:casting",
+  "break_chance": 0.01,
+  "fluid": {
+    "amount": 100,
+    "fluid": "mekatfc:metal/osmium"
+  },
+  "mold": {
+    "item": "tfc:ceramic/fire_ingot_mold"
+  },
+  "result": {
+    "count": 1,
+    "item": "mekanism:ingot_osmium"
+  }
+}
