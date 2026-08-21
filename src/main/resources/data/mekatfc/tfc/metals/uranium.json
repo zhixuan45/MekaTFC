@@ -1,0 +1,15 @@
+{
+  "tier": 3,
+  "fluid": "mekatfc:metal/uranium",
+  "melt_temperature": 1132,
+  "specific_heat_capacity": 0.0035,
+  "ingots": {
+    "tag": "forge:ingots/uranium"
+  },
+  "double_ingots": {
+    "tag": "forge:double_ingots/uranium"
+  },
+  "sheets": {
+    "tag": "forge:sheets/uranium"
+  }
+}

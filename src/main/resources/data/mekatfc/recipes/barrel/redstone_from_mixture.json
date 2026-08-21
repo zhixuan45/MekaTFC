@@ -7,10 +7,12 @@
   },
   "input_item": {
     "count": 1,
-    "item": "mekatfc:redstone_mixture"
+    "ingredient": {
+      "item": "mekatfc:redstone_mixture"
+    }
   },
   "output_item": {
     "count": 8,
-    "id": "minecraft:redstone"
+    "item": "minecraft:redstone"
   }
 }

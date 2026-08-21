@@ -5,7 +5,7 @@
   },
   "result_fluid": {
     "amount": 200,
-    "id": "mekatfc:metal/osmium"
+    "fluid": "mekatfc:metal/osmium"
   },
   "temperature": 1540.0
 }

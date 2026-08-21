@@ -1,11 +1,11 @@
-﻿{
+{
   "type": "tfc:heating",
   "ingredient": {
     "item": "mekatfc:metal/knife_blade/osmium"
   },
   "result_fluid": {
     "amount": 100,
-    "id": "mekatfc:metal/osmium"
+    "fluid": "mekatfc:metal/osmium"
   },
   "temperature": 1540.0
 }

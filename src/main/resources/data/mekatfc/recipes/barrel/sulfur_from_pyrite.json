@@ -7,10 +7,12 @@
   },
   "input_item": {
     "count": 1,
-    "item": "tfc:powder/pyrite"
+    "ingredient": {
+      "item": "tfc:powder/pyrite"
+    }
   },
   "output_item": {
     "count": 1,
-    "id": "tfc:powder/sulfur"
+    "item": "tfc:powder/sulfur"
   }
 }

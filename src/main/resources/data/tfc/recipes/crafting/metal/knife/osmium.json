@@ -14,13 +14,11 @@
   ],
   "result": {
     "modifiers": [
-      {
-        "type": "tfc:copy_forging_bonus"
-      }
+      "tfc:copy_forging_bonus"
     ],
     "stack": {
       "count": 1,
-      "id": "mekatfc:metal/knife/osmium"
+      "item": "mekatfc:metal/knife/osmium"
     }
   }
 }

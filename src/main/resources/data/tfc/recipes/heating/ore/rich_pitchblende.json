@@ -5,7 +5,7 @@
   },
   "result_fluid": {
     "amount": 35,
-    "id": "mekatfc:metal/uranium"
+    "fluid": "mekatfc:metal/uranium"
   },
   "temperature": 1132.0
 }

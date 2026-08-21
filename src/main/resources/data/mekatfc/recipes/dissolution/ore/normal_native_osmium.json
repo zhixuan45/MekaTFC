@@ -1,14 +1,17 @@
-﻿{
+{
   "type": "mekanism:dissolution",
-  "chemical_input": {
-    "amount": 1,
-    "chemical": "mekanism:sulfuric_acid"
-  },
-  "item_input": {
-    "item": "mekatfc:ore/normal_native_osmium"
-  },
   "output": {
     "amount": 600,
-    "chemical": "mekanism:dirty_osmium"
+    "chemicalType": "slurry",
+    "slurry": "mekanism:dirty_osmium"
+  },
+  "gasInput": {
+    "amount": 1,
+    "gas": "mekanism:sulfuric_acid"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "mekatfc:ore/normal_native_osmium"
+    }
   }
 }
