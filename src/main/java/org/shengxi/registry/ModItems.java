@@ -54,7 +54,12 @@ public class ModItems {
     public static final RegistryObject<Item> RICH_PITCHBLENDE = registerSimpleItem("ore/rich_pitchblende");
     public static final RegistryObject<BlockItem> SMALL_PITCHBLENDE = registerSimpleBlockItem("ore/small_pitchblende", ModBlocks.SMALL_PITCHBLENDE);
 
-    // ==================== 4. 合成原料与双锭 ====================
+    // ==================== 4. 机器与升级模块 ====================
+    // 自动锻造机 (Electric Auto-Forge)
+    public static final RegistryObject<BlockItem> ELECTRIC_FORGE = registerSimpleBlockItem("electric_forge", ModBlocks.ELECTRIC_FORGE);
+    // 完美锻造升级模块 (Upgrade: Perfect Forging)
+    public static final RegistryObject<Item> UPGRADE_PERFECT_FORGING = registerSimpleItem("upgrade_perfect_forging");
+
     // 红石混合物：TFC 木桶配方的单一物品输入
     public static final RegistryObject<Item> REDSTONE_MIXTURE = registerSimpleItem("redstone_mixture");
 

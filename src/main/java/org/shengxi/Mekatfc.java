@@ -55,9 +55,11 @@ public class Mekatfc {
             modEventBus.addListener(this::clientSetup);
         }
 
-        // 注册流体、方块、物品与创造模式物品栏
+        // 注册流体、方块、方块实体、容器菜单、物品与创造模式物品栏
         ModFluids.register(modEventBus);
         ModBlocks.register(modEventBus);
+        org.shengxi.registry.ModBlockEntities.register(modEventBus);
+        org.shengxi.registry.ModMenus.register(modEventBus);
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
 
@@ -78,6 +80,9 @@ public class Mekatfc {
         LOGGER.info("Optional Mod [Mekanism: Generators] Loaded: {}", ModList.get().isLoaded("mekanismgenerators"));
         LOGGER.info("Current MekaTFC Recipe Mode: {}", Config.recipeMode);
 
+        // 注册网络通信信道
+        org.shengxi.common.network.ModPackets.register();
+
         // 异步任务：为所有 21 种岩石的原生锇矿石、方铅矿和沥青铀矿注册 TFC 探矿镐代表方块映射
         event.enqueueWork(() -> {
             LOGGER.info("Registering representative blocks for MekaTFC graded ores...");
@@ -86,9 +91,15 @@ public class Mekatfc {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        LOGGER.info("Configuring MekaTFC Client Render Layers...");
+        LOGGER.info("Configuring MekaTFC Client Render Layers & Screens...");
 
         event.enqueueWork(() -> {
+            // 绑定容器菜单与客户端 Screen
+            net.minecraft.client.gui.screens.MenuScreens.register(
+                    org.shengxi.registry.ModMenus.ELECTRIC_FORGE.get(),
+                    org.shengxi.client.screen.ElectricForgeScreen::new
+            );
+
             // 为所有 189 种矿石方块（锇、方铅矿、沥青铀矿）配置 CutoutMipped 渲染层，
             // 使矿石 Overlay 贴图的透明通道正常混合，避免底层岩石被黑色遮挡
             String[] oreTypes = {"native_osmium", "galena", "pitchblende"};

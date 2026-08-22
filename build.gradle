@@ -123,6 +123,15 @@ dependencies {
     runtimeOnly fg.deobf("maven.modrinth:terrafirmacraft:${tfc_version}")
     // TFC 必需的运行时依赖：Patchouli
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+
+    // 测试依赖
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.9.2"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.9.2"
+    testImplementation fg.deobf("maven.modrinth:terrafirmacraft:${tfc_version}")
+}
+
+test {
+    useJUnitPlatform()
 }
 
 tasks.named('processResources', ProcessResources).configure {
