@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "tfc:ore/normal_tetrahedrite"
+  },
+  "result": {
+    "count": 1,
+    "item": "minecraft:copper_ingot"
+  }
+}

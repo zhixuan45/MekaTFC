@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "tfc:ore/poor_cassiterite"
+  },
+  "result": {
+    "count": 4,
+    "item": "mekanism:nugget_tin"
+  }
+}

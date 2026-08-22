@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "tfc:ore/small_hematite"
+  },
+  "result": {
+    "count": 4,
+    "item": "minecraft:iron_nugget"
+  }
+}

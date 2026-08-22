@@ -1,0 +1,18 @@
+{
+  "type": "mekanism:dissolution",
+  "itemInput": {
+    "amount": 3,
+    "ingredient": {
+      "item": "mekatfc:ore/small_pitchblende"
+    }
+  },
+  "gasInput": {
+    "amount": 100,
+    "gas": "mekanism:sulfuric_acid"
+  },
+  "output": {
+    "amount": 2000,
+    "chemicalType": "slurry",
+    "slurry": "mekanism:dirty_uranium"
+  }
+}

@@ -1,11 +1,11 @@
 {
   "type": "tfc:heating",
   "ingredient": {
-    "tag": "forge:dusts/uranium"
+    "tag": "c:dusts/uranium"
   },
   "result_fluid": {
     "amount": 100,
-    "fluid": "mekatfc:metal/uranium"
+    "id": "mekatfc:metal/uranium"
   },
   "temperature": 1132.0
 }

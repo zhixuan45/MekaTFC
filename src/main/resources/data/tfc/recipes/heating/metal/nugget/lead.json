@@ -1,11 +1,11 @@
 {
   "type": "tfc:heating",
   "ingredient": {
-    "tag": "forge:nuggets/lead"
+    "tag": "c:nuggets/lead"
   },
   "result_fluid": {
     "amount": 10,
-    "fluid": "mekatfc:metal/lead"
+    "id": "mekatfc:metal/lead"
   },
   "temperature": 327.0
 }

@@ -1,0 +1,17 @@
+{
+  "type": "mekanism:purifying",
+  "itemInput": {
+    "amount": 3,
+    "ingredient": {
+      "item": "tfc:ore/poor_native_copper"
+    }
+  },
+  "chemicalInput": {
+    "amount": 1,
+    "gas": "mekanism:oxygen"
+  },
+  "output": {
+    "count": 6,
+    "item": "mekanism:clump_copper"
+  }
+}

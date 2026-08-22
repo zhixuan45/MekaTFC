@@ -1,0 +1,13 @@
+{
+  "type": "mekanism:crushing",
+  "input": {
+    "amount": 3,
+    "ingredient": {
+      "item": "tfc:ore/small_native_copper"
+    }
+  },
+  "output": {
+    "count": 2,
+    "item": "mekanism:dust_copper"
+  }
+}

@@ -3,7 +3,7 @@
   "duration": 7200,
   "input_fluid": {
     "amount": 1000,
-    "fluid": "minecraft:water"
+    "ingredient": "minecraft:water"
   },
   "input_item": {
     "count": 1,

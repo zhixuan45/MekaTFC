@@ -159,25 +159,6 @@
             "block": "mekatfc:ore/rich_pitchblende/quartzite"
           }
         ]
-      },
-      {
-        "replace": [
-          "tfc:rock/raw/schist"
-        ],
-        "with": [
-          {
-            "weight": 35,
-            "block": "mekatfc:ore/poor_pitchblende/schist"
-          },
-          {
-            "weight": 40,
-            "block": "mekatfc:ore/normal_pitchblende/schist"
-          },
-          {
-            "weight": 25,
-            "block": "mekatfc:ore/rich_pitchblende/schist"
-          }
-        ]
       }
     ],
     "indicator": {

@@ -3,7 +3,7 @@
   "duration": 3600,
   "input_fluid": {
     "amount": 500,
-    "fluid": "tfc:tannin"
+    "ingredient": "tfc:tannin"
   },
   "input_item": {
     "count": 1,

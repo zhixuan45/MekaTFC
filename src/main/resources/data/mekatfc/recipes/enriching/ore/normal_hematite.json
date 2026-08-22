@@ -1,0 +1,13 @@
+{
+  "type": "mekanism:enriching",
+  "input": {
+    "amount": 2,
+    "ingredient": {
+      "item": "tfc:ore/normal_hematite"
+    }
+  },
+  "output": {
+    "count": 4,
+    "item": "mekanism:dust_iron"
+  }
+}

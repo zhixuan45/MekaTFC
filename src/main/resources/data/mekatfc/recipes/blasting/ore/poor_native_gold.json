@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "tfc:ore/poor_native_gold"
+  },
+  "result": {
+    "count": 4,
+    "item": "minecraft:gold_nugget"
+  }
+}

@@ -1,14 +1,14 @@
 {
   "type": "tfc:welding",
   "first_input": {
-    "tag": "forge:ingots/lead"
+    "tag": "c:ingots/lead"
   },
   "second_input": {
-    "tag": "forge:ingots/lead"
+    "tag": "c:ingots/lead"
   },
   "result": {
     "count": 1,
-    "item": "mekatfc:metal/double_ingot/lead"
+    "id": "mekatfc:metal/double_ingot/lead"
   },
   "tier": 1
 }

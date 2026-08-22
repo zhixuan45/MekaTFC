@@ -1,11 +1,11 @@
 {
   "type": "tfc:heating",
   "ingredient": {
-    "tag": "forge:double_ingots/uranium"
+    "tag": "c:double_ingots/uranium"
   },
   "result_fluid": {
     "amount": 200,
-    "fluid": "mekatfc:metal/uranium"
+    "id": "mekatfc:metal/uranium"
   },
   "temperature": 1132.0
 }

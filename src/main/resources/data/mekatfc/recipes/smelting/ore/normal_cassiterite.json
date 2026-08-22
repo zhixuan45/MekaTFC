@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "tfc:ore/normal_cassiterite"
+  },
+  "result": {
+    "count": 1,
+    "item": "mekanism:ingot_tin"
+  }
+}

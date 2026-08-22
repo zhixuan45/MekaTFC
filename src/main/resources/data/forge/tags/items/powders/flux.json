@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "tfc:powder/flux",
+    "tfc:flux",
+    "#tfc:flux",
     "tfc:powder/borax"
   ]
 }

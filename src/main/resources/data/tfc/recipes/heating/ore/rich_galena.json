@@ -5,7 +5,7 @@
   },
   "result_fluid": {
     "amount": 35,
-    "fluid": "mekatfc:metal/lead"
+    "id": "mekatfc:metal/lead"
   },
   "temperature": 327.0
 }

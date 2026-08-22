@@ -1,11 +1,11 @@
 {
   "type": "tfc:heating",
   "ingredient": {
-    "tag": "forge:dusts/lead"
+    "tag": "c:dusts/lead"
   },
   "result_fluid": {
     "amount": 100,
-    "fluid": "mekatfc:metal/lead"
+    "id": "mekatfc:metal/lead"
   },
   "temperature": 327.0
 }

@@ -1,12 +1,13 @@
 {
   "type": "mekanism:crushing",
   "input": {
+    "amount": 2,
     "ingredient": {
       "item": "mekatfc:ore/normal_native_osmium"
     }
   },
   "output": {
-    "count": 1,
+    "count": 2,
     "item": "mekanism:dust_osmium"
   }
 }
