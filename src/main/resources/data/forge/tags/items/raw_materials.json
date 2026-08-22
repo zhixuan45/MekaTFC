@@ -1,16 +1,16 @@
 {
   "replace": false,
   "values": [
-    "#c:raw_materials/copper",
-    "#c:raw_materials/iron",
-    "#c:raw_materials/gold",
-    "#c:raw_materials/tin",
-    "#c:raw_materials/lead",
-    "#c:raw_materials/osmium",
-    "#c:raw_materials/uranium",
-    "#c:raw_materials/silver",
-    "#c:raw_materials/zinc",
-    "#c:raw_materials/nickel",
-    "#c:raw_materials/bismuth"
+    "#forge:raw_materials/copper",
+    "#forge:raw_materials/iron",
+    "#forge:raw_materials/gold",
+    "#forge:raw_materials/tin",
+    "#forge:raw_materials/lead",
+    "#forge:raw_materials/osmium",
+    "#forge:raw_materials/uranium",
+    "#forge:raw_materials/silver",
+    "#forge:raw_materials/zinc",
+    "#forge:raw_materials/nickel",
+    "#forge:raw_materials/bismuth"
   ]
 }

@@ -1,19 +1,19 @@
 {
   "replace": false,
   "values": [
-    "#c:ingots/bismuth",
-    "#c:ingots/brass",
-    "#c:ingots/bronze",
-    "#c:ingots/copper",
-    "#c:ingots/gold",
-    "#c:ingots/iron",
-    "#c:ingots/lead",
-    "#c:ingots/nickel",
-    "#c:ingots/osmium",
-    "#c:ingots/silver",
-    "#c:ingots/steel",
-    "#c:ingots/tin",
-    "#c:ingots/uranium",
-    "#c:ingots/zinc"
+    "#forge:ingots/bismuth",
+    "#forge:ingots/brass",
+    "#forge:ingots/bronze",
+    "#forge:ingots/copper",
+    "#forge:ingots/gold",
+    "#forge:ingots/iron",
+    "#forge:ingots/lead",
+    "#forge:ingots/nickel",
+    "#forge:ingots/osmium",
+    "#forge:ingots/silver",
+    "#forge:ingots/steel",
+    "#forge:ingots/tin",
+    "#forge:ingots/uranium",
+    "#forge:ingots/zinc"
   ]
 }

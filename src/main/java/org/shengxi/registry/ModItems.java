@@ -58,6 +58,12 @@ public class ModItems {
     // 红石混合物：TFC 木桶配方的单一物品输入
     public static final RegistryObject<Item> REDSTONE_MIXTURE = registerSimpleItem("redstone_mixture");
 
+    // 金刚石前驱体：高温高压人造金刚石反应的碳催化前驱原料
+    public static final RegistryObject<Item> DIAMOND_PRECURSOR = registerSimpleItem("diamond_precursor");
+
+    // 粗制人造金刚石：经木桶淬火结晶/铁砧重压相变后的粗晶，可研磨或粉碎为钻石粉
+    public static final RegistryObject<Item> ROUGH_SYNTHETIC_DIAMOND = registerSimpleItem("rough_synthetic_diamond");
+
     // 双锭：在 TFC 铁砧上焊接制作
     public static final RegistryObject<Item> OSMIUM_DOUBLE_INGOT = registerSimpleItem("metal/double_ingot/osmium");
     public static final RegistryObject<Item> LEAD_DOUBLE_INGOT = registerSimpleItem("metal/double_ingot/lead");

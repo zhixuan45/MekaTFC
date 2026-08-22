@@ -1,16 +1,16 @@
 {
   "replace": false,
   "values": [
-    "#c:sheets/bismuth",
-    "#c:sheets/brass",
-    "#c:sheets/bronze",
-    "#c:sheets/copper",
-    "#c:sheets/gold",
-    "#c:sheets/iron",
-    "#c:sheets/nickel",
-    "#c:sheets/silver",
-    "#c:sheets/steel",
-    "#c:sheets/tin",
-    "#c:sheets/zinc"
+    "#forge:sheets/bismuth",
+    "#forge:sheets/brass",
+    "#forge:sheets/bronze",
+    "#forge:sheets/copper",
+    "#forge:sheets/gold",
+    "#forge:sheets/iron",
+    "#forge:sheets/nickel",
+    "#forge:sheets/silver",
+    "#forge:sheets/steel",
+    "#forge:sheets/tin",
+    "#forge:sheets/zinc"
   ]
 }

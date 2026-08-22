@@ -75,6 +75,8 @@ public class ModCreativeTabs {
 
                 // 7. 特殊合成中间件
                 output.accept(ModItems.REDSTONE_MIXTURE.get());
+                output.accept(ModItems.DIAMOND_PRECURSOR.get());
+                output.accept(ModItems.ROUGH_SYNTHETIC_DIAMOND.get());
 
                 // 8. 各岩石的矿石方块（锇、方铅矿、沥青铀矿）
                 String[] oreTypes = {"native_osmium", "galena", "pitchblende"};

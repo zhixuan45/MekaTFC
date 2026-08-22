@@ -1,0 +1,18 @@
+{
+  "type": "tfc:barrel_sealed",
+  "duration": 7200,
+  "input_fluid": {
+    "amount": 1000,
+    "fluid": "minecraft:water"
+  },
+  "input_item": {
+    "count": 1,
+    "ingredient": {
+      "item": "mekatfc:diamond_precursor"
+    }
+  },
+  "output_item": {
+    "count": 1,
+    "item": "mekatfc:rough_synthetic_diamond"
+  }
+}

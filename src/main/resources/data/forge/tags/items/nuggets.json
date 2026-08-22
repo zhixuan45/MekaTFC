@@ -1,14 +1,14 @@
 {
   "replace": false,
   "values": [
-    "#c:nuggets/iron",
-    "#c:nuggets/gold",
-    "#c:nuggets/copper",
-    "#c:nuggets/tin",
-    "#c:nuggets/lead",
-    "#c:nuggets/steel",
-    "#c:nuggets/bronze",
-    "#c:nuggets/osmium",
-    "#c:nuggets/uranium"
+    "#forge:nuggets/iron",
+    "#forge:nuggets/gold",
+    "#forge:nuggets/copper",
+    "#forge:nuggets/tin",
+    "#forge:nuggets/lead",
+    "#forge:nuggets/steel",
+    "#forge:nuggets/bronze",
+    "#forge:nuggets/osmium",
+    "#forge:nuggets/uranium"
   ]
 }

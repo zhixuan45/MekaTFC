@@ -22,11 +22,13 @@ minecraft {
     copyIdeResources = true
 
     runs {
-        client {
+        configureEach {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', mod_id
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 "${mod_id}" {
@@ -35,17 +37,10 @@ minecraft {
             }
         }
 
-        server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', mod_id
+        client {
+        }
 
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
+        server {
         }
 
         gameTestServer {

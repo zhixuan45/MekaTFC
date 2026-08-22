@@ -1,6 +1,8 @@
 {
   "itemGroup.mekatfc": "MekaTFC",
   "item.mekatfc.redstone_mixture": "红石混合物",
+  "item.mekatfc.diamond_precursor": "金刚石前驱体",
+  "item.mekatfc.rough_synthetic_diamond": "粗制人造金刚石",
   "item.mekatfc.metal.double_ingot.osmium": "锇双锭",
   "item.mekatfc.metal.pickaxe_head.osmium": "锇镐头",
   "item.mekatfc.metal.axe_head.osmium": "锇斧头",
@@ -429,5 +431,20 @@
   "block.mekatfc.ore.rich_galena.marble": "富集大理岩方铅矿",
   "block.mekatfc.ore.rich_galena.marble.prospected": "方铅矿",
   "block.mekatfc.ore.rich_pitchblende.marble": "富集大理岩沥青铀矿",
-  "block.mekatfc.ore.rich_pitchblende.marble.prospected": "沥青铀矿"
+  "block.mekatfc.ore.rich_pitchblende.marble.prospected": "沥青铀矿",
+  "metal.mekatfc.osmium": "锇",
+  "metal.mekatfc.lead": "铅",
+  "metal.mekatfc.uranium": "铀",
+  "fluid_type.mekatfc.metal.osmium": "熔融锇",
+  "fluid_type.mekatfc.metal.lead": "熔融铅",
+  "fluid_type.mekatfc.metal.uranium": "熔融铀",
+  "block.mekatfc.fluid.metal.osmium": "熔融锇",
+  "block.mekatfc.fluid.metal.lead": "熔融铅",
+  "block.mekatfc.fluid.metal.uranium": "熔融铀",
+  "tfc.prospect.osmium": "锇",
+  "tfc.prospect.lead": "铅",
+  "tfc.prospect.uranium": "铀",
+  "tfc.prospect.galena": "方铅矿",
+  "tfc.prospect.pitchblende": "沥青铀矿",
+  "tfc.prospect.native_osmium": "原生锇"
 }

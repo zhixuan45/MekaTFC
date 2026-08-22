@@ -1,0 +1,22 @@
+{
+  "type": "mekanism:reaction",
+  "itemInput": {
+    "amount": 1,
+    "ingredient": {
+      "tag": "forge:powders/graphite"
+    }
+  },
+  "fluidInput": {
+    "amount": 100,
+    "tag": "minecraft:water"
+  },
+  "gasInput": {
+    "amount": 100,
+    "gas": "mekanism:hydrogen"
+  },
+  "duration": 100,
+  "itemOutput": {
+    "count": 1,
+    "item": "mekanism:dust_diamond"
+  }
+}

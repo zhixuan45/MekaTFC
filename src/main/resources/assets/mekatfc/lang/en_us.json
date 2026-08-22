@@ -1,6 +1,8 @@
 {
   "itemGroup.mekatfc": "MekaTFC",
   "item.mekatfc.redstone_mixture": "Redstone Mixture",
+  "item.mekatfc.diamond_precursor": "Diamond Precursor",
+  "item.mekatfc.rough_synthetic_diamond": "Rough Synthetic Diamond",
   "item.mekatfc.metal.double_ingot.osmium": "Osmium Double Ingot",
   "item.mekatfc.metal.pickaxe_head.osmium": "Osmium Pickaxe Head",
   "item.mekatfc.metal.axe_head.osmium": "Osmium Axe Head",
@@ -429,5 +431,20 @@
   "block.mekatfc.ore.rich_galena.marble": "Rich Marble Galena",
   "block.mekatfc.ore.rich_galena.marble.prospected": "Galena",
   "block.mekatfc.ore.rich_pitchblende.marble": "Rich Marble Pitchblende",
-  "block.mekatfc.ore.rich_pitchblende.marble.prospected": "Pitchblende"
+  "block.mekatfc.ore.rich_pitchblende.marble.prospected": "Pitchblende",
+  "metal.mekatfc.osmium": "Osmium",
+  "metal.mekatfc.lead": "Lead",
+  "metal.mekatfc.uranium": "Uranium",
+  "fluid_type.mekatfc.metal.osmium": "Molten Osmium",
+  "fluid_type.mekatfc.metal.lead": "Molten Lead",
+  "fluid_type.mekatfc.metal.uranium": "Molten Uranium",
+  "block.mekatfc.fluid.metal.osmium": "Molten Osmium",
+  "block.mekatfc.fluid.metal.lead": "Molten Lead",
+  "block.mekatfc.fluid.metal.uranium": "Molten Uranium",
+  "tfc.prospect.osmium": "Osmium",
+  "tfc.prospect.lead": "Lead",
+  "tfc.prospect.uranium": "Uranium",
+  "tfc.prospect.galena": "Galena",
+  "tfc.prospect.pitchblende": "Pitchblende",
+  "tfc.prospect.native_osmium": "Native Osmium"
 }

@@ -5,6 +5,6 @@
     "tfc:metal/ingot/wrought_iron",
     "tfc:metal/ingot/cast_iron",
     "tfc:metal/ingot/pig_iron",
-    "#c:ingots/wrought_iron"
+    "#forge:ingots/wrought_iron"
   ]
 }

@@ -2,6 +2,6 @@
   "replace": false,
   "values": [
     "tfc:metal/sheet/wrought_iron",
-    "#c:sheets/wrought_iron"
+    "#forge:sheets/wrought_iron"
   ]
 }

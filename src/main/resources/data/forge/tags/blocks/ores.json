@@ -1,16 +1,16 @@
 {
   "replace": false,
   "values": [
-    "#c:ores/copper",
-    "#c:ores/iron",
-    "#c:ores/gold",
-    "#c:ores/tin",
-    "#c:ores/lead",
-    "#c:ores/osmium",
-    "#c:ores/uranium",
-    "#c:ores/silver",
-    "#c:ores/zinc",
-    "#c:ores/nickel",
-    "#c:ores/bismuth"
+    "#forge:ores/copper",
+    "#forge:ores/iron",
+    "#forge:ores/gold",
+    "#forge:ores/tin",
+    "#forge:ores/lead",
+    "#forge:ores/osmium",
+    "#forge:ores/uranium",
+    "#forge:ores/silver",
+    "#forge:ores/zinc",
+    "#forge:ores/nickel",
+    "#forge:ores/bismuth"
   ]
 }
