@@ -1,16 +1,16 @@
-﻿{
-    "type":  "tfc:barrel_sealed",
-    "duration":  7200,
-    "input_fluid":  {
-                        "amount":  1000,
-                        "fluid":  "minecraft:water"
-                    },
-    "input_item":  {
-                       "count":  1,
-                       "id":  "mekatfc:diamond_precursor"
-                   },
-    "output_item":  {
-                        "count":  1,
-                        "id":  "mekatfc:rough_synthetic_diamond"
-                    }
+{
+  "type": "tfc:barrel_sealed",
+  "duration": 7200,
+  "input_fluid": {
+    "amount": 1000,
+    "fluid": "minecraft:water"
+  },
+  "input_item": {
+    "count": 1,
+    "item": "mekatfc:diamond_precursor"
+  },
+  "output_item": {
+    "count": 1,
+    "id": "mekatfc:rough_synthetic_diamond"
+  }
 }

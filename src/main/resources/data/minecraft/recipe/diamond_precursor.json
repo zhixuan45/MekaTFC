@@ -1,33 +1,33 @@
-﻿{
-    "type":  "minecraft:crafting_shapeless",
-    "ingredients":  [
-                        {
-                            "tag":  "c:powders/graphite"
-                        },
-                        {
-                            "tag":  "c:powders/graphite"
-                        },
-                        {
-                            "tag":  "c:powders/graphite"
-                        },
-                        {
-                            "tag":  "c:powders/graphite"
-                        },
-                        {
-                            "tag":  "c:dusts/charcoal"
-                        },
-                        {
-                            "tag":  "c:dusts/iron"
-                        },
-                        {
-                            "tag":  "c:dusts/iron"
-                        },
-                        {
-                            "tag":  "tfc:flux"
-                        }
-                    ],
-    "result":  {
-                   "count":  1,
-                   "id":  "mekatfc:diamond_precursor"
-               }
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:powders/graphite"
+    },
+    {
+      "tag": "c:powders/graphite"
+    },
+    {
+      "tag": "c:powders/graphite"
+    },
+    {
+      "tag": "c:powders/graphite"
+    },
+    {
+      "tag": "c:dusts/charcoal"
+    },
+    {
+      "tag": "c:dusts/iron"
+    },
+    {
+      "tag": "c:dusts/iron"
+    },
+    {
+      "item": "tfc:powder/flux"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekatfc:diamond_precursor"
+  }
 }

@@ -14,7 +14,7 @@
       "item": "mekanism:advanced_control_circuit"
     },
     "A": {
-      "tag": "c:alloys/infused"
+      "item": "mekanism:alloy_infused"
     },
     "U": {
       "item": "mekanism:upgrade_speed"
