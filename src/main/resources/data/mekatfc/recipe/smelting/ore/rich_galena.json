@@ -1,12 +1,12 @@
-{
-  "type": "minecraft:smelting",
-  "cookingtime": 200,
-  "experience": 1.0,
-  "ingredient": {
-    "item": "mekatfc:ore/rich_galena"
-  },
-  "result": {
-    "count": 2,
-    "item": "mekanism:ingot_lead"
-  }
+﻿{
+    "ingredient":  {
+                       "item":  "tfc:ore/rich_galena"
+                   },
+    "result":  {
+                   "count":  1,
+                   "id":  "mekanism:ingot_lead"
+               },
+    "cookingtime":  200,
+    "experience":  0.7,
+    "type":  "minecraft:smelting"
 }

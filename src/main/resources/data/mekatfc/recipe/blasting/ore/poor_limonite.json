@@ -1,12 +1,12 @@
-{
-  "type": "minecraft:blasting",
-  "cookingtime": 100,
-  "experience": 0.3,
-  "ingredient": {
-    "item": "tfc:ore/poor_limonite"
-  },
-  "result": {
-    "count": 4,
-    "item": "minecraft:iron_nugget"
-  }
+﻿{
+    "ingredient":  {
+                       "item":  "tfc:ore/poor_limonite"
+                   },
+    "result":  {
+                   "count":  1,
+                   "id":  "minecraft:iron_ingot"
+               },
+    "cookingtime":  100,
+    "experience":  0.7,
+    "type":  "minecraft:blasting"
 }

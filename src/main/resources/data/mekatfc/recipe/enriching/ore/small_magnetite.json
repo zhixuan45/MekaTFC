@@ -1,13 +1,11 @@
-{
-  "type": "mekanism:enriching",
-  "input": {
-    "amount": 3,
-    "ingredient": {
-      "item": "tfc:ore/small_magnetite"
-    }
-  },
-  "output": {
-    "count": 4,
-    "item": "mekanism:dust_iron"
-  }
+﻿{
+    "input":  {
+                  "count":  2,
+                  "item":  "tfc:ore/small_magnetite"
+              },
+    "type":  "mekanism:enriching",
+    "output":  {
+                   "count":  1,
+                   "id":  "mekanism:dust_iron"
+               }
 }

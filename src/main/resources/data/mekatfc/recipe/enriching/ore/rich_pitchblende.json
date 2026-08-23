@@ -1,13 +1,11 @@
-{
-  "type": "mekanism:enriching",
-  "input": {
-    "amount": 1,
-    "ingredient": {
-      "item": "mekatfc:ore/rich_pitchblende"
-    }
-  },
-  "output": {
-    "count": 4,
-    "item": "mekanism:dust_uranium"
-  }
+﻿{
+    "input":  {
+                  "count":  1,
+                  "item":  "tfc:ore/rich_pitchblende"
+              },
+    "type":  "mekanism:enriching",
+    "output":  {
+                   "count":  4,
+                   "id":  "mekanism:dust_uranium"
+               }
 }

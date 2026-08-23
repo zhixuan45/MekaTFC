@@ -1,7 +1,7 @@
-{
-  "replace": false,
-  "values": [
-    "tfc:metal/ingot/silver",
-    "tfc:metal/ingot/sterling_silver"
-  ]
+﻿{
+    "replace":  false,
+    "values":  [
+                   "tfc:metal/ingot/silver",
+                   "tfc:metal/ingot/sterling_silver"
+               ]
 }

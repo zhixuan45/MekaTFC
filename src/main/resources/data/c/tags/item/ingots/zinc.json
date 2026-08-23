@@ -1,6 +1,6 @@
-{
-  "replace": false,
-  "values": [
-    "tfc:metal/ingot/zinc"
-  ]
+﻿{
+    "replace":  false,
+    "values":  [
+                   "tfc:metal/ingot/zinc"
+               ]
 }

@@ -1,17 +1,17 @@
-{
-  "type": "tfc:heating",
-  "ingredient": {
-    "item": "mekanismtools:osmium_hoe"
-  },
-  "result_fluid": {
-    "amount": 200,
-    "fluid": "mekatfc:metal/osmium"
-  },
-  "temperature": 1540.0,
-  "conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "mekanismtools"
-    }
-  ]
+﻿{
+    "type":  "tfc:heating",
+    "ingredient":  {
+                       "id":  "mekanismtools:osmium_hoe"
+                   },
+    "result_fluid":  {
+                         "amount":  200,
+                         "id":  "mekatfc:metal/osmium"
+                     },
+    "temperature":  1540.0,
+    "neoforge:conditions":  [
+                                {
+                                    "type":  "c:mod_loaded",
+                                    "modid":  "mekanismtools"
+                                }
+                            ]
 }

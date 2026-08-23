@@ -1,12 +1,12 @@
-{
-  "type": "minecraft:smelting",
-  "cookingtime": 200,
-  "experience": 0.3,
-  "ingredient": {
-    "item": "tfc:ore/small_native_gold"
-  },
-  "result": {
-    "count": 4,
-    "item": "minecraft:gold_nugget"
-  }
+﻿{
+    "ingredient":  {
+                       "item":  "tfc:ore/small_native_gold"
+                   },
+    "result":  {
+                   "id":  "minecraft:gold_ingot",
+                   "count":  1
+               },
+    "cookingtime":  200,
+    "experience":  0.7,
+    "type":  "minecraft:smelting"
 }

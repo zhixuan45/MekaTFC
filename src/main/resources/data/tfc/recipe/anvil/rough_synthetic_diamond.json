@@ -1,0 +1,15 @@
+﻿{
+    "type":  "tfc:anvil",
+    "input":  {
+                  "item":  "mekatfc:rough_synthetic_diamond"
+              },
+    "result":  {
+                   "id":  "minecraft:diamond"
+               },
+    "tier":  3,
+    "rules":  [
+                  "hit_last",
+                  "punch_second_last",
+                  "upset_third_last"
+              ]
+}

@@ -1,17 +1,16 @@
-{
-  "type": "mekanism:injecting",
-  "itemInput": {
-    "amount": 2,
-    "ingredient": {
-      "item": "tfc:ore/normal_native_gold"
-    }
-  },
-  "chemicalInput": {
-    "amount": 1,
-    "gas": "mekanism:hydrogen_chloride"
-  },
-  "output": {
-    "count": 8,
-    "item": "mekanism:shard_gold"
-  }
+﻿{
+    "output":  {
+                   "count":  8,
+                   "id":  "mekanism:shard_gold"
+               },
+    "chemical_input":  {
+                           "chemical":  "mekanism:hydrogen_chloride",
+                           "amount":  1
+                       },
+    "per_tick_usage":  true,
+    "type":  "mekanism:injecting",
+    "item_input":  {
+                       "count":  2,
+                       "item":  "tfc:ore/normal_native_gold"
+                   }
 }

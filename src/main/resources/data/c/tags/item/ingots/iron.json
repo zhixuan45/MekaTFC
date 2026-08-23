@@ -1,10 +1,10 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:iron_ingot",
-    "tfc:metal/ingot/wrought_iron",
-    "tfc:metal/ingot/cast_iron",
-    "tfc:metal/ingot/pig_iron",
-    "#c:ingots/wrought_iron"
-  ]
+﻿{
+    "replace":  false,
+    "values":  [
+                   "minecraft:iron_ingot",
+                   "tfc:metal/ingot/wrought_iron",
+                   "tfc:metal/ingot/cast_iron",
+                   "tfc:metal/ingot/pig_iron",
+                   "#c:ingots/wrought_iron"
+               ]
 }

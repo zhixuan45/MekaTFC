@@ -1,13 +1,13 @@
-{
-  "type": "mekanism:enriching",
-  "input": {
-    "count": 1,
-    "ingredient": {
-      "item": "mekatfc:redstone_mixture"
-    }
-  },
-  "output": {
-    "count": 16,
-    "item": "minecraft:redstone"
-  }
+﻿{
+    "type":  "mekanism:enriching",
+    "input":  {
+                  "count":  1,
+                  "ingredient":  {
+                                     "id":  "mekatfc:redstone_mixture"
+                                 }
+              },
+    "output":  {
+                   "count":  16,
+                   "id":  "minecraft:redstone"
+               }
 }

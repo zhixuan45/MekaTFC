@@ -1,12 +1,12 @@
-{
-  "type": "minecraft:smelting",
-  "cookingtime": 200,
-  "experience": 0.3,
-  "ingredient": {
-    "item": "mekatfc:ore/small_pitchblende"
-  },
-  "result": {
-    "count": 4,
-    "item": "mekanism:nugget_uranium"
-  }
+﻿{
+    "ingredient":  {
+                       "item":  "tfc:ore/small_pitchblende"
+                   },
+    "result":  {
+                   "count":  1,
+                   "id":  "mekanism:ingot_uranium"
+               },
+    "cookingtime":  200,
+    "experience":  0.7,
+    "type":  "minecraft:smelting"
 }

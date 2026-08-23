@@ -1,6 +1,6 @@
 ﻿{
-  "replace": false,
-  "values": [
-    "mekatfc:metal/knife/osmium"
-  ]
+    "replace":  false,
+    "values":  [
+                   "mekatfc:metal/knife/osmium"
+               ]
 }

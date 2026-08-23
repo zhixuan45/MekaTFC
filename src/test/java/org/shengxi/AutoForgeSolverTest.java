@@ -74,4 +74,26 @@ public class AutoForgeSolverTest {
             Assertions.assertTrue(rule.matches(step1, step2, step3), "执行后的步骤序列必须满足规则: " + rule);
         }
     }
+
+    @Test
+    public void testAllDataJsonSyntax() throws Exception {
+        com.google.gson.Gson gson = new com.google.gson.Gson();
+        java.nio.file.Path dataPath = java.nio.file.Paths.get("src/main/resources/data");
+        Assertions.assertTrue(java.nio.file.Files.exists(dataPath), "数据包目录必须存在");
+
+        java.util.concurrent.atomic.AtomicInteger count = new java.util.concurrent.atomic.AtomicInteger(0);
+        try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.walk(dataPath)) {
+            stream.filter(p -> p.toString().endsWith(".json")).forEach(p -> {
+                try {
+                    String content = java.nio.file.Files.readString(p, java.nio.charset.StandardCharsets.UTF_8);
+                    com.google.gson.JsonElement element = gson.fromJson(content, com.google.gson.JsonElement.class);
+                    Assertions.assertNotNull(element, "JSON 内容解析不能为空: " + p);
+                    count.incrementAndGet();
+                } catch (Exception e) {
+                    Assertions.fail("JSON 语法解析失败: " + p + ", 错误: " + e.getMessage());
+                }
+            });
+        }
+        Assertions.assertTrue(count.get() > 0, "应当校验至少 1 个 JSON 文件");
+    }
 }

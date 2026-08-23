@@ -1,8 +1,8 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:gold_ingot",
-    "tfc:metal/ingot/gold",
-    "tfc:metal/ingot/rose_gold"
-  ]
+﻿{
+    "replace":  false,
+    "values":  [
+                   "minecraft:gold_ingot",
+                   "tfc:metal/ingot/gold",
+                   "tfc:metal/ingot/rose_gold"
+               ]
 }

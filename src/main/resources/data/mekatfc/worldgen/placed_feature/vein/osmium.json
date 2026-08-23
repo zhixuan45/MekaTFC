@@ -1,4 +1,6 @@
-{
-  "feature": "mekatfc:vein/osmium",
-  "placement": []
+﻿{
+    "feature":  "mekatfc:vein/osmium",
+    "placement":  [
+
+                  ]
 }

@@ -1,17 +1,16 @@
-{
-  "type": "mekanism:injecting",
-  "itemInput": {
-    "amount": 1,
-    "ingredient": {
-      "item": "tfc:ore/rich_tetrahedrite"
-    }
-  },
-  "chemicalInput": {
-    "amount": 1,
-    "gas": "mekanism:hydrogen_chloride"
-  },
-  "output": {
-    "count": 8,
-    "item": "mekanism:shard_copper"
-  }
+﻿{
+    "output":  {
+                   "count":  10,
+                   "id":  "mekanism:shard_copper"
+               },
+    "chemical_input":  {
+                           "chemical":  "mekanism:hydrogen_chloride",
+                           "amount":  1
+                       },
+    "per_tick_usage":  true,
+    "type":  "mekanism:injecting",
+    "item_input":  {
+                       "count":  2,
+                       "item":  "tfc:ore/rich_tetrahedrite"
+                   }
 }

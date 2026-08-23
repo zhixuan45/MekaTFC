@@ -14,14 +14,14 @@
       "item": "mekanism:advanced_control_circuit"
     },
     "A": {
-      "tag": "forge:alloys/infused"
+      "tag": "c:alloys/infused"
     },
     "U": {
       "item": "mekanism:upgrade_speed"
     }
   },
   "result": {
-    "item": "mekatfc:upgrade_perfect_forging",
-    "count": 1
+    "count": 1,
+    "id": "mekatfc:upgrade_perfect_forging"
   }
 }

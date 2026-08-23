@@ -1,17 +1,16 @@
-{
-  "type": "mekanism:purifying",
-  "itemInput": {
-    "amount": 3,
-    "ingredient": {
-      "item": "mekatfc:ore/poor_galena"
-    }
-  },
-  "chemicalInput": {
-    "amount": 1,
-    "gas": "mekanism:oxygen"
-  },
-  "output": {
-    "count": 6,
-    "item": "mekanism:clump_lead"
-  }
+﻿{
+    "output":  {
+                   "count":  4,
+                   "id":  "mekanism:clump_lead"
+               },
+    "chemical_input":  {
+                           "chemical":  "mekanism:oxygen",
+                           "amount":  1
+                       },
+    "per_tick_usage":  true,
+    "type":  "mekanism:purifying",
+    "item_input":  {
+                       "count":  2,
+                       "item":  "tfc:ore/poor_galena"
+                   }
 }

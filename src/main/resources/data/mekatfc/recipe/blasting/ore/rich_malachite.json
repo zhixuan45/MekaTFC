@@ -1,12 +1,12 @@
-{
-  "type": "minecraft:blasting",
-  "cookingtime": 100,
-  "experience": 1.0,
-  "ingredient": {
-    "item": "tfc:ore/rich_malachite"
-  },
-  "result": {
-    "count": 2,
-    "item": "minecraft:copper_ingot"
-  }
+﻿{
+    "ingredient":  {
+                       "item":  "tfc:ore/rich_malachite"
+                   },
+    "result":  {
+                   "count":  1,
+                   "id":  "minecraft:copper_ingot"
+               },
+    "cookingtime":  100,
+    "experience":  0.7,
+    "type":  "minecraft:blasting"
 }

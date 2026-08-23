@@ -1,17 +1,16 @@
-{
-  "type": "mekanism:purifying",
-  "itemInput": {
-    "amount": 1,
-    "ingredient": {
-      "item": "tfc:ore/rich_tetrahedrite"
-    }
-  },
-  "chemicalInput": {
-    "amount": 1,
-    "gas": "mekanism:oxygen"
-  },
-  "output": {
-    "count": 6,
-    "item": "mekanism:clump_copper"
-  }
+﻿{
+    "output":  {
+                   "count":  8,
+                   "id":  "mekanism:clump_copper"
+               },
+    "chemical_input":  {
+                           "chemical":  "mekanism:oxygen",
+                           "amount":  1
+                       },
+    "per_tick_usage":  true,
+    "type":  "mekanism:purifying",
+    "item_input":  {
+                       "count":  2,
+                       "item":  "tfc:ore/rich_tetrahedrite"
+                   }
 }

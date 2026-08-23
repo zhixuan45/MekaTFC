@@ -1,13 +1,13 @@
-{
-  "replace": false,
-  "values": [
-    {
-      "id": "tfc:powder/quartz",
-      "required": false
-    },
-    {
-      "id": "mekanism:dust_quartz",
-      "required": false
-    }
-  ]
+﻿{
+    "replace":  false,
+    "values":  [
+                   {
+                       "id":  "tfc:powder/quartz",
+                       "required":  false
+                   },
+                   {
+                       "id":  "mekanism:dust_quartz",
+                       "required":  false
+                   }
+               ]
 }

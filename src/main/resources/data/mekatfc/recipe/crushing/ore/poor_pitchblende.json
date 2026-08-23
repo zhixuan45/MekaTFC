@@ -1,13 +1,11 @@
-{
-  "type": "mekanism:crushing",
-  "input": {
-    "amount": 3,
-    "ingredient": {
-      "item": "mekatfc:ore/poor_pitchblende"
-    }
-  },
-  "output": {
-    "count": 2,
-    "item": "mekanism:dust_uranium"
-  }
+﻿{
+    "input":  {
+                  "count":  1,
+                  "item":  "tfc:ore/poor_pitchblende"
+              },
+    "type":  "mekanism:crushing",
+    "output":  {
+                   "count":  1,
+                   "id":  "mekanism:dust_uranium"
+               }
 }

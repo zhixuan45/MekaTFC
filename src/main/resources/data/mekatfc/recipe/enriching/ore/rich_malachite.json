@@ -1,13 +1,11 @@
-{
-  "type": "mekanism:enriching",
-  "input": {
-    "amount": 1,
-    "ingredient": {
-      "item": "tfc:ore/rich_malachite"
-    }
-  },
-  "output": {
-    "count": 4,
-    "item": "mekanism:dust_copper"
-  }
+﻿{
+    "input":  {
+                  "count":  1,
+                  "item":  "tfc:ore/rich_malachite"
+              },
+    "type":  "mekanism:enriching",
+    "output":  {
+                   "count":  4,
+                   "id":  "mekanism:dust_copper"
+               }
 }

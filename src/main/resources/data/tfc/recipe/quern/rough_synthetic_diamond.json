@@ -1,10 +1,10 @@
-{
-  "type": "tfc:quern",
-  "ingredient": {
-    "item": "mekatfc:rough_synthetic_diamond"
-  },
-  "result": {
-    "item": "mekanism:dust_diamond",
-    "count": 1
-  }
+﻿{
+    "type":  "tfc:quern",
+    "ingredient":  {
+                       "id":  "mekatfc:rough_synthetic_diamond"
+                   },
+    "result":  {
+                   "count":  1,
+                   "id":  "mekanism:dust_diamond"
+               }
 }

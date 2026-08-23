@@ -1,12 +1,12 @@
-{
-  "replace": false,
-  "values": [
-    "tfc:powder/native_copper",
-    "tfc:powder/malachite",
-    "tfc:powder/tetrahedrite",
-    {
-      "id": "mekanism:dust_copper",
-      "required": false
-    }
-  ]
+﻿{
+    "replace":  false,
+    "values":  [
+                   "tfc:powder/native_copper",
+                   "tfc:powder/malachite",
+                   "tfc:powder/tetrahedrite",
+                   {
+                       "id":  "mekanism:dust_copper",
+                       "required":  false
+                   }
+               ]
 }

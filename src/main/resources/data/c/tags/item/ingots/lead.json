@@ -1,9 +1,9 @@
-{
-  "replace": false,
-  "values": [
-    {
-      "id": "mekanism:ingot_lead",
-      "required": false
-    }
-  ]
+﻿{
+    "replace":  false,
+    "values":  [
+                   {
+                       "id":  "mekanism:ingot_lead",
+                       "required":  false
+                   }
+               ]
 }

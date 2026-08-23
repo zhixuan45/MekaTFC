@@ -1,14 +1,14 @@
-{
-  "replace": false,
-  "values": [
-    {
-      "id": "mekanism:osmium_ore",
-      "required": false
-    },
-    {
-      "id": "mekanism:deepslate_osmium_ore",
-      "required": false
-    },
-    "mekatfc:ore/small_native_osmium"
-  ]
+﻿{
+    "replace":  false,
+    "values":  [
+                   {
+                       "id":  "mekanism:osmium_ore",
+                       "required":  false
+                   },
+                   {
+                       "id":  "mekanism:deepslate_osmium_ore",
+                       "required":  false
+                   },
+                   "mekatfc:ore/small_native_osmium"
+               ]
 }

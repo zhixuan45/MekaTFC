@@ -1,17 +1,16 @@
-{
-  "type": "mekanism:purifying",
-  "itemInput": {
-    "amount": 2,
-    "ingredient": {
-      "item": "mekatfc:ore/normal_pitchblende"
-    }
-  },
-  "chemicalInput": {
-    "amount": 1,
-    "gas": "mekanism:oxygen"
-  },
-  "output": {
-    "count": 6,
-    "item": "mekanism:clump_uranium"
-  }
+﻿{
+    "output":  {
+                   "count":  6,
+                   "id":  "mekanism:clump_uranium"
+               },
+    "chemical_input":  {
+                           "chemical":  "mekanism:oxygen",
+                           "amount":  1
+                       },
+    "per_tick_usage":  true,
+    "type":  "mekanism:purifying",
+    "item_input":  {
+                       "count":  2,
+                       "item":  "tfc:ore/normal_pitchblende"
+                   }
 }

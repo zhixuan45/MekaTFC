@@ -11,7 +11,7 @@
       "item": "mekanism:basic_control_circuit"
     },
     "I": {
-      "tag": "forge:ingots/wrought_iron"
+      "tag": "c:ingots/wrought_iron"
     },
     "S": {
       "item": "mekanism:steel_casing"
@@ -24,7 +24,7 @@
     }
   },
   "result": {
-    "item": "mekatfc:electric_forge",
-    "count": 1
+    "count": 1,
+    "id": "mekatfc:electric_forge"
   }
 }

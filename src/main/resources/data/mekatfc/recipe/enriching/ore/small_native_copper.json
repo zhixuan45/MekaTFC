@@ -1,13 +1,11 @@
-{
-  "type": "mekanism:enriching",
-  "input": {
-    "amount": 3,
-    "ingredient": {
-      "item": "tfc:ore/small_native_copper"
-    }
-  },
-  "output": {
-    "count": 4,
-    "item": "mekanism:dust_copper"
-  }
+﻿{
+    "input":  {
+                  "count":  2,
+                  "item":  "tfc:ore/small_native_copper"
+              },
+    "type":  "mekanism:enriching",
+    "output":  {
+                   "count":  1,
+                   "id":  "mekanism:dust_copper"
+               }
 }

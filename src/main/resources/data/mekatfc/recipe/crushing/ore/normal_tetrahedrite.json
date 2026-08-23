@@ -1,13 +1,11 @@
-{
-  "type": "mekanism:crushing",
-  "input": {
-    "amount": 2,
-    "ingredient": {
-      "item": "tfc:ore/normal_tetrahedrite"
-    }
-  },
-  "output": {
-    "count": 2,
-    "item": "mekanism:dust_copper"
-  }
+﻿{
+    "input":  {
+                  "count":  1,
+                  "item":  "tfc:ore/normal_tetrahedrite"
+              },
+    "type":  "mekanism:crushing",
+    "output":  {
+                   "count":  2,
+                   "id":  "mekanism:dust_copper"
+               }
 }

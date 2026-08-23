@@ -1,17 +1,16 @@
-{
-  "type": "mekanism:injecting",
-  "itemInput": {
-    "amount": 3,
-    "ingredient": {
-      "item": "tfc:ore/small_hematite"
-    }
-  },
-  "chemicalInput": {
-    "amount": 1,
-    "gas": "mekanism:hydrogen_chloride"
-  },
-  "output": {
-    "count": 8,
-    "item": "mekanism:shard_iron"
-  }
+﻿{
+    "output":  {
+                   "count":  4,
+                   "id":  "mekanism:shard_iron"
+               },
+    "chemical_input":  {
+                           "chemical":  "mekanism:hydrogen_chloride",
+                           "amount":  1
+                       },
+    "per_tick_usage":  true,
+    "type":  "mekanism:injecting",
+    "item_input":  {
+                       "count":  2,
+                       "item":  "tfc:ore/small_hematite"
+                   }
 }

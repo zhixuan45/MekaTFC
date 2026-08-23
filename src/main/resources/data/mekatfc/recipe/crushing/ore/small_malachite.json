@@ -1,13 +1,11 @@
-{
-  "type": "mekanism:crushing",
-  "input": {
-    "amount": 3,
-    "ingredient": {
-      "item": "tfc:ore/small_malachite"
-    }
-  },
-  "output": {
-    "count": 2,
-    "item": "mekanism:dust_copper"
-  }
+﻿{
+    "input":  {
+                  "count":  2,
+                  "item":  "tfc:ore/small_malachite"
+              },
+    "type":  "mekanism:crushing",
+    "output":  {
+                   "count":  1,
+                   "id":  "mekanism:dust_copper"
+               }
 }

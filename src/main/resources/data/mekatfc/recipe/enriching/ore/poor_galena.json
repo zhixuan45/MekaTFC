@@ -1,13 +1,11 @@
-{
-  "type": "mekanism:enriching",
-  "input": {
-    "amount": 3,
-    "ingredient": {
-      "item": "mekatfc:ore/poor_galena"
-    }
-  },
-  "output": {
-    "count": 4,
-    "item": "mekanism:dust_lead"
-  }
+﻿{
+    "input":  {
+                  "count":  1,
+                  "item":  "tfc:ore/poor_galena"
+              },
+    "type":  "mekanism:enriching",
+    "output":  {
+                   "count":  2,
+                   "id":  "mekanism:dust_lead"
+               }
 }

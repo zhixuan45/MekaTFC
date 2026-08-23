@@ -1,13 +1,11 @@
-{
-  "type": "mekanism:enriching",
-  "input": {
-    "amount": 3,
-    "ingredient": {
-      "item": "mekatfc:ore/small_native_osmium"
-    }
-  },
-  "output": {
-    "count": 4,
-    "item": "mekanism:dust_osmium"
-  }
+﻿{
+    "input":  {
+                  "count":  2,
+                  "item":  "tfc:ore/small_native_osmium"
+              },
+    "type":  "mekanism:enriching",
+    "output":  {
+                   "count":  1,
+                   "id":  "mekanism:dust_osmium"
+               }
 }

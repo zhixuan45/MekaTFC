@@ -1,7 +1,7 @@
-{
-  "replace": false,
-  "values": [
-    "tfc:metal/sheet/silver",
-    "tfc:metal/sheet/sterling_silver"
-  ]
+﻿{
+    "replace":  false,
+    "values":  [
+                   "tfc:metal/sheet/silver",
+                   "tfc:metal/sheet/sterling_silver"
+               ]
 }
