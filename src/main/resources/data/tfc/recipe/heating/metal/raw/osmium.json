@@ -1,11 +1,11 @@
-﻿{
+{
   "type": "tfc:heating",
   "ingredient": {
-    "tag": "c:raw_materials/osmium"
+    "tag": "forge:raw_materials/osmium"
   },
   "result_fluid": {
     "amount": 25,
-    "id": "mekatfc:metal/osmium"
+    "fluid": "mekatfc:metal/osmium"
   },
   "temperature": 1540.0
 }

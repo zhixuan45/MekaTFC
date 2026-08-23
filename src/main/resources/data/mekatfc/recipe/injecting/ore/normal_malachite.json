@@ -1,0 +1,17 @@
+{
+  "type": "mekanism:injecting",
+  "itemInput": {
+    "amount": 2,
+    "ingredient": {
+      "item": "tfc:ore/normal_malachite"
+    }
+  },
+  "chemicalInput": {
+    "amount": 1,
+    "gas": "mekanism:hydrogen_chloride"
+  },
+  "output": {
+    "count": 8,
+    "item": "mekanism:shard_copper"
+  }
+}

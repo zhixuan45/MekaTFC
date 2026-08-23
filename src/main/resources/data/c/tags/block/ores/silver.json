@@ -21,7 +21,6 @@
                    "tfc:ore/poor_native_silver/schist",
                    "tfc:ore/poor_native_silver/shale",
                    "tfc:ore/poor_native_silver/slate",
-                   "tfc:ore/poor_native_silver/tuff",
                    "tfc:ore/normal_native_silver/andesite",
                    "tfc:ore/normal_native_silver/basalt",
                    "tfc:ore/normal_native_silver/chalk",
@@ -42,7 +41,6 @@
                    "tfc:ore/normal_native_silver/schist",
                    "tfc:ore/normal_native_silver/shale",
                    "tfc:ore/normal_native_silver/slate",
-                   "tfc:ore/normal_native_silver/tuff",
                    "tfc:ore/rich_native_silver/andesite",
                    "tfc:ore/rich_native_silver/basalt",
                    "tfc:ore/rich_native_silver/chalk",
@@ -62,7 +60,6 @@
                    "tfc:ore/rich_native_silver/rhyolite",
                    "tfc:ore/rich_native_silver/schist",
                    "tfc:ore/rich_native_silver/shale",
-                   "tfc:ore/rich_native_silver/slate",
-                   "tfc:ore/rich_native_silver/tuff"
+                   "tfc:ore/rich_native_silver/slate"
                ]
 }

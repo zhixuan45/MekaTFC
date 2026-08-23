@@ -1,4 +1,4 @@
-{
+﻿{
   "type": "tfc:cluster_vein",
   "config": {
     "rarity": 65,
@@ -162,20 +162,16 @@
       },
       {
         "replace": [
-          "tfc:rock/raw/tuff"
         ],
         "with": [
           {
-            "weight": 35,
-            "block": "mekatfc:ore/poor_pitchblende/tuff"
+            "weight": 35
           },
           {
-            "weight": 40,
-            "block": "mekatfc:ore/normal_pitchblende/tuff"
+            "weight": 40
           },
           {
-            "weight": 25,
-            "block": "mekatfc:ore/rich_pitchblende/tuff"
+            "weight": 25
           }
         ]
       }

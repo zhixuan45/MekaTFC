@@ -1,4 +1,4 @@
-﻿{
+{
   "type": "minecraft:blasting",
   "cookingtime": 100,
   "experience": 1.0,
@@ -6,7 +6,7 @@
     "item": "mekatfc:ore/rich_native_osmium"
   },
   "result": {
-    "count": 1,
-    "id": "mekanism:ingot_osmium"
+    "count": 2,
+    "item": "mekanism:ingot_osmium"
   }
 }

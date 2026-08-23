@@ -1,4 +1,4 @@
-﻿{
+{
   "type": "tfc:casting",
   "break_chance": 0.1,
   "fluid": {
@@ -10,6 +10,6 @@
   },
   "result": {
     "count": 1,
-    "id": "mekanism:ingot_osmium"
+    "item": "mekanism:ingot_osmium"
   }
 }

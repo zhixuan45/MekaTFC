@@ -1,0 +1,12 @@
+{
+  "type": "mekanism:crushing",
+  "input": {
+    "ingredient": {
+      "item": "mekatfc:rough_synthetic_diamond"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "mekanism:dust_diamond"
+  }
+}

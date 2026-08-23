@@ -1,14 +1,17 @@
-﻿{
+{
   "type": "mekanism:purifying",
-  "chemical_input": {
-    "amount": 1,
-    "chemical": "mekanism:oxygen"
+  "itemInput": {
+    "amount": 2,
+    "ingredient": {
+      "item": "mekatfc:ore/normal_native_osmium"
+    }
   },
-  "item_input": {
-    "item": "mekatfc:ore/normal_native_osmium"
+  "chemicalInput": {
+    "amount": 1,
+    "gas": "mekanism:oxygen"
   },
   "output": {
-    "count": 2,
-    "id": "mekanism:clump_osmium"
+    "count": 6,
+    "item": "mekanism:clump_osmium"
   }
 }

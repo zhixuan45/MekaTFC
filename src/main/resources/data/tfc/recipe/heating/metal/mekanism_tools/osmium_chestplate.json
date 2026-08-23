@@ -1,17 +1,17 @@
-﻿{
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:mod_loaded",
-      "modid": "mekanismtools"
-    }
-  ],
+{
   "type": "tfc:heating",
   "ingredient": {
     "item": "mekanismtools:osmium_chestplate"
   },
   "result_fluid": {
     "amount": 800,
-    "id": "mekatfc:metal/osmium"
+    "fluid": "mekatfc:metal/osmium"
   },
-  "temperature": 1540.0
+  "temperature": 1540.0,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanismtools"
+    }
+  ]
 }

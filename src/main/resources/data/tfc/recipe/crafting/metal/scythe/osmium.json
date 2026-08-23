@@ -1,8 +1,8 @@
-﻿{
+{
   "type": "tfc:advanced_shaped_crafting",
   "key": {
     "S": {
-      "tag": "c:rods/wooden"
+      "tag": "forge:rods/wooden"
     },
     "X": {
       "item": "mekatfc:metal/scythe_blade/osmium"
@@ -14,13 +14,11 @@
   ],
   "result": {
     "modifiers": [
-      {
-        "type": "tfc:copy_forging_bonus"
-      }
+      "tfc:copy_forging_bonus"
     ],
     "stack": {
       "count": 1,
-      "id": "mekatfc:metal/scythe/osmium"
+      "item": "mekatfc:metal/scythe/osmium"
     }
   }
 }

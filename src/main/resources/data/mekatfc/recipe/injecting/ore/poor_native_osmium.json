@@ -1,14 +1,17 @@
-﻿{
+{
   "type": "mekanism:injecting",
-  "chemical_input": {
-    "amount": 1,
-    "chemical": "mekanism:hydrogen_chloride"
+  "itemInput": {
+    "amount": 3,
+    "ingredient": {
+      "item": "mekatfc:ore/poor_native_osmium"
+    }
   },
-  "item_input": {
-    "item": "mekatfc:ore/poor_native_osmium"
+  "chemicalInput": {
+    "amount": 1,
+    "gas": "mekanism:hydrogen_chloride"
   },
   "output": {
-    "count": 2,
-    "id": "mekanism:shard_osmium"
+    "count": 8,
+    "item": "mekanism:shard_osmium"
   }
 }

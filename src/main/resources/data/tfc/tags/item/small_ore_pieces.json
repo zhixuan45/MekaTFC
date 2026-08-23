@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "mekatfc:ore/small_native_osmium",
+    "mekatfc:ore/small_galena",
+    "mekatfc:ore/small_pitchblende"
+  ]
+}

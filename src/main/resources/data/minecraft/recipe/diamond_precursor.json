@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:powders/graphite"
+    },
+    {
+      "tag": "forge:powders/graphite"
+    },
+    {
+      "tag": "forge:powders/graphite"
+    },
+    {
+      "tag": "forge:powders/graphite"
+    },
+    {
+      "tag": "forge:dusts/charcoal"
+    },
+    {
+      "tag": "forge:dusts/iron"
+    },
+    {
+      "tag": "forge:dusts/iron"
+    },
+    {
+      "tag": "tfc:flux"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "mekatfc:diamond_precursor"
+  }
+}

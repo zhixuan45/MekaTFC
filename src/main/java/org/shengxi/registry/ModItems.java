@@ -55,9 +55,20 @@ public class ModItems {
     public static final DeferredItem<Item> RICH_PITCHBLENDE = ITEMS.registerSimpleItem("ore/rich_pitchblende");
     public static final DeferredItem<BlockItem> SMALL_PITCHBLENDE = ITEMS.registerSimpleBlockItem("ore/small_pitchblende", ModBlocks.SMALL_PITCHBLENDE);
 
-    // ==================== 4. 合成原料与双锭 ====================
+    // ==================== 4. 机器与升级模块 ====================
+    // 自动锻造机 (Electric Auto-Forge)
+    public static final DeferredItem<BlockItem> ELECTRIC_FORGE = ITEMS.registerSimpleBlockItem("electric_forge", ModBlocks.ELECTRIC_FORGE);
+    // 完美锻造升级模块 (Upgrade: Perfect Forging)
+    public static final DeferredItem<Item> UPGRADE_PERFECT_FORGING = ITEMS.registerSimpleItem("upgrade_perfect_forging");
+
     // 红石混合物：TFC 木桶配方的单一物品输入
     public static final DeferredItem<Item> REDSTONE_MIXTURE = ITEMS.registerSimpleItem("redstone_mixture");
+
+    // 金刚石前驱体：高温高压人造金刚石反应的碳催化前驱原料
+    public static final DeferredItem<Item> DIAMOND_PRECURSOR = ITEMS.registerSimpleItem("diamond_precursor");
+
+    // 粗制人造金刚石：经木桶淬火结晶/铁砧重压相变后的粗晶，可研磨或粉碎为钻石粉
+    public static final DeferredItem<Item> ROUGH_SYNTHETIC_DIAMOND = ITEMS.registerSimpleItem("rough_synthetic_diamond");
 
     // 双锭：在 TFC 铁砧上焊接制作
     public static final DeferredItem<Item> OSMIUM_DOUBLE_INGOT = ITEMS.registerSimpleItem("metal/double_ingot/osmium");

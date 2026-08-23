@@ -8,7 +8,7 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 
 ROCKS = [
     "granite", "diorite", "gabbro", "shale", "claystone", "limestone",
-    "conglomerate", "dolomite", "chert", "chalk", "tuff", "rhyolite",
+    "conglomerate", "dolomite", "chert", "chalk", "rhyolite",
     "basalt", "andesite", "dacite", "quartzite", "slate", "phyllite",
     "schist", "gneiss", "marble"
 ]
@@ -609,7 +609,7 @@ def generate_loot_tables():
 ROCK_NAMES_CN = {
     "granite": "花岗岩", "diorite": "闪长岩", "gabbro": "辉长岩", "shale": "页岩",
     "claystone": "粘土岩", "limestone": "石灰岩", "conglomerate": "砾岩", "dolomite": "白云岩",
-    "chert": "燧石", "chalk": "白垩岩", "tuff": "凝灰岩", "rhyolite": "流纹岩",
+    "chert": "燧石", "chalk": "白垩岩", "rhyolite": "流纹岩",
     "basalt": "玄武岩", "andesite": "安山岩", "dacite": "英安岩", "quartzite": "石英岩",
     "slate": "板岩", "phyllite": "千枚岩", "schist": "片岩", "gneiss": "片麻岩", "marble": "大理岩"
 }
@@ -617,7 +617,7 @@ ROCK_NAMES_CN = {
 ROCK_NAMES_EN = {
     "granite": "Granite", "diorite": "Diorite", "gabbro": "Gabbro", "shale": "Shale",
     "claystone": "Claystone", "limestone": "Limestone", "conglomerate": "Conglomerate", "dolomite": "Dolomite",
-    "chert": "Chert", "chalk": "Chalk", "tuff": "Tuff", "rhyolite": "Rhyolite",
+    "chert": "Chert", "chalk": "Chalk", "rhyolite": "Rhyolite",
     "basalt": "Basalt", "andesite": "Andesite", "dacite": "Dacite", "quartzite": "Quartzite",
     "slate": "Slate", "phyllite": "Phyllite", "schist": "Schist", "gneiss": "Gneiss", "marble": "Marble"
 }
@@ -717,7 +717,7 @@ def update_lang_files():
     print("Updated language files.")
 
 def update_tags():
-    # c:tags/block/ores/lead.json
+    # forge:tags/blocks/ores/lead.json
     lead_ores = []
     for rock in ROCKS:
         for grade in GRADES:
@@ -726,11 +726,12 @@ def update_tags():
         {"id": "mekanism:lead_ore", "required": False},
         {"id": "mekanism:deepslate_lead_ore", "required": False}
     ])
-    p_lo = os.path.join(DATA_DIR, "c", "tags", "block", "ores", "lead.json")
+    p_lo = os.path.join(DATA_DIR, "forge", "tags", "blocks", "ores", "lead.json")
+    os.makedirs(os.path.dirname(p_lo), exist_ok=True)
     with open(p_lo, "w", encoding="utf-8") as f:
         json.dump({"replace": False, "values": lead_ores}, f, indent=2)
 
-    # c:tags/block/ores/uranium.json
+    # forge:tags/blocks/ores/uranium.json
     uranium_ores = []
     for rock in ROCKS:
         for grade in GRADES:
@@ -739,12 +740,14 @@ def update_tags():
         {"id": "mekanism:uranium_ore", "required": False},
         {"id": "mekanism:deepslate_uranium_ore", "required": False}
     ])
-    p_uo = os.path.join(DATA_DIR, "c", "tags", "block", "ores", "uranium.json")
+    p_uo = os.path.join(DATA_DIR, "forge", "tags", "blocks", "ores", "uranium.json")
+    os.makedirs(os.path.dirname(p_uo), exist_ok=True)
     with open(p_uo, "w", encoding="utf-8") as f:
         json.dump({"replace": False, "values": uranium_ores}, f, indent=2)
 
-    # tfc:tags/block/prospectable.json
-    p_prospect = os.path.join(DATA_DIR, "tfc", "tags", "block", "prospectable.json")
+    # tfc:tags/blocks/prospectable.json
+    p_prospect = os.path.join(DATA_DIR, "tfc", "tags", "blocks", "prospectable.json")
+    os.makedirs(os.path.dirname(p_prospect), exist_ok=True)
     all_prospectable = []
     for ore in ["native_osmium", "galena", "pitchblende"]:
         for rock in ROCKS:

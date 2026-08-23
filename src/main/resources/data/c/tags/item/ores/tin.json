@@ -21,7 +21,6 @@
                    "tfc:ore/poor_cassiterite/schist",
                    "tfc:ore/poor_cassiterite/shale",
                    "tfc:ore/poor_cassiterite/slate",
-                   "tfc:ore/poor_cassiterite/tuff",
                    "tfc:ore/normal_cassiterite/andesite",
                    "tfc:ore/normal_cassiterite/basalt",
                    "tfc:ore/normal_cassiterite/chalk",
@@ -42,7 +41,6 @@
                    "tfc:ore/normal_cassiterite/schist",
                    "tfc:ore/normal_cassiterite/shale",
                    "tfc:ore/normal_cassiterite/slate",
-                   "tfc:ore/normal_cassiterite/tuff",
                    "tfc:ore/rich_cassiterite/andesite",
                    "tfc:ore/rich_cassiterite/basalt",
                    "tfc:ore/rich_cassiterite/chalk",
@@ -62,7 +60,6 @@
                    "tfc:ore/rich_cassiterite/rhyolite",
                    "tfc:ore/rich_cassiterite/schist",
                    "tfc:ore/rich_cassiterite/shale",
-                   "tfc:ore/rich_cassiterite/slate",
-                   "tfc:ore/rich_cassiterite/tuff"
+                   "tfc:ore/rich_cassiterite/slate"
                ]
 }

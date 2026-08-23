@@ -1,0 +1,13 @@
+{
+  "type": "mekanism:enriching",
+  "input": {
+    "amount": 3,
+    "ingredient": {
+      "item": "tfc:ore/poor_tetrahedrite"
+    }
+  },
+  "output": {
+    "count": 4,
+    "item": "mekanism:dust_copper"
+  }
+}

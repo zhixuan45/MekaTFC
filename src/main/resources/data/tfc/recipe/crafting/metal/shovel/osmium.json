@@ -1,14 +1,8 @@
-﻿{
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:mod_loaded",
-      "modid": "mekanismtools"
-    }
-  ],
+{
   "type": "tfc:advanced_shaped_crafting",
   "key": {
     "S": {
-      "tag": "c:rods/wooden"
+      "tag": "forge:rods/wooden"
     },
     "X": {
       "item": "mekatfc:metal/shovel_head/osmium"
@@ -20,13 +14,17 @@
   ],
   "result": {
     "modifiers": [
-      {
-        "type": "tfc:copy_forging_bonus"
-      }
+      "tfc:copy_forging_bonus"
     ],
     "stack": {
       "count": 1,
-      "id": "mekanismtools:osmium_shovel"
+      "item": "mekanismtools:osmium_shovel"
     }
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanismtools"
+    }
+  ]
 }

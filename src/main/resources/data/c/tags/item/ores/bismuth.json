@@ -21,7 +21,6 @@
                    "tfc:ore/poor_bismuthinite/schist",
                    "tfc:ore/poor_bismuthinite/shale",
                    "tfc:ore/poor_bismuthinite/slate",
-                   "tfc:ore/poor_bismuthinite/tuff",
                    "tfc:ore/normal_bismuthinite/andesite",
                    "tfc:ore/normal_bismuthinite/basalt",
                    "tfc:ore/normal_bismuthinite/chalk",
@@ -42,7 +41,6 @@
                    "tfc:ore/normal_bismuthinite/schist",
                    "tfc:ore/normal_bismuthinite/shale",
                    "tfc:ore/normal_bismuthinite/slate",
-                   "tfc:ore/normal_bismuthinite/tuff",
                    "tfc:ore/rich_bismuthinite/andesite",
                    "tfc:ore/rich_bismuthinite/basalt",
                    "tfc:ore/rich_bismuthinite/chalk",
@@ -62,7 +60,6 @@
                    "tfc:ore/rich_bismuthinite/rhyolite",
                    "tfc:ore/rich_bismuthinite/schist",
                    "tfc:ore/rich_bismuthinite/shale",
-                   "tfc:ore/rich_bismuthinite/slate",
-                   "tfc:ore/rich_bismuthinite/tuff"
+                   "tfc:ore/rich_bismuthinite/slate"
                ]
 }

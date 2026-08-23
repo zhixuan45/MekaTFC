@@ -46,12 +46,25 @@ public class ModBlocks {
     public static final DeferredBlock<Block> SMALL_GALENA;
     public static final DeferredBlock<Block> SMALL_PITCHBLENDE;
 
+    // 自动锻造机方块 (Electric Auto-Forge)
+    public static final DeferredBlock<Block> ELECTRIC_FORGE;
+
     // 熔融金属流体方块
     public static final DeferredBlock<LiquidBlock> MOLTEN_OSMIUM_BLOCK;
     public static final DeferredBlock<LiquidBlock> MOLTEN_LEAD_BLOCK;
     public static final DeferredBlock<LiquidBlock> MOLTEN_URANIUM_BLOCK;
 
     static {
+        // 注册自动锻造机方块
+        ELECTRIC_FORGE = BLOCKS.register("electric_forge", () -> new org.shengxi.common.block.ElectricForgeBlock(
+                BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.METAL)
+                        .requiresCorrectToolForDrops()
+                        .strength(5.0F, 12.0F)
+                        .sound(SoundType.METAL)
+                        .lightLevel(state -> state.getValue(org.shengxi.common.block.ElectricForgeBlock.WORKING) ? 13 : 0)
+        ));
+
         // 注册 3 种矿物在 21 种岩石与 3 种品级下的方块
         OSMIUM_ORES = registerGradedOreType("native_osmium");
         GALENA_ORES = registerGradedOreType("galena");

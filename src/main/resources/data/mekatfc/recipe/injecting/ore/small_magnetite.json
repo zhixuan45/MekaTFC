@@ -1,0 +1,17 @@
+{
+  "type": "mekanism:injecting",
+  "itemInput": {
+    "amount": 3,
+    "ingredient": {
+      "item": "tfc:ore/small_magnetite"
+    }
+  },
+  "chemicalInput": {
+    "amount": 1,
+    "gas": "mekanism:hydrogen_chloride"
+  },
+  "output": {
+    "count": 8,
+    "item": "mekanism:shard_iron"
+  }
+}

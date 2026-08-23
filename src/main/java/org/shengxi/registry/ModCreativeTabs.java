@@ -73,10 +73,16 @@ public class ModCreativeTabs {
                 output.accept(ModItems.OSMIUM_JAVELIN.get());
                 output.accept(ModItems.OSMIUM_MACE.get());
 
-                // 7. 特殊合成中间件
-                output.accept(ModItems.REDSTONE_MIXTURE.get());
+                // 7. 机器与功能升级模块
+                output.accept(ModItems.ELECTRIC_FORGE.get());
+                output.accept(ModItems.UPGRADE_PERFECT_FORGING.get());
 
-                // 8. 各岩石的矿石方块（锇、方铅矿、沥青铀矿）
+                // 8. 特殊合成中间件与人造金刚石
+                output.accept(ModItems.REDSTONE_MIXTURE.get());
+                output.accept(ModItems.DIAMOND_PRECURSOR.get());
+                output.accept(ModItems.ROUGH_SYNTHETIC_DIAMOND.get());
+
+                // 9. 各岩石的矿石方块（锇、方铅矿、沥青铀矿）
                 String[] oreTypes = {"native_osmium", "galena", "pitchblende"};
                 for (String oreType : oreTypes) {
                     for (Rock rock : Rock.values()) {

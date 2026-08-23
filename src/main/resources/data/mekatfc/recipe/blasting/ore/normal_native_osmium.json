@@ -1,4 +1,4 @@
-﻿{
+{
   "type": "minecraft:blasting",
   "cookingtime": 100,
   "experience": 0.7,
@@ -7,6 +7,6 @@
   },
   "result": {
     "count": 1,
-    "id": "mekanism:ingot_osmium"
+    "item": "mekanism:ingot_osmium"
   }
 }

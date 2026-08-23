@@ -19,21 +19,28 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import org.shengxi.client.screen.ElectricForgeScreen;
+import org.shengxi.common.network.ModPackets;
 import org.shengxi.condition.RecipeModeCondition;
+import org.shengxi.registry.ModBlockEntities;
 import org.shengxi.registry.ModBlocks;
 import org.shengxi.registry.ModCreativeTabs;
 import org.shengxi.registry.ModFluids;
 import org.shengxi.registry.ModItems;
+import org.shengxi.registry.ModMenus;
 import org.slf4j.Logger;
 
 /**
- * MekaTFC 模组主类
+ * MekaTFC 模组主类 (NeoForge 1.21.1)
  */
 @Mod(Mekatfc.MODID)
 public class Mekatfc {
@@ -50,18 +57,23 @@ public class Mekatfc {
     public static final DeferredItem<Item> OSMIUM_DOUBLE_INGOT = ModItems.OSMIUM_DOUBLE_INGOT;
 
     public Mekatfc(IEventBus modEventBus, ModContainer modContainer, Dist dist) {
-        // 注册通用初始化事件
+        // 注册通用初始化事件与网络通信事件
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(ModPackets::register);
+        modEventBus.addListener(this::registerCapabilities);
 
-        // 如果在客户端运行，注册客户端渲染初始化事件
+        // 如果在客户端运行，注册客户端渲染与界面初始化事件
         if (dist.isClient()) {
             modEventBus.addListener(this::clientSetup);
+            modEventBus.addListener(this::registerScreens);
         }
 
-        // 注册流体、方块、物品与创造模式物品栏
+        // 注册流体、方块、物品、方块实体、容器菜单与创造模式物品栏
         ModFluids.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenus.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
 
         // 注册配方条件
@@ -86,6 +98,25 @@ public class Mekatfc {
             LOGGER.info("Registering representative blocks for MekaTFC graded osmium ores...");
             ModBlocks.registerRepresentativeBlocks();
         });
+    }
+
+    private void registerCapabilities(RegisterCapabilitiesEvent event) {
+        // 注册自动锻造机能量与物品能力
+        event.registerBlockEntity(
+                Capabilities.EnergyStorage.BLOCK,
+                ModBlockEntities.ELECTRIC_FORGE.get(),
+                (be, side) -> be.getEnergyStorage()
+        );
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.ELECTRIC_FORGE.get(),
+                (be, side) -> be.getItemHandler(side)
+        );
+    }
+
+    private void registerScreens(RegisterMenuScreensEvent event) {
+        // 注册自动锻造机客户端屏幕界面
+        event.register(ModMenus.ELECTRIC_FORGE.get(), ElectricForgeScreen::new);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

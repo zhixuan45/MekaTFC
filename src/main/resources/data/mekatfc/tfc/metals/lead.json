@@ -1,0 +1,15 @@
+{
+  "tier": 1,
+  "fluid": "mekatfc:metal/lead",
+  "melt_temperature": 328,
+  "specific_heat_capacity": 0.003,
+  "ingots": {
+    "tag": "forge:ingots/lead"
+  },
+  "double_ingots": {
+    "tag": "forge:double_ingots/lead"
+  },
+  "sheets": {
+    "tag": "forge:sheets/lead"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "mekatfc:ore/small_pitchblende"
+  },
+  "result": {
+    "count": 4,
+    "item": "mekanism:nugget_uranium"
+  }
+}

@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#c:double_ingots/osmium",
-    "#c:double_ingots/lead",
-    "#c:double_ingots/uranium"
+    "#forge:double_ingots/osmium",
+    "#forge:double_ingots/lead",
+    "#forge:double_ingots/uranium"
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "RCR",
+    "AUA",
+    "RCR"
+  ],
+  "key": {
+    "R": {
+      "item": "mekatfc:redstone_mixture"
+    },
+    "C": {
+      "item": "mekanism:advanced_control_circuit"
+    },
+    "A": {
+      "tag": "forge:alloys/infused"
+    },
+    "U": {
+      "item": "mekanism:upgrade_speed"
+    }
+  },
+  "result": {
+    "item": "mekatfc:upgrade_perfect_forging",
+    "count": 1
+  }
+}

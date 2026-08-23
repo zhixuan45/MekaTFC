@@ -1,0 +1,13 @@
+{
+  "type": "mekanism:enriching",
+  "input": {
+    "amount": 1,
+    "ingredient": {
+      "item": "tfc:ore/rich_cassiterite"
+    }
+  },
+  "output": {
+    "count": 4,
+    "item": "mekanism:dust_tin"
+  }
+}

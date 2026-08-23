@@ -1,0 +1,210 @@
+package org.shengxi.common.container;
+
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.shengxi.common.blockentity.ElectricForgeBlockEntity;
+import org.shengxi.registry.ModMenus;
+
+import java.util.function.Supplier;
+
+/**
+ * 自动锻造机容器菜单 (ElectricForgeMenu)
+ * 适配 NeoForge 1.21.1 架构，管理工件槽、铁砧模具槽、助焊剂槽、升级槽与玩家背包槽位及数据同步。
+ */
+public class ElectricForgeMenu extends AbstractContainerMenu {
+
+    public final ElectricForgeBlockEntity blockEntity;
+    private final ContainerData data;
+
+    // 客户端构造器 (由网络打开 GUI 时自动调用)
+    public ElectricForgeMenu(int containerId, Inventory playerInv, FriendlyByteBuf extraData) {
+        this(containerId, playerInv, getBlockEntity(playerInv, extraData), new SimpleContainerData(14));
+    }
+
+    // 控制主交互槽位在弹窗/覆盖层打开时是否激活（由 Screen 动态注入）
+    private Supplier<Boolean> mainSlotsActiveSupplier = () -> true;
+
+    public void setMainSlotsActiveSupplier(Supplier<Boolean> supplier) {
+        this.mainSlotsActiveSupplier = supplier;
+    }
+
+    public boolean areMainSlotsActive() {
+        return mainSlotsActiveSupplier == null || mainSlotsActiveSupplier.get();
+    }
+
+    // 服务端构造器
+    public ElectricForgeMenu(int containerId, Inventory playerInv, Container container, ContainerData data) {
+        super(ModMenus.ELECTRIC_FORGE.get(), containerId);
+        checkContainerSize(container, ElectricForgeBlockEntity.TOTAL_SLOTS);
+        checkContainerDataCount(data, 14);
+        this.data = data;
+        this.blockEntity = container instanceof ElectricForgeBlockEntity forge ? forge : null;
+
+        // 1. 机器内部核心槽位 (像素级对齐 TFC 经典贴图 + Mekanism 升级管理双槽)
+        // 主工件槽 (SLOT_MAIN = 0, 位于 x: 31, y: 68 带锭水印处)
+        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_MAIN, 31, 68) {
+            @Override
+            public boolean isActive() {
+                return areMainSlotsActive();
+            }
+        });
+        // 副工件槽 (SLOT_SECOND = 1, 位于 x: 13, y: 68 焊接副槽)
+        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_SECOND, 13, 68) {
+            @Override
+            public boolean isActive() {
+                return areMainSlotsActive();
+            }
+        });
+        // 铁砧模具槽 (SLOT_ANVIL = 2, 位于 x: 129, y: 68 锤子水印处)
+        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_ANVIL, 129, 68) {
+            @Override
+            public boolean isActive() {
+                return areMainSlotsActive();
+            }
+        });
+        // 助焊剂槽 (SLOT_CATALYST = 3, 位于 x: 147, y: 68 助焊剂水印处)
+        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_CATALYST, 147, 68) {
+            @Override
+            public boolean isActive() {
+                return areMainSlotsActive();
+            }
+        });
+
+        // 升级输入槽 (SLOT_UPGRADE_INPUT = 4, 虚拟槽位，由升级窗口独立接管渲染与交互)
+        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_UPGRADE_INPUT, -1000, -1000) {
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return org.shengxi.common.upgrade.ForgeUpgradeType.fromItemStack(stack) != null;
+            }
+        });
+        // 升级输出槽 (SLOT_UPGRADE_OUTPUT = 5, 虚拟槽位)
+        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_UPGRADE_OUTPUT, -1000, -1000) {
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return false;
+            }
+        });
+
+        // 2. 玩家背包槽位 (9x3 矩阵，标准原版 y 轴起始 126)
+        for (int row = 0; row < 3; ++row) {
+            for (int col = 0; col < 9; ++col) {
+                this.addSlot(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 126 + row * 18));
+            }
+        }
+
+        // 3. 玩家快捷栏槽位 (1x9，标准原版 y 轴起始 184)
+        for (int col = 0; col < 9; ++col) {
+            this.addSlot(new Slot(playerInv, col, 8 + col * 18, 184));
+        }
+
+        this.addDataSlots(data);
+    }
+
+    private static Container getBlockEntity(Inventory playerInv, FriendlyByteBuf extraData) {
+        if (playerInv.player.level() != null && extraData != null) {
+            BlockEntity be = playerInv.player.level().getBlockEntity(extraData.readBlockPos());
+            if (be instanceof ElectricForgeBlockEntity forge) {
+                return forge;
+            }
+        }
+        return new SimpleContainer(ElectricForgeBlockEntity.TOTAL_SLOTS);
+    }
+
+    // 常用数据访问便捷方法
+    public int getEnergyStored() {
+        return this.data.get(0);
+    }
+
+    public int getMaxEnergyStored() {
+        return this.data.get(1);
+    }
+
+    public int getTier() {
+        return this.data.get(2);
+    }
+
+    public boolean isAutoForgeEnabled() {
+        return this.data.get(3) == 1;
+    }
+
+    public int getCurrentState() {
+        return this.data.get(4);
+    }
+
+    public int getAutoForgeTimer() {
+        return this.data.get(5);
+    }
+
+    public int getMainItemTemperature() {
+        return this.data.get(6);
+    }
+
+    public int getMainItemWorkingTemperature() {
+        return this.data.get(7);
+    }
+
+    public boolean isRecipeLocked() {
+        return this.data.get(8) == 1;
+    }
+
+    public int getUpgradeTicks() {
+        return this.data.get(9);
+    }
+
+    public int getUpgradeCount(org.shengxi.common.upgrade.ForgeUpgradeType type) {
+        return switch (type) {
+            case SPEED -> this.data.get(10);
+            case ENERGY -> this.data.get(11);
+            case MUFFLING -> this.data.get(12);
+            case PERFECT_FORGING -> this.data.get(13);
+        };
+    }
+
+    @Override
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
+            itemstack = itemstack1.copy();
+
+            if (index < ElectricForgeBlockEntity.TOTAL_SLOTS) {
+                // 从机器内部向玩家背包转移
+                if (!this.moveItemStackTo(itemstack1, ElectricForgeBlockEntity.TOTAL_SLOTS, this.slots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else {
+                // 从玩家背包向机器转移
+                if (!this.moveItemStackTo(itemstack1, 0, 4, false)) {
+                    return ItemStack.EMPTY;
+                }
+            }
+
+            if (itemstack1.isEmpty()) {
+                slot.setByPlayer(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+        }
+        return itemstack;
+    }
+
+    @Override
+    public boolean stillValid(@NotNull Player player) {
+        if (this.blockEntity != null) {
+            return this.blockEntity.stillValid(player);
+        }
+        return true;
+    }
+}

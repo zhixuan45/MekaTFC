@@ -21,7 +21,6 @@
                    "tfc:ore/poor_garnierite/schist",
                    "tfc:ore/poor_garnierite/shale",
                    "tfc:ore/poor_garnierite/slate",
-                   "tfc:ore/poor_garnierite/tuff",
                    "tfc:ore/normal_garnierite/andesite",
                    "tfc:ore/normal_garnierite/basalt",
                    "tfc:ore/normal_garnierite/chalk",
@@ -42,7 +41,6 @@
                    "tfc:ore/normal_garnierite/schist",
                    "tfc:ore/normal_garnierite/shale",
                    "tfc:ore/normal_garnierite/slate",
-                   "tfc:ore/normal_garnierite/tuff",
                    "tfc:ore/rich_garnierite/andesite",
                    "tfc:ore/rich_garnierite/basalt",
                    "tfc:ore/rich_garnierite/chalk",
@@ -62,7 +60,6 @@
                    "tfc:ore/rich_garnierite/rhyolite",
                    "tfc:ore/rich_garnierite/schist",
                    "tfc:ore/rich_garnierite/shale",
-                   "tfc:ore/rich_garnierite/slate",
-                   "tfc:ore/rich_garnierite/tuff"
+                   "tfc:ore/rich_garnierite/slate"
                ]
 }

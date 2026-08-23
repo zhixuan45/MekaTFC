@@ -2,23 +2,23 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "c:powders/sulfur"
+      "tag": "forge:powders/sulfur"
     },
     {
-      "tag": "c:dusts/copper"
+      "tag": "forge:dusts/copper"
     },
     {
-      "tag": "c:dusts/copper"
+      "tag": "forge:dusts/copper"
     },
     {
-      "tag": "c:dusts/iron"
+      "tag": "forge:dusts/iron"
     },
     {
-      "tag": "c:dusts/iron"
+      "tag": "forge:dusts/iron"
     }
   ],
   "result": {
-    "id": "mekatfc:redstone_mixture",
-    "count": 1
+    "count": 1,
+    "item": "mekatfc:redstone_mixture"
   }
 }

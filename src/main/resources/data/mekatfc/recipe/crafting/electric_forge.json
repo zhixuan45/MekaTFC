@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " C ",
+    "ISI",
+    "RER"
+  ],
+  "key": {
+    "C": {
+      "item": "mekanism:basic_control_circuit"
+    },
+    "I": {
+      "tag": "forge:ingots/wrought_iron"
+    },
+    "S": {
+      "item": "mekanism:steel_casing"
+    },
+    "R": {
+      "item": "mekatfc:redstone_mixture"
+    },
+    "E": {
+      "item": "mekanism:energy_tablet"
+    }
+  },
+  "result": {
+    "item": "mekatfc:electric_forge",
+    "count": 1
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "mekanism:purifying",
+  "itemInput": {
+    "amount": 1,
+    "ingredient": {
+      "item": "mekatfc:ore/rich_galena"
+    }
+  },
+  "chemicalInput": {
+    "amount": 1,
+    "gas": "mekanism:oxygen"
+  },
+  "output": {
+    "count": 6,
+    "item": "mekanism:clump_lead"
+  }
+}

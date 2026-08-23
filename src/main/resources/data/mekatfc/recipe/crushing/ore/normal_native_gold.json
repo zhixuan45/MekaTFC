@@ -1,0 +1,13 @@
+{
+  "type": "mekanism:crushing",
+  "input": {
+    "amount": 2,
+    "ingredient": {
+      "item": "tfc:ore/normal_native_gold"
+    }
+  },
+  "output": {
+    "count": 2,
+    "item": "mekanism:dust_gold"
+  }
+}
