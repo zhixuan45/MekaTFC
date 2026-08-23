@@ -1,4 +1,4 @@
-﻿{
+{
     "type":  "tfc:cluster_vein",
     "config":  {
                    "rarity":  65,
@@ -157,22 +157,6 @@
                                                    {
                                                        "weight":  25,
                                                        "block":  "mekatfc:ore/rich_pitchblende/quartzite"
-                                                   }
-                                               ]
-                                  },
-                                  {
-                                      "replace":  [
-
-                                                  ],
-                                      "with":  [
-                                                   {
-                                                       "weight":  35
-                                                   },
-                                                   {
-                                                       "weight":  40
-                                                   },
-                                                   {
-                                                       "weight":  25
                                                    }
                                                ]
                                   }
