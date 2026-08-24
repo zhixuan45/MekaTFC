@@ -259,7 +259,7 @@ public class ModPackets {
                     if (be instanceof ElectricForgeBlockEntity forgeEntity) {
                         ForgeUpgradeType[] types = ForgeUpgradeType.values();
                         if (payload.upgradeOrdinal() >= 0 && payload.upgradeOrdinal() < types.length) {
-                            forgeEntity.uninstallUpgrade(types[payload.upgradeOrdinal()], payload.removeAll());
+                            forgeEntity.uninstallUpgrade(types[payload.upgradeOrdinal()], payload.removeAll(), serverPlayer);
                         }
                     }
                 }

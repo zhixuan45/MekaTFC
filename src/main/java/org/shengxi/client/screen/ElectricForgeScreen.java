@@ -220,6 +220,9 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
                 156, 116
         );
         this.upgradeWindow.setPosition(left + 10, top + 15);
+
+        this.menu.setMainSlotsActiveSupplier(() -> !isAnyWindowVisible() && !this.planSelectionOpen);
+        this.menu.setUpgradeWindowActiveSupplier(() -> this.upgradeWindow != null && this.upgradeWindow.isVisible());
     }
 
     private void closeSubWindows() {
@@ -512,29 +515,39 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
 
         // 2. 右侧详情与操作面板
         if (this.selectedUpgradeType != null) {
-            graphics.drawString(this.font, this.selectedUpgradeType.getTitle(), winX + 74, winY + 20, 0xFF00FFC8, false);
+            graphics.drawString(this.font, this.selectedUpgradeType.getTitle(), winX + 74, winY + 18, 0xFF00FFC8, false);
+
+            // 升级物品放置槽位外框 (位于 winX + 103, winY + 35, 对应 SLOT_UPGRADE_INPUT)
+            int slotX = winX + 103;
+            int slotY = winY + 35;
+            graphics.fill(slotX, slotY, slotX + 18, slotY + 18, 0xFF101010);
+            graphics.fill(slotX + 1, slotY + 1, slotX + 17, slotY + 17, 0xFF2A2A2A);
+            graphics.fill(slotX + 1, slotY + 1, slotX + 17, slotY + 2, 0xFF1E1E1E);
+            graphics.fill(slotX + 1, slotY + 1, slotX + 2, slotY + 17, 0xFF1E1E1E);
+            graphics.fill(slotX + 1, slotY + 16, slotX + 17, slotY + 17, 0xFF3F3F3F);
+            graphics.fill(slotX + 16, slotY + 1, slotX + 17, slotY + 17, 0xFF3F3F3F);
+
+            // 升级安装进度条 (槽位下方)
+            int ticks = this.menu.getUpgradeTicks();
+            graphics.fill(winX + 74, winY + 58, winX + 144, winY + 62, 0xFF101010);
+            if (ticks > 0) {
+                int barW = Math.min(68, (ticks * 68) / ElectricForgeBlockEntity.UPGRADE_TICKS_REQUIRED);
+                graphics.fill(winX + 75, winY + 59, winX + 75 + barW, winY + 61, 0xFF00FFC8);
+            }
 
             int installed = this.menu.getUpgradeCount(this.selectedUpgradeType);
             if (installed > 0) {
                 int btn1X = winX + 74;
-                int btn1Y = winY + 65;
-                graphics.fill(btn1X, btn1Y, btn1X + 36, btn1Y + 16, 0xFF101010);
-                graphics.fill(btn1X + 1, btn1Y + 1, btn1X + 35, btn1Y + 15, 0xFF4A4A4A);
-                graphics.drawCenteredString(this.font, "-1", btn1X + 18, btn1Y + 4, 0xFFFFFFFF);
+                int btn1Y = winY + 68;
+                graphics.fill(btn1X, btn1Y, btn1X + 32, btn1Y + 16, 0xFF101010);
+                graphics.fill(btn1X + 1, btn1Y + 1, btn1X + 31, btn1Y + 15, 0xFF4A4A4A);
+                graphics.drawCenteredString(this.font, "-1", btn1X + 16, btn1Y + 4, 0xFFFFFFFF);
 
-                int btnAllX = winX + 114;
-                int btnAllY = winY + 65;
-                graphics.fill(btnAllX, btnAllY, btnAllX + 36, btnAllY + 16, 0xFF101010);
-                graphics.fill(btnAllX + 1, btnAllY + 1, btnAllX + 35, btnAllY + 15, 0xFF662222);
-                graphics.drawCenteredString(this.font, "ALL", btnAllX + 18, btnAllY + 4, 0xFFFFFFFF);
-            }
-
-            // 升级安装进度条
-            int ticks = this.menu.getUpgradeTicks();
-            if (ticks > 0) {
-                int barW = Math.min(68, (ticks * 68) / ElectricForgeBlockEntity.UPGRADE_TICKS_REQUIRED);
-                graphics.fill(winX + 74, winY + 86, winX + 142, winY + 90, 0xFF101010);
-                graphics.fill(winX + 74, winY + 86, winX + 74 + barW, winY + 90, 0xFF00FFC8);
+                int btnAllX = winX + 112;
+                int btnAllY = winY + 68;
+                graphics.fill(btnAllX, btnAllY, btnAllX + 32, btnAllY + 16, 0xFF101010);
+                graphics.fill(btnAllX + 1, btnAllY + 1, btnAllX + 31, btnAllY + 15, 0xFF662222);
+                graphics.drawCenteredString(this.font, "ALL", btnAllX + 16, btnAllY + 4, 0xFFFFFFFF);
             }
         }
     }
@@ -584,9 +597,9 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
                 for (int c = 0; c < 3; c++) {
                     int sideIdx = layout[r][c];
                     if (sideIdx >= 0) {
-                        int btnX = winX + 42 + c * 22;
-                        int btnY = winY + 34 + r * 22;
-                        if (mouseX >= btnX && mouseX <= btnX + 20 && mouseY >= btnY && mouseY <= btnY + 20) {
+                        int btnX = winX + 48 + c * 18;
+                        int btnY = winY + 45 + r * 18;
+                        if (mouseX >= btnX && mouseX <= btnX + 16 && mouseY >= btnY && mouseY <= btnY + 16) {
                             if (this.menu.blockEntity != null) {
                                 ModPackets.sendToServer(new ModPackets.UpdateSideConfigPayload(
                                         this.menu.blockEntity.getBlockPos(),
@@ -620,11 +633,19 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
             return true;
         }
 
-        if (this.upgradeWindow.isVisible() && this.upgradeWindow.mouseClicked(mouseX, mouseY, button)) {
+        if (this.upgradeWindow.isVisible()) {
             int winX = this.upgradeWindow.getX();
             int winY = this.upgradeWindow.getY();
 
-            // 检查左侧类型切换
+            // 1. 检查右上角 X 关闭按钮
+            int closeX = winX + this.upgradeWindow.getWidth() - 13;
+            int closeY = winY + 3;
+            if (mouseX >= closeX && mouseX <= closeX + 10 && mouseY >= closeY && mouseY <= closeY + 10) {
+                this.upgradeWindow.setVisible(false);
+                return true;
+            }
+
+            // 2. 检查左侧升级类型切换
             ForgeUpgradeType[] types = ForgeUpgradeType.values();
             for (int i = 0; i < types.length; i++) {
                 int itemY = winY + 20 + i * 22;
@@ -634,11 +655,11 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
                 }
             }
 
-            // 检查卸载按钮
+            // 3. 检查卸载按钮 (-1 与 ALL)
             if (this.selectedUpgradeType != null && this.menu.getUpgradeCount(this.selectedUpgradeType) > 0) {
                 int btn1X = winX + 74;
-                int btn1Y = winY + 65;
-                if (mouseX >= btn1X && mouseX <= btn1X + 36 && mouseY >= btn1Y && mouseY <= btn1Y + 16) {
+                int btn1Y = winY + 68;
+                if (mouseX >= btn1X && mouseX <= btn1X + 32 && mouseY >= btn1Y && mouseY <= btn1Y + 16) {
                     if (this.menu.blockEntity != null) {
                         ModPackets.sendToServer(new ModPackets.UninstallUpgradePayload(
                                 this.menu.blockEntity.getBlockPos(),
@@ -649,9 +670,9 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
                     return true;
                 }
 
-                int btnAllX = winX + 114;
-                int btnAllY = winY + 65;
-                if (mouseX >= btnAllX && mouseX <= btnAllX + 36 && mouseY >= btnAllY && mouseY <= btnAllY + 16) {
+                int btnAllX = winX + 112;
+                int btnAllY = winY + 68;
+                if (mouseX >= btnAllX && mouseX <= btnAllX + 32 && mouseY >= btnAllY && mouseY <= btnAllY + 16) {
                     if (this.menu.blockEntity != null) {
                         ModPackets.sendToServer(new ModPackets.UninstallUpgradePayload(
                                 this.menu.blockEntity.getBlockPos(),
@@ -662,7 +683,19 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
                     return true;
                 }
             }
-            return true;
+
+            // 4. 检查升级放置插槽区域 (放行给容器 Slot 交互，允许取出与放入)
+            int slotX = winX + 103;
+            int slotY = winY + 35;
+            if (mouseX >= slotX && mouseX <= slotX + 18 && mouseY >= slotY && mouseY <= slotY + 18) {
+                return super.mouseClicked(mouseX, mouseY, button);
+            }
+
+            // 5. 点击窗口其他空白区域，消耗事件防止点穿
+            if (mouseX >= winX && mouseX <= winX + this.upgradeWindow.getWidth() &&
+                    mouseY >= winY && mouseY <= winY + this.upgradeWindow.getHeight()) {
+                return true;
+            }
         }
 
         // 2. 处理 Plan 图纸选择层点击与选择

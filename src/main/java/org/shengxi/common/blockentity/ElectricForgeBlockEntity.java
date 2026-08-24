@@ -193,42 +193,30 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
     }
 
     /**
-     * 卸载升级至输出槽
+     * 卸载升级并退还给操作玩家背包
      */
-    public void uninstallUpgrade(ForgeUpgradeType type, boolean removeAll) {
+    public void uninstallUpgrade(ForgeUpgradeType type, boolean removeAll, @Nullable net.minecraft.server.level.ServerPlayer player) {
         if (level == null || level.isClientSide) return;
         int installed = getUpgradeCount(type);
         if (installed <= 0) return;
         int toRemove = removeAll ? installed : 1;
-        ItemStack outStack = items.get(SLOT_UPGRADE_OUTPUT);
-        ItemStack template = type.createStack(1);
-        if (template.isEmpty()) return;
+        ItemStack refundStack = type.createStack(toRemove);
+        if (refundStack.isEmpty()) return;
 
-        if (outStack.isEmpty()) {
-            int canAdd = Math.min(toRemove, template.getMaxStackSize());
-            items.set(SLOT_UPGRADE_OUTPUT, type.createStack(canAdd));
-            int remain = installed - canAdd;
-            if (remain <= 0) {
-                installedUpgrades.remove(type);
-            } else {
-                installedUpgrades.put(type, remain);
-            }
-            recalculateEnergyStorage();
-            setChanged();
-        } else if (ItemStack.isSameItemSameComponents(outStack, template)) {
-            int maxAdd = Math.min(toRemove, outStack.getMaxStackSize() - outStack.getCount());
-            if (maxAdd > 0) {
-                outStack.grow(maxAdd);
-                int remain = installed - maxAdd;
-                if (remain <= 0) {
-                    installedUpgrades.remove(type);
-                } else {
-                    installedUpgrades.put(type, remain);
-                }
-                recalculateEnergyStorage();
-                setChanged();
-            }
+        if (player != null) {
+            player.getInventory().placeItemBackInInventory(refundStack);
+        } else {
+            net.minecraft.world.Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, refundStack);
         }
+
+        int remain = installed - toRemove;
+        if (remain <= 0) {
+            installedUpgrades.remove(type);
+        } else {
+            installedUpgrades.put(type, remain);
+        }
+        recalculateEnergyStorage();
+        setChanged();
     }
 
     /**
@@ -279,10 +267,11 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
 
     /**
      * 获取升温步长 (°C/t)
+     * 平缓真实的电热升温曲线：基础 1.5°C/t (30°C/s)，每级速度升级提升 35%
      */
     public float getHeatingRate() {
         int speed = getUpgradeCount(ForgeUpgradeType.SPEED);
-        return 12.0f * (1.0f + speed * 0.25f);
+        return 1.5f * (1.0f + speed * 0.35f);
     }
 
     /**
@@ -385,12 +374,11 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
             IHeat heat = HeatCapability.get(mainStack);
             if (heat != null) {
                 float currentTemp = heat.getTemperature();
-                float workingTemp = heat.getWorkingTemperature();
                 float weldingTemp = heat.getWeldingTemperature();
+                float workingTemp = heat.getWorkingTemperature();
 
-                // 判断是否需要焊接温度
-                boolean needsWeld = !entity.items.get(SLOT_SECOND).isEmpty() && !entity.items.get(SLOT_CATALYST).isEmpty();
-                float targetTemp = needsWeld ? weldingTemp : workingTemp;
+                // 统一加热至可焊接温度 (保证物品 Tooltip 明确显示【可加工】【可焊接】)
+                float targetTemp = weldingTemp > 0 ? weldingTemp : workingTemp;
 
                 if (targetTemp > 0) {
                     if (currentTemp < targetTemp) {
@@ -413,9 +401,9 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
                 }
             }
 
-            // 副工件槽温度维护 (若在准备焊接)
+            // 副工件槽温度维护 (统一恒温至可焊接状态)
             ItemStack secondStack = entity.items.get(SLOT_SECOND);
-            if (!secondStack.isEmpty() && !entity.items.get(SLOT_CATALYST).isEmpty()) {
+            if (!secondStack.isEmpty()) {
                 if (!secondStack.has(net.dries007.tfc.common.component.TFCComponents.HEAT.get())) {
                     net.dries007.tfc.common.component.heat.HeatDefinition def2 = HeatCapability.getDefinition(secondStack);
                     if (def2 != null) {
@@ -425,12 +413,20 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
                 IHeat heat2 = HeatCapability.get(secondStack);
                 if (heat2 != null) {
                     float curr2 = heat2.getTemperature();
-                    float target2 = heat2.getWeldingTemperature();
-                    if (curr2 < target2) {
-                        int heatingCost = entity.getHeatingEnergyCost();
-                        if (entity.energyStorage.getEnergyStored() >= heatingCost) {
-                            entity.energyStorage.consumeEnergy(heatingCost);
-                            heat2.setTemperature(Math.min(target2, curr2 + entity.getHeatingRate()));
+                    float target2 = heat2.getWeldingTemperature() > 0 ? heat2.getWeldingTemperature() : heat2.getWorkingTemperature();
+                    if (target2 > 0) {
+                        if (curr2 < target2) {
+                            int heatingCost = entity.getHeatingEnergyCost();
+                            if (entity.energyStorage.getEnergyStored() >= heatingCost) {
+                                entity.energyStorage.consumeEnergy(heatingCost);
+                                heat2.setTemperature(Math.min(target2, curr2 + entity.getHeatingRate()));
+                            }
+                        } else {
+                            int holdingCost = entity.getHoldingEnergyCost();
+                            if (entity.energyStorage.getEnergyStored() >= holdingCost) {
+                                entity.energyStorage.consumeEnergy(holdingCost);
+                                heat2.setTemperature(Math.max(curr2, target2));
+                            }
                         }
                     }
                 }
@@ -542,21 +538,28 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
     }
 
     /**
-     * 解析当前工件绑定的图纸配方
+     * 解析当前工件绑定的图纸配方 (严格校验原料匹配与铁砧阶级)
      */
     @Nullable
     public AnvilRecipe resolveRecipe(Forging forge) {
         if (level == null) return null;
+        ItemStack mainStack = items.get(SLOT_MAIN);
+        if (mainStack.isEmpty()) return null;
+
         AnvilRecipe recipe = forge.getRecipe();
         if (recipe != null) {
-            return recipe;
+            if (recipe.getInput().test(mainStack) && recipe.isCorrectTier(getTier())) {
+                return recipe;
+            }
         }
         if (!selectedRecipeId.isEmpty()) {
             ResourceLocation id = ResourceLocation.tryParse(selectedRecipeId);
             if (id != null) {
                 var found = level.getRecipeManager().byKey(id);
                 if (found.isPresent() && found.get().value() instanceof AnvilRecipe anvilRecipe) {
-                    return anvilRecipe;
+                    if (anvilRecipe.getInput().test(mainStack) && anvilRecipe.isCorrectTier(getTier())) {
+                        return anvilRecipe;
+                    }
                 }
             }
         }
@@ -588,6 +591,11 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
                 // 产出成品替换主槽（与 TFC 铁砧行为完全一致）
                 items.set(SLOT_MAIN, outputStack);
 
+                // 若未开启配方锁定，打制完成后自动清空当前选定配方
+                if (!this.recipeLocked) {
+                    this.selectedRecipeId = "";
+                }
+
                 // 播放完成特效与音效
                 level.playSound(null, worldPosition, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 0.9f, 1.4f);
                 if (level instanceof ServerLevel serverLevel) {
@@ -597,6 +605,7 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
                 }
 
                 cachedSteps.clear();
+                setChanged();
             }
         }
     }
@@ -606,7 +615,7 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
      */
     public void chooseRecipe(RecipeHolder<AnvilRecipe> holder) {
         ItemStack mainStack = items.get(SLOT_MAIN);
-        if (!mainStack.isEmpty() && holder != null) {
+        if (!mainStack.isEmpty() && holder != null && holder.value().getInput().test(mainStack)) {
             Forging forge = ForgingCapability.get(mainStack);
             if (forge != null) {
                 forge.setRecipe(holder, new AnvilRecipeInventory(mainStack, getTier()));
@@ -683,57 +692,93 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
     }
 
     /**
+     * 高精度焊接配方优选算法 (通过材质专属权重与铁砧阶级双重校验，彻底防御 Tag 包含污染)
+     */
+    @Nullable
+    public RecipeHolder<net.dries007.tfc.common.recipes.WeldingRecipe> findBestWeldingRecipe(WeldingInventory inv) {
+        if (level == null) return null;
+        var allWelding = level.getRecipeManager().getAllRecipesFor(net.dries007.tfc.common.recipes.TFCRecipeTypes.WELDING.get());
+
+        RecipeHolder<net.dries007.tfc.common.recipes.WeldingRecipe> bestHolder = null;
+        int bestScore = -1;
+
+        ItemStack main = inv.getMain();
+        ResourceLocation mainItemId = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(main.getItem());
+        String mainPath = mainItemId != null ? mainItemId.getPath() : "";
+
+        for (var holder : allWelding) {
+            net.dries007.tfc.common.recipes.WeldingRecipe recipe = holder.value();
+            if (recipe.matches(inv) && recipe.isCorrectTier(getTier())) {
+                int score = recipe.getTier() * 10;
+
+                // 材质名称全词精准匹配加权：若配方金属标识符与原料完全一致 (如 red_steel, blue_steel, black_steel)，赋予最高绝对优先权重
+                if (!mainPath.isEmpty()) {
+                    String[] itemParts = mainPath.split("/");
+                    String metalName = itemParts[itemParts.length - 1];
+                    String[] recipeParts = holder.id().getPath().split("/");
+                    String recipeMetalName = recipeParts[recipeParts.length - 1];
+
+                    if (recipeMetalName.equals(metalName)) {
+                        score += 2000;
+                    } else if (holder.id().getPath().contains(metalName)) {
+                        score += 1000;
+                    }
+                }
+
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestHolder = holder;
+                }
+            }
+        }
+        return bestHolder;
+    }
+
+    /**
      * 检验当前是否满足焊接条件
      */
     public boolean canWeld() {
         if (level == null) return false;
-        ItemStack left = items.get(SLOT_MAIN);
-        ItemStack right = items.get(SLOT_SECOND);
+        ItemStack main = items.get(SLOT_MAIN);
+        ItemStack secondary = items.get(SLOT_SECOND);
         ItemStack catalyst = items.get(SLOT_CATALYST);
 
-        if (left.isEmpty() || right.isEmpty() || catalyst.isEmpty() || getTier() < 0) {
+        if (main.isEmpty() || secondary.isEmpty() || catalyst.isEmpty() || getTier() < 0) {
             return false;
         }
 
-        IHeat heatLeft = HeatCapability.get(left);
-        IHeat heatRight = HeatCapability.get(right);
-        if (heatLeft == null || heatLeft.getTemperature() < heatLeft.getWeldingTemperature()) {
+        IHeat heatMain = HeatCapability.get(main);
+        IHeat heatSec = HeatCapability.get(secondary);
+        if (heatMain == null || !heatMain.canWeld()) {
             return false;
         }
-        if (heatRight != null && heatRight.getTemperature() < heatRight.getWeldingTemperature()) {
+        if (heatSec != null && !heatSec.canWeld()) {
             return false;
         }
 
-        var inv = new WeldingInventory(left, right, getTier());
-        var allWelding = level.getRecipeManager().getAllRecipesFor(net.dries007.tfc.common.recipes.TFCRecipeTypes.WELDING.get());
-        for (var holder : allWelding) {
-            var recipe = holder.value();
-            if (recipe.matches(inv) && recipe.isCorrectTier(getTier())) {
-                return true;
-            }
-        }
-        return false;
+        var inv = new WeldingInventory(main, secondary, getTier());
+        return findBestWeldingRecipe(inv) != null;
     }
 
     /**
-     * 执行一步焊接操作
+     * 执行一步焊接操作 (严格保证产物材质与输入原料完全一致)
      */
     public boolean performWeld() {
         if (level == null || level.isClientSide) return false;
-        ItemStack left = items.get(SLOT_MAIN);
-        ItemStack right = items.get(SLOT_SECOND);
+        ItemStack main = items.get(SLOT_MAIN);
+        ItemStack secondary = items.get(SLOT_SECOND);
         ItemStack catalyst = items.get(SLOT_CATALYST);
 
-        if (left.isEmpty() || right.isEmpty() || catalyst.isEmpty() || getTier() < 0) {
+        if (main.isEmpty() || secondary.isEmpty() || catalyst.isEmpty() || getTier() < 0) {
             return false;
         }
 
-        IHeat heatLeft = HeatCapability.get(left);
-        IHeat heatRight = HeatCapability.get(right);
-        if (heatLeft == null || heatLeft.getTemperature() < heatLeft.getWeldingTemperature()) {
+        IHeat heatMain = HeatCapability.get(main);
+        IHeat heatSec = HeatCapability.get(secondary);
+        if (heatMain == null || !heatMain.canWeld()) {
             return false;
         }
-        if (heatRight != null && heatRight.getTemperature() < heatRight.getWeldingTemperature()) {
+        if (heatSec != null && !heatSec.canWeld()) {
             return false;
         }
 
@@ -742,51 +787,57 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
             return false;
         }
 
-        var inv = new WeldingInventory(left, right, getTier());
-        var allWelding = level.getRecipeManager().getAllRecipesFor(net.dries007.tfc.common.recipes.TFCRecipeTypes.WELDING.get());
-        for (var holder : allWelding) {
-            var recipe = holder.value();
-            if (recipe.matches(inv) && recipe.isCorrectTier(getTier())) {
-                energyStorage.consumeEnergy(weldCost);
-                ItemStack outputStack = recipe.assemble(inv);
+        var inv = new WeldingInventory(main, secondary, getTier());
+        RecipeHolder<net.dries007.tfc.common.recipes.WeldingRecipe> holder = findBestWeldingRecipe(inv);
 
-                if (!outputStack.isEmpty()) {
-                    // 继承温度
-                    IHeat outputHeat = HeatCapability.get(outputStack);
-                    if (outputHeat != null) {
-                        float temp = Math.max(heatLeft.getTemperature(), heatRight != null ? heatRight.getTemperature() : 0);
-                        outputHeat.setTemperature(temp);
-                    }
+        if (holder == null) {
+            return false;
+        }
 
-                    // 完美锻造升级模块加成
-                    if (hasPerfectForgingUpgrade()) {
-                        net.dries007.tfc.common.component.forge.ForgingBonusComponent.set(
-                                outputStack,
-                                net.dries007.tfc.common.component.forge.ForgingBonus.PERFECT
-                        );
-                    }
+        energyStorage.consumeEnergy(weldCost);
+        net.dries007.tfc.common.recipes.WeldingRecipe recipe = holder.value();
+        ItemStack outputStack = recipe.assemble(inv);
 
-                    // 消耗助焊剂与副槽工件
-                    catalyst.shrink(1);
-                    items.set(SLOT_SECOND, ItemStack.EMPTY);
-                    items.set(SLOT_MAIN, outputStack);
-
-                    // 播放焊接音效与火花粒子
-                    float volume = 1.0f * getMufflingVolumeFactor();
-                    if (volume > 0.05f) {
-                        level.playSound(null, worldPosition, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, volume, 0.9f);
-                    }
-                    if (level instanceof ServerLevel serverLevel) {
-                        serverLevel.sendParticles(ParticleTypes.LAVA,
-                                worldPosition.getX() + 0.5, worldPosition.getY() + 0.9, worldPosition.getZ() + 0.5,
-                                12, 0.2, 0.15, 0.2, 0.08);
-                    }
-
-                    cachedSteps.clear();
-                    setChanged();
-                    return true;
-                }
+        if (!outputStack.isEmpty()) {
+            // 继承最高温度
+            IHeat outputHeat = HeatCapability.get(outputStack);
+            if (outputHeat != null) {
+                float temp = Math.max(heatMain.getTemperature(), heatSec != null ? heatSec.getTemperature() : 0);
+                outputHeat.setTemperature(temp);
             }
+
+            // 完美锻造升级模块加成
+            if (hasPerfectForgingUpgrade()) {
+                net.dries007.tfc.common.component.forge.ForgingBonusComponent.set(
+                        outputStack,
+                        net.dries007.tfc.common.component.forge.ForgingBonus.PERFECT
+                );
+            }
+
+            // 消耗助焊剂与副槽工件，产物替换主工件槽
+            catalyst.shrink(1);
+            items.set(SLOT_SECOND, ItemStack.EMPTY);
+            items.set(SLOT_MAIN, outputStack);
+
+            // 若未锁定配方，打制完成后自动清空当前选定配方
+            if (!this.recipeLocked) {
+                this.selectedRecipeId = "";
+            }
+
+            // 播放焊接音效与火花粒子
+            float volume = 1.0f * getMufflingVolumeFactor();
+            if (volume > 0.05f) {
+                level.playSound(null, worldPosition, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, volume, 0.9f);
+            }
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(ParticleTypes.LAVA,
+                        worldPosition.getX() + 0.5, worldPosition.getY() + 0.9, worldPosition.getZ() + 0.5,
+                        12, 0.2, 0.15, 0.2, 0.08);
+            }
+
+            cachedSteps.clear();
+            setChanged();
+            return true;
         }
         return false;
     }
@@ -796,8 +847,15 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
      */
     public void toggleRecipeLock() {
         this.recipeLocked = !this.recipeLocked;
-        if (this.recipeLocked && !this.selectedRecipeId.isEmpty()) {
-            this.lockedRecipeId = this.selectedRecipeId;
+        if (this.recipeLocked) {
+            if (!this.selectedRecipeId.isEmpty()) {
+                this.lockedRecipeId = this.selectedRecipeId;
+            }
+        } else {
+            // 关闭锁定时自动清空已锁定配方与当前选定配方
+            this.lockedRecipeId = "";
+            this.selectedRecipeId = "";
+            this.cachedSteps.clear();
         }
         setChanged();
     }
@@ -916,8 +974,9 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
     @Override
     public void setItem(int slot, @NotNull ItemStack stack) {
         items.set(slot, stack);
-        if (stack.getCount() > getMaxStackSize()) {
-            stack.setCount(getMaxStackSize());
+        int max = (slot == SLOT_MAIN || slot == SLOT_SECOND) ? 1 : getMaxStackSize();
+        if (stack.getCount() > max) {
+            stack.setCount(max);
         }
         cachedSteps.clear();
         setChanged();
@@ -976,6 +1035,11 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
         }
         if (slot == SLOT_ANVIL || slot == SLOT_UPGRADE_INPUT || slot == SLOT_UPGRADE_OUTPUT) {
             return false; // 铁砧模具槽与升级管理槽禁止外部自动化管道乱塞
+        }
+        if (slot == SLOT_MAIN || slot == SLOT_SECOND) {
+            if (!items.get(slot).isEmpty()) {
+                return false; // 主槽与副槽严格限制仅容纳 1 个物品，已有物品时禁止继续输入
+            }
         }
         return true;
     }
