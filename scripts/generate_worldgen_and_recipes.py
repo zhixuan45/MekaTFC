@@ -519,8 +519,8 @@ def generate_mekanism_ore_processing():
 # ==================== 5. 标签补充 (Tags Updating) ====================
 
 def update_all_tags():
-    # 1. tfc:tags/items/ore_pieces.json
-    p_op = os.path.join(DATA_DIR, "tfc", "tags", "items", "ore_pieces.json")
+    # 1. tfc:tags/item/ore_pieces.json
+    p_op = os.path.join(DATA_DIR, "tfc", "tags", "item", "ore_pieces.json")
     os.makedirs(os.path.dirname(p_op), exist_ok=True)
     all_pieces = []
     for ore in ["native_osmium", "galena", "pitchblende"]:
@@ -529,62 +529,62 @@ def update_all_tags():
     with open(p_op, "w", encoding="utf-8") as f:
         json.dump({"replace": False, "values": all_pieces}, f, indent=2)
 
-    # 2. forge:tags/items/double_ingots.json
-    p_di = os.path.join(DATA_DIR, "forge", "tags", "items", "double_ingots.json")
+    # 2. c:tags/item/double_ingots.json
+    p_di = os.path.join(DATA_DIR, "c", "tags", "item", "double_ingots.json")
     os.makedirs(os.path.dirname(p_di), exist_ok=True)
     with open(p_di, "w", encoding="utf-8") as f:
         json.dump({"replace": False, "values": [
-            "#forge:double_ingots/osmium",
-            "#forge:double_ingots/lead",
-            "#forge:double_ingots/uranium"
+            "#c:double_ingots/osmium",
+            "#c:double_ingots/lead",
+            "#c:double_ingots/uranium"
         ]}, f, indent=2)
 
-    # 3. forge:tags/items/double_ingots/{metal}.json
+    # 3. c:tags/item/double_ingots/{metal}.json
     for metal in ["osmium", "lead", "uranium"]:
-        p_dim = os.path.join(DATA_DIR, "forge", "tags", "items", "double_ingots", f"{metal}.json")
+        p_dim = os.path.join(DATA_DIR, "c", "tags", "item", "double_ingots", f"{metal}.json")
         os.makedirs(os.path.dirname(p_dim), exist_ok=True)
         with open(p_dim, "w", encoding="utf-8") as f:
             json.dump({"replace": False, "values": [f"mekatfc:metal/double_ingot/{metal}"]}, f, indent=2)
 
-    # 4. tfc:tags/items/double_ingots.json
-    p_tdi = os.path.join(DATA_DIR, "tfc", "tags", "items", "double_ingots.json")
+    # 4. tfc:tags/item/double_ingots.json
+    p_tdi = os.path.join(DATA_DIR, "tfc", "tags", "item", "double_ingots.json")
     os.makedirs(os.path.dirname(p_tdi), exist_ok=True)
     with open(p_tdi, "w", encoding="utf-8") as f:
         json.dump({"replace": False, "values": [
-            "#forge:double_ingots/osmium",
-            "#forge:double_ingots/lead",
-            "#forge:double_ingots/uranium"
+            "#c:double_ingots/osmium",
+            "#c:double_ingots/lead",
+            "#c:double_ingots/uranium"
         ]}, f, indent=2)
 
-    # 5. tfc:tags/fluids/molten_metals.json & metals.json
+    # 5. tfc:tags/fluid/molten_metals.json & metals.json
     fluids = [
         "mekatfc:metal/osmium", "mekatfc:metal/flowing_osmium",
         "mekatfc:metal/lead", "mekatfc:metal/flowing_lead",
         "mekatfc:metal/uranium", "mekatfc:metal/flowing_uranium"
     ]
-    p_mm = os.path.join(DATA_DIR, "tfc", "tags", "fluids", "molten_metals.json")
+    p_mm = os.path.join(DATA_DIR, "tfc", "tags", "fluid", "molten_metals.json")
     os.makedirs(os.path.dirname(p_mm), exist_ok=True)
     with open(p_mm, "w", encoding="utf-8") as f:
         json.dump({"replace": False, "values": fluids}, f, indent=2)
 
-    p_fm = os.path.join(DATA_DIR, "tfc", "tags", "fluids", "metals.json")
+    p_fm = os.path.join(DATA_DIR, "tfc", "tags", "fluid", "metals.json")
     os.makedirs(os.path.dirname(p_fm), exist_ok=True)
     with open(p_fm, "w", encoding="utf-8") as f:
         json.dump({"replace": False, "values": fluids}, f, indent=2)
 
-    # 6. forge:tags/fluids/{metal}.json & molten_{metal}.json
+    # 6. c:tags/fluid/{metal}.json & molten_{metal}.json
     for metal in ["osmium", "lead", "uranium"]:
-        p_cf = os.path.join(DATA_DIR, "forge", "tags", "fluids", f"{metal}.json")
+        p_cf = os.path.join(DATA_DIR, "c", "tags", "fluid", f"{metal}.json")
         os.makedirs(os.path.dirname(p_cf), exist_ok=True)
         with open(p_cf, "w", encoding="utf-8") as f:
             json.dump({"replace": False, "values": [f"mekatfc:metal/{metal}", f"mekatfc:metal/flowing_{metal}"]}, f, indent=2)
 
-        p_cmf = os.path.join(DATA_DIR, "forge", "tags", "fluids", f"molten_{metal}.json")
+        p_cmf = os.path.join(DATA_DIR, "c", "tags", "fluid", f"molten_{metal}.json")
         os.makedirs(os.path.dirname(p_cmf), exist_ok=True)
         with open(p_cmf, "w", encoding="utf-8") as f:
             json.dump({"replace": False, "values": [f"mekatfc:metal/{metal}", f"mekatfc:metal/flowing_{metal}"]}, f, indent=2)
 
-    # 7. forge:tags/items/ores/lead.json & uranium.json
+    # 7. c:tags/item/ores/{metal}.json
     for ore, metal in [("galena", "lead"), ("pitchblende", "uranium")]:
         ore_items = []
         for rock in ROCKS:
@@ -594,7 +594,7 @@ def update_all_tags():
             {"id": f"mekanism:{metal}_ore", "required": False},
             {"id": f"mekanism:deepslate_{metal}_ore", "required": False}
         ])
-        p_oi = os.path.join(DATA_DIR, "forge", "tags", "items", "ores", f"{metal}.json")
+        p_oi = os.path.join(DATA_DIR, "c", "tags", "item", "ores", f"{metal}.json")
         os.makedirs(os.path.dirname(p_oi), exist_ok=True)
         with open(p_oi, "w", encoding="utf-8") as f:
             json.dump({"replace": False, "values": ore_items}, f, indent=2)

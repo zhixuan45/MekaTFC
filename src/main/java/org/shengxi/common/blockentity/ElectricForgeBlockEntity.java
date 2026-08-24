@@ -372,8 +372,16 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
         int oldState = entity.currentState;
         entity.currentState = STATE_IDLE;
 
-        // 2. 智能电热温控逻辑
+        // 2. 智能电热温控与配方自动绑定逻辑
         if (!mainStack.isEmpty()) {
+            // 确保主工件具备 1.21 HEAT 数据组件
+            if (!mainStack.has(net.dries007.tfc.common.component.TFCComponents.HEAT.get())) {
+                net.dries007.tfc.common.component.heat.HeatDefinition def = HeatCapability.getDefinition(mainStack);
+                if (def != null) {
+                    mainStack.set(net.dries007.tfc.common.component.TFCComponents.HEAT.get(), net.dries007.tfc.common.component.heat.HeatComponent.of(def));
+                }
+            }
+
             IHeat heat = HeatCapability.get(mainStack);
             if (heat != null) {
                 float currentTemp = heat.getTemperature();
@@ -405,16 +413,48 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
                 }
             }
 
-            // 自动继承已锁定的配方
-            if (entity.recipeLocked && !entity.lockedRecipeId.isEmpty()) {
-                Forging forge = ForgingCapability.get(mainStack);
-                if (forge != null && forge.getRecipe() == null) {
-                    ResourceLocation resId = ResourceLocation.tryParse(entity.lockedRecipeId);
-                    if (resId != null) {
-                        var opt = level.getRecipeManager().byKey(resId);
-                        if (opt.isPresent() && opt.get().value() instanceof AnvilRecipe lockedRecipe) {
-                            if (lockedRecipe.getInput().test(mainStack)) {
-                                entity.chooseRecipe((RecipeHolder<AnvilRecipe>) (RecipeHolder<?>) opt.get());
+            // 副工件槽温度维护 (若在准备焊接)
+            ItemStack secondStack = entity.items.get(SLOT_SECOND);
+            if (!secondStack.isEmpty() && !entity.items.get(SLOT_CATALYST).isEmpty()) {
+                if (!secondStack.has(net.dries007.tfc.common.component.TFCComponents.HEAT.get())) {
+                    net.dries007.tfc.common.component.heat.HeatDefinition def2 = HeatCapability.getDefinition(secondStack);
+                    if (def2 != null) {
+                        secondStack.set(net.dries007.tfc.common.component.TFCComponents.HEAT.get(), net.dries007.tfc.common.component.heat.HeatComponent.of(def2));
+                    }
+                }
+                IHeat heat2 = HeatCapability.get(secondStack);
+                if (heat2 != null) {
+                    float curr2 = heat2.getTemperature();
+                    float target2 = heat2.getWeldingTemperature();
+                    if (curr2 < target2) {
+                        int heatingCost = entity.getHeatingEnergyCost();
+                        if (entity.energyStorage.getEnergyStored() >= heatingCost) {
+                            entity.energyStorage.consumeEnergy(heatingCost);
+                            heat2.setTemperature(Math.min(target2, curr2 + entity.getHeatingRate()));
+                        }
+                    }
+                }
+            }
+
+            // 自动配方解析与绑定 (Auto Recipe Assignment)
+            Forging forge = ForgingCapability.get(mainStack);
+            if (forge != null && forge.getRecipe() == null && entity.getTier() >= 0) {
+                List<RecipeHolder<AnvilRecipe>> available = AnvilRecipe.getAll(level, mainStack, entity.getTier());
+                if (available.size() == 1) {
+                    entity.chooseRecipe(available.get(0));
+                } else if (!available.isEmpty()) {
+                    if (entity.recipeLocked && !entity.lockedRecipeId.isEmpty()) {
+                        for (var holder : available) {
+                            if (holder.id().toString().equals(entity.lockedRecipeId)) {
+                                entity.chooseRecipe(holder);
+                                break;
+                            }
+                        }
+                    } else if (!entity.selectedRecipeId.isEmpty()) {
+                        for (var holder : available) {
+                            if (holder.id().toString().equals(entity.selectedRecipeId)) {
+                                entity.chooseRecipe(holder);
+                                break;
                             }
                         }
                     }
@@ -528,12 +568,10 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
      */
     private void checkAndAssembleRecipe(Forging forge, AnvilRecipe recipe, IHeat heat) {
         if (level == null) return;
-        boolean matchesTarget = (forge.work() == forge.target());
-        boolean matchesRules = forge.matches(recipe.getRules());
-
-        if (matchesTarget && matchesRules) {
+        var inv = new AnvilRecipeInventory(items.get(SLOT_MAIN), getTier());
+        if (recipe.checkComplete(inv)) {
             // 组装成品
-            ItemStack outputStack = recipe.assemble(new AnvilRecipeInventory(items.get(SLOT_MAIN), getTier()), level.registryAccess());
+            ItemStack outputStack = recipe.assemble(inv, level.registryAccess());
 
             if (!outputStack.isEmpty()) {
                 // 继承温度
@@ -610,6 +648,147 @@ public class ElectricForgeBlockEntity extends BlockEntity implements MenuProvide
         public int size() {
             return 1;
         }
+    }
+
+    /**
+     * 铁砧焊接配方输入容器包装实现 (TFC 4.2.8 / 1.21.1 适配)
+     */
+    public record WeldingInventory(ItemStack main, ItemStack secondary, int tier) implements net.dries007.tfc.common.recipes.WeldingRecipe.Inventory {
+        @Override
+        public ItemStack getMain() {
+            return main;
+        }
+
+        @Override
+        public ItemStack getSecondary() {
+            return secondary;
+        }
+
+        @Override
+        public int getTier() {
+            return tier;
+        }
+
+        @Override
+        public ItemStack getItem(int index) {
+            if (index == 0) return main;
+            if (index == 1) return secondary;
+            return ItemStack.EMPTY;
+        }
+
+        @Override
+        public int size() {
+            return 2;
+        }
+    }
+
+    /**
+     * 检验当前是否满足焊接条件
+     */
+    public boolean canWeld() {
+        if (level == null) return false;
+        ItemStack left = items.get(SLOT_MAIN);
+        ItemStack right = items.get(SLOT_SECOND);
+        ItemStack catalyst = items.get(SLOT_CATALYST);
+
+        if (left.isEmpty() || right.isEmpty() || catalyst.isEmpty() || getTier() < 0) {
+            return false;
+        }
+
+        IHeat heatLeft = HeatCapability.get(left);
+        IHeat heatRight = HeatCapability.get(right);
+        if (heatLeft == null || heatLeft.getTemperature() < heatLeft.getWeldingTemperature()) {
+            return false;
+        }
+        if (heatRight != null && heatRight.getTemperature() < heatRight.getWeldingTemperature()) {
+            return false;
+        }
+
+        var inv = new WeldingInventory(left, right, getTier());
+        var allWelding = level.getRecipeManager().getAllRecipesFor(net.dries007.tfc.common.recipes.TFCRecipeTypes.WELDING.get());
+        for (var holder : allWelding) {
+            var recipe = holder.value();
+            if (recipe.matches(inv) && recipe.isCorrectTier(getTier())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 执行一步焊接操作
+     */
+    public boolean performWeld() {
+        if (level == null || level.isClientSide) return false;
+        ItemStack left = items.get(SLOT_MAIN);
+        ItemStack right = items.get(SLOT_SECOND);
+        ItemStack catalyst = items.get(SLOT_CATALYST);
+
+        if (left.isEmpty() || right.isEmpty() || catalyst.isEmpty() || getTier() < 0) {
+            return false;
+        }
+
+        IHeat heatLeft = HeatCapability.get(left);
+        IHeat heatRight = HeatCapability.get(right);
+        if (heatLeft == null || heatLeft.getTemperature() < heatLeft.getWeldingTemperature()) {
+            return false;
+        }
+        if (heatRight != null && heatRight.getTemperature() < heatRight.getWeldingTemperature()) {
+            return false;
+        }
+
+        int weldCost = 200;
+        if (energyStorage.getEnergyStored() < weldCost) {
+            return false;
+        }
+
+        var inv = new WeldingInventory(left, right, getTier());
+        var allWelding = level.getRecipeManager().getAllRecipesFor(net.dries007.tfc.common.recipes.TFCRecipeTypes.WELDING.get());
+        for (var holder : allWelding) {
+            var recipe = holder.value();
+            if (recipe.matches(inv) && recipe.isCorrectTier(getTier())) {
+                energyStorage.consumeEnergy(weldCost);
+                ItemStack outputStack = recipe.assemble(inv);
+
+                if (!outputStack.isEmpty()) {
+                    // 继承温度
+                    IHeat outputHeat = HeatCapability.get(outputStack);
+                    if (outputHeat != null) {
+                        float temp = Math.max(heatLeft.getTemperature(), heatRight != null ? heatRight.getTemperature() : 0);
+                        outputHeat.setTemperature(temp);
+                    }
+
+                    // 完美锻造升级模块加成
+                    if (hasPerfectForgingUpgrade()) {
+                        net.dries007.tfc.common.component.forge.ForgingBonusComponent.set(
+                                outputStack,
+                                net.dries007.tfc.common.component.forge.ForgingBonus.PERFECT
+                        );
+                    }
+
+                    // 消耗助焊剂与副槽工件
+                    catalyst.shrink(1);
+                    items.set(SLOT_SECOND, ItemStack.EMPTY);
+                    items.set(SLOT_MAIN, outputStack);
+
+                    // 播放焊接音效与火花粒子
+                    float volume = 1.0f * getMufflingVolumeFactor();
+                    if (volume > 0.05f) {
+                        level.playSound(null, worldPosition, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, volume, 0.9f);
+                    }
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(ParticleTypes.LAVA,
+                                worldPosition.getX() + 0.5, worldPosition.getY() + 0.9, worldPosition.getZ() + 0.5,
+                                12, 0.2, 0.15, 0.2, 0.08);
+                    }
+
+                    cachedSteps.clear();
+                    setChanged();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

@@ -1,4 +1,4 @@
-﻿{
+{
   "itemGroup.mekatfc": "MekaTFC",
   "block.mekatfc.electric_forge": "自动锻造机",
   "item.mekatfc.electric_forge": "自动锻造机",
@@ -19,6 +19,7 @@
   "gui.mekatfc.electric_forge.upgrade_slot": "升级插槽",
   "gui.mekatfc.electric_forge.upgrade_slot.desc": "放入升级模块以增强自动锻造机功能",
   "gui.mekatfc.electric_forge.upgrade_active": "升级已生效: 产物获得完美品质",
+  "gui.mekatfc.electric_forge.weld": "焊接 (高温金属焊接)",
   "gui.mekatfc.side_config.title": "侧面传输配置",
   "gui.mekatfc.transporter_config.title": "自动化与温控配置",
   "gui.mekatfc.upgrade_window.title": "升级管理",

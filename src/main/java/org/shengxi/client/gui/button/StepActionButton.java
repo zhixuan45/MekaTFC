@@ -10,7 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.function.Supplier;
 
 /**
- * 击打动作按钮 (100% 对齐 TFC 原版 AnvilStepButton)
+ * 击打动作按钮 (100% 对齐 TFC 1.21 原版 AnvilStepButton)
+ * 直接使用 TFC 原版 anvil.png 贴图内置的 16x16 动作图标，无缩放无失真。
  */
 public class StepActionButton extends Button {
 
@@ -19,8 +20,8 @@ public class StepActionButton extends Button {
     private final ForgeStep step;
     private final Supplier<Boolean> isHiddenSupplier;
 
-    public StepActionButton(ForgeStep step, int x, int y, OnPress onPress, Supplier<Boolean> isHiddenSupplier) {
-        super(x, y, 16, 16, Helpers.translateEnum(step), onPress, DEFAULT_NARRATION);
+    public StepActionButton(ForgeStep step, int guiLeft, int guiTop, OnPress onPress, Supplier<Boolean> isHiddenSupplier) {
+        super(guiLeft + step.buttonX(), guiTop + step.buttonY(), 16, 16, Helpers.translateEnum(step), onPress, DEFAULT_NARRATION);
         this.step = step;
         this.isHiddenSupplier = isHiddenSupplier;
         this.setTooltip(Tooltip.create(Helpers.translateEnum(step)));
@@ -31,8 +32,8 @@ public class StepActionButton extends Button {
         if (isHiddenSupplier != null && isHiddenSupplier.get()) {
             return;
         }
-        graphics.blit(BACKGROUND, this.getX(), this.getY(), 16, 16,
-                (float) this.step.iconX(), (float) this.step.iconY(), 32, 32, 256, 256);
+        // 100% 采用 TFC 官方 AnvilStepButton 采样逻辑：16x16 像素 1:1 绘制
+        graphics.blit(BACKGROUND, this.getX(), this.getY(), (float) this.step.iconX(), (float) this.step.iconY(), 16, 16, 256, 256);
         if (this.isHovered()) {
             graphics.fill(this.getX(), this.getY(), this.getX() + 16, this.getY() + 16, 0x33FFFFFF);
         }

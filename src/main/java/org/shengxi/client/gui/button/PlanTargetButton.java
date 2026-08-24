@@ -16,7 +16,8 @@ import org.shengxi.common.container.ElectricForgeMenu;
 import java.util.function.Supplier;
 
 /**
- * Plan 目标图纸按钮 (100% 对齐 TFC 原版 AnvilPlanButton)
+ * Plan 目标图纸按钮 (100% 对齐 TFC 1.21 原版 AnvilPlanButton)
+ * 直接从 TFC 原版 anvil.png 贴图中采样底框与图纸问号图标。
  */
 public class PlanTargetButton extends Button {
 
@@ -47,20 +48,24 @@ public class PlanTargetButton extends Button {
 
         Minecraft mc = Minecraft.getInstance();
         if (recipe != null && mc.level != null) {
+            // 已绑定配方：绘制激活底框与产物图标
+            graphics.blit(BACKGROUND, x, y, 218.0F, 0.0F, 18, 18, 256, 256);
             ItemStack result = recipe.getResultItem(mc.level.registryAccess());
             graphics.renderItem(result, x + 1, y + 1);
+            graphics.renderItemDecorations(mc.font, result, x + 1, y + 1);
         } else {
+            // 未绑定配方：检查是否有可用配方并绘制问号图纸底图
             boolean hasWorkable = false;
             if (mc.level != null && !mainStack.isEmpty()) {
                 hasWorkable = AnvilRecipe.hasAny(mc.level, mainStack, this.menu.getTier());
             }
-            float uOffset = hasWorkable ? 236.0F : 219.0F;
-            float vOffset = hasWorkable ? 0.0F : 51.0F;
-            graphics.blit(BACKGROUND, x + 1, y + 1, uOffset, vOffset, 16, 16, 256, 256);
+            float vOffset = hasWorkable ? 0.0F : 18.0F;
+            graphics.blit(BACKGROUND, x, y, 218.0F, vOffset, 18, 18, 256, 256);
+            graphics.blit(BACKGROUND, x + 1, y + 1, 236.0F, 0.0F, 16, 16, 256, 256);
         }
 
         if (this.isHovered()) {
-            graphics.fill(x, y, x + 18, y + 18, 0x33FFFFFF);
+            graphics.fill(x + 1, y + 1, x + 17, y + 17, 0x33FFFFFF);
         }
     }
 }

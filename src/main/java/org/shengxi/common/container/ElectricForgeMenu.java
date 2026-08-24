@@ -51,30 +51,30 @@ public class ElectricForgeMenu extends AbstractContainerMenu {
         this.data = data;
         this.blockEntity = container instanceof ElectricForgeBlockEntity forge ? forge : null;
 
-        // 1. 机器内部核心槽位 (像素级对齐 TFC 经典贴图 + Mekanism 升级管理双槽)
-        // 主工件槽 (SLOT_MAIN = 0, 位于 x: 31, y: 68 带锭水印处)
-        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_MAIN, 31, 68) {
+        // 1. 机器内部核心槽位 (100% 严格对齐 1.21 TFC 官方 AnvilContainer 坐标规范)
+        // 主工件槽 (SLOT_MAIN = 0, 位于左上方 x: 22, y: 20 带锭水印处)
+        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_MAIN, 22, 20) {
             @Override
             public boolean isActive() {
                 return areMainSlotsActive();
             }
         });
-        // 副工件槽 (SLOT_SECOND = 1, 位于 x: 13, y: 68 焊接副槽)
-        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_SECOND, 13, 68) {
+        // 副工件槽 (SLOT_SECOND = 1, 位于左下方 x: 22, y: 76 焊接副槽)
+        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_SECOND, 22, 76) {
             @Override
             public boolean isActive() {
                 return areMainSlotsActive();
             }
         });
-        // 铁砧模具槽 (SLOT_ANVIL = 2, 位于 x: 129, y: 68 锤子水印处)
-        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_ANVIL, 129, 68) {
+        // 铁砧模具槽 (SLOT_ANVIL = 2, 位于右下方 x: 138, y: 76 锤子水印处)
+        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_ANVIL, 138, 76) {
             @Override
             public boolean isActive() {
                 return areMainSlotsActive();
             }
         });
-        // 助焊剂槽 (SLOT_CATALYST = 3, 位于 x: 147, y: 68 助焊剂水印处)
-        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_CATALYST, 147, 68) {
+        // 助焊剂槽 (SLOT_CATALYST = 3, 位于左侧中间 x: 22, y: 38 助焊剂水印处)
+        this.addSlot(new Slot(container, ElectricForgeBlockEntity.SLOT_CATALYST, 22, 38) {
             @Override
             public boolean isActive() {
                 return areMainSlotsActive();

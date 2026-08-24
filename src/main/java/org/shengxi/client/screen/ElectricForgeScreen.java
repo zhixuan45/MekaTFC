@@ -18,9 +18,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.shengxi.client.gui.GuiMekanismSideTab;
 import org.shengxi.client.gui.GuiMekanismSubWindow;
+import org.shengxi.client.gui.button.AutoForgeChipButton;
 import org.shengxi.client.gui.button.PlanTargetButton;
 import org.shengxi.client.gui.button.RecipeLockButton;
 import org.shengxi.client.gui.button.StepActionButton;
+import org.shengxi.client.gui.button.WeldActionButton;
 import org.shengxi.common.blockentity.ElectricForgeBlockEntity;
 import org.shengxi.common.container.ElectricForgeMenu;
 import org.shengxi.common.network.ModPackets;
@@ -40,39 +42,36 @@ import java.util.function.Supplier;
  */
 public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMenu> {
 
-    // TFC 铁砧背景贴图 (256x256)
     public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath("tfc", "textures/gui/anvil.png");
 
-    // 图纸选择面板状态与滚动支持
-    private boolean planSelectionOpen = false;
-    private int planScrollRow = 0;
-    private boolean planScrollDragging = false;
     private static final int PLAN_COLS = 6;
     private static final int PLAN_VISIBLE_ROWS = 3;
-    private final List<AnvilRecipe> availableRecipes = new ArrayList<>();
 
-    // Mekanism 侧边栏标签页
+    // 侧边栏标签页
     private GuiMekanismSideTab sideConfigTab;
     private GuiMekanismSideTab transporterTab;
     private GuiMekanismSideTab upgradeTab;
     private GuiMekanismSideTab securityTab;
 
-    // Mekanism 子窗口
+    // 弹窗子窗口 (Mekanism 风格)
     private GuiMekanismSubWindow sideConfigWindow;
     private GuiMekanismSubWindow transporterWindow;
     private GuiMekanismSubWindow upgradeWindow;
 
-    // 当前选中的升级类型
+    // Plan 图纸选择覆盖面板状态
+    private boolean planSelectionOpen = false;
+    private int planScrollRow = 0;
+    private boolean planScrollDragging = false;
+    private List<AnvilRecipe> availableRecipes = new ArrayList<>();
+
+    // 升级管理面板当前选中的升级类型
     private ForgeUpgradeType selectedUpgradeType = ForgeUpgradeType.SPEED;
 
     public ElectricForgeScreen(ElectricForgeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         this.imageWidth = 176;
-        this.imageHeight = 208;
-        this.titleLabelX = 8;
-        this.titleLabelY = 6;
-        this.inventoryLabelX = 8;
-        this.inventoryLabelY = 115;
+        this.imageHeight = 208; // 完整适配 TFC 铁砧背景尺寸
+        this.inventoryLabelY = 114; // 调整物品栏文字 y 坐标
     }
 
     @Override
@@ -86,9 +85,9 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
         int top = this.topPos;
         Supplier<Boolean> isHiddenSupplier = () -> isAnyWindowVisible() || this.planSelectionOpen;
 
-        // 1. 初始化 8 个击打动作按钮 (100% 采用 TFC 原始 buttonX / buttonY 坐标与精确 32x32 纹理采样)
+        // 1. 初始化 8 个击打动作按钮 (100% 采用 TFC 官方 buttonX / buttonY 像素级坐标)
         for (ForgeStep step : ForgeStep.values()) {
-            this.addRenderableWidget(new StepActionButton(step, left + step.buttonX(), top + step.buttonY(), b -> {
+            this.addRenderableWidget(new StepActionButton(step, left, top, b -> {
                 if (this.menu.blockEntity != null) {
                     ModPackets.sendToServer(new ModPackets.ForgeStepActionPayload(
                             this.menu.blockEntity.getBlockPos(),
@@ -98,8 +97,17 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
             }, isHiddenSupplier));
         }
 
-        // 2. 初始化 Plan 图纸目标选择按钮 (位于 x: 20, y: 28)
-        this.addRenderableWidget(new PlanTargetButton(left + 20, top + 28, this.menu, b -> {
+        // 2. 初始化焊接按钮 (100% 严格对齐 TFC 官方坐标 x: 21, y: 56)
+        this.addRenderableWidget(new WeldActionButton(left + 21, top + 56, this.menu, b -> {
+            if (this.menu.blockEntity != null) {
+                ModPackets.sendToServer(new ModPackets.WeldActionPayload(
+                        this.menu.blockEntity.getBlockPos()
+                ));
+            }
+        }, isHiddenSupplier));
+
+        // 3. 初始化 Plan 图纸目标选择按钮 (100% 严格对齐 TFC 官方坐标 x: 137, y: 56)
+        this.addRenderableWidget(new PlanTargetButton(left + 137, top + 56, this.menu, b -> {
             this.planSelectionOpen = !this.planSelectionOpen;
             if (this.planSelectionOpen) {
                 this.updateAvailableRecipes();
@@ -107,8 +115,8 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
             }
         }, isHiddenSupplier));
 
-        // 3. 配方锁定切换小按钮 (位于 x: 40, y: 31)
-        this.addRenderableWidget(new RecipeLockButton(left + 40, top + 31, this.menu, b -> {
+        // 4. 配方锁定切换小按钮 (位于 Plan 按钮右侧 x: 157, y: 56)
+        this.addRenderableWidget(new RecipeLockButton(left + 157, top + 56, this.menu, b -> {
             if (this.menu.blockEntity != null) {
                 ModPackets.sendToServer(new ModPackets.ToggleRecipeLockPayload(
                         this.menu.blockEntity.getBlockPos()
@@ -116,19 +124,16 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
             }
         }, isHiddenSupplier));
 
-        // 4. 自动锻造切换芯片 (右上角空白区 x: 122, y: 6，宽 28，高 14)
-        this.addRenderableWidget(Button.builder(
-                Component.empty(),
-                b -> {
-                    if (this.menu.blockEntity != null) {
-                        boolean nextState = !this.menu.isAutoForgeEnabled();
-                        ModPackets.sendToServer(new ModPackets.ToggleAutoForgePayload(
-                                this.menu.blockEntity.getBlockPos(),
-                                nextState
-                        ));
-                    }
-                }
-        ).bounds(left + 122, top + 6, 28, 14).build());
+        // 5. 自动锻造切换芯片按钮 (顶部中心空白区 x: 74, y: 4，宽 28，高 14，自绘制清晰 LED 与文字)
+        this.addRenderableWidget(new AutoForgeChipButton(left + 74, top + 4, this.menu, b -> {
+            if (this.menu.blockEntity != null) {
+                boolean nextState = !this.menu.isAutoForgeEnabled();
+                ModPackets.sendToServer(new ModPackets.ToggleAutoForgePayload(
+                        this.menu.blockEntity.getBlockPos(),
+                        nextState
+                ));
+            }
+        }, isHiddenSupplier));
 
         // ==================== Mekanism 侧边栏标签页初始化 ====================
 
@@ -272,7 +277,7 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
                 int work = forge.work();
                 int target = forge.target();
 
-                // 2. 绘制锻造游标 (TFC 原版坐标规范：绿色目标在 y+94, 红色当前进度在 y+100)
+                // 2. 绘制锻造游标 (TFC 官方规范：绿色目标在 y+94, 红色当前进度在 y+100)
                 int targetX = left + 13 + Math.max(0, Math.min(146, target));
                 graphics.blit(BACKGROUND, targetX, top + 94, 181, 0, 5, 5);
 
@@ -282,44 +287,33 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
                 List<ForgeStep> steps = forge.lastSteps();
                 AnvilRecipe recipe = this.menu.blockEntity != null ? this.menu.blockEntity.resolveRecipe(forge) : null;
 
-                // 3. 绘制顶部 3 个目标规则图标与状态高亮边框
+                // 3. 绘制顶部 3 个目标规则图标与状态高亮边框 (100% 严格对齐 TFC 官方 AnvilScreen)
                 if (recipe != null) {
                     List<ForgeRule> rules = recipe.getRules();
                     for (int i = 0; i < rules.size() && i < 3; i++) {
                         ForgeRule rule = rules.get(i);
                         if (rule != null) {
                             int offset = i * 19;
-                            graphics.blit(BACKGROUND, left + 64 + offset, top + 10, 10, 10,
-                                    (float) rule.iconX(), (float) rule.iconY(), 32, 32, 256, 256);
+                            graphics.blit(BACKGROUND, left + 64 + offset, top + 16, (float) rule.iconX(), (float) rule.iconY(), 10, 10, 256, 256);
 
                             if (forge.matches(rule)) {
                                 RenderSystem.setShaderColor(0.0F, 0.6F, 0.2F, 1.0F);
                             } else {
-                                RenderSystem.setShaderColor(0.8F, 0.2F, 0.0F, 1.0F);
+                                RenderSystem.setShaderColor(1.0F, 0.4F, 0.0F, 1.0F);
                             }
-                            graphics.blit(BACKGROUND, left + 60 + offset, top + 7, 176, 5, 18, 16);
+                            graphics.blit(BACKGROUND, left + 59 + offset, top + 13, 198, rule.overlayY(), 20, 22);
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         }
                     }
                 }
 
-                // 4. 绘制底部 3 个历史击打动作图标
-                int stepSize = steps != null ? steps.size() : 0;
-                ForgeStep last = stepSize > 0 ? steps.get(stepSize - 1) : null;
-                ForgeStep secondLast = stepSize > 1 ? steps.get(stepSize - 2) : null;
-                ForgeStep thirdLast = stepSize > 2 ? steps.get(stepSize - 3) : null;
-
-                if (last != null) {
-                    graphics.blit(BACKGROUND, left + 102, top + 28, 16, 16,
-                            (float) last.iconX(), (float) last.iconY(), 32, 32, 256, 256);
-                }
-                if (secondLast != null) {
-                    graphics.blit(BACKGROUND, left + 83, top + 28, 16, 16,
-                            (float) secondLast.iconX(), (float) secondLast.iconY(), 32, 32, 256, 256);
-                }
-                if (thirdLast != null) {
-                    graphics.blit(BACKGROUND, left + 64, top + 28, 16, 16,
-                            (float) thirdLast.iconX(), (float) thirdLast.iconY(), 32, 32, 256, 256);
+                // 4. 绘制历史动作图标 (100% 严格对齐 TFC 官方 AnvilScreen：倒序排列从右至左)
+                int histIdx = 0;
+                for (ForgeStep histStep : forge.lastSteps()) {
+                    if (histIdx >= 3) break;
+                    graphics.blit(BACKGROUND, left + 99 - histIdx * 19, top + 34, 16, 16,
+                            (float) histStep.iconX(), (float) (histStep.iconY() - 16), 16, 16, 256, 256);
+                    histIdx++;
                 }
             }
         }
@@ -346,24 +340,6 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
             }
         }
 
-        // 6. 绘制右上角自动锻造状态芯片
-        int chipX = left + 122;
-        int chipY = top + 6;
-        boolean autoEnabled = this.menu.isAutoForgeEnabled();
-        int state = this.menu.getCurrentState();
-
-        graphics.fill(chipX, chipY, chipX + 28, chipY + 14, 0xFF2A2A2A);
-        graphics.fill(chipX + 1, chipY + 1, chipX + 27, chipY + 13, 0xFF3E3E3E);
-
-        int ledColor = switch (state) {
-            case ElectricForgeBlockEntity.STATE_HEATING -> 0xFFFF8800; // 橙色：升温中
-            case ElectricForgeBlockEntity.STATE_HOLDING -> 0xFFFFD700; // 黄色：恒温保温
-            case ElectricForgeBlockEntity.STATE_FORGING -> 0xFF00FF00; // 绿色：自动打铁中
-            default -> autoEnabled ? 0xFF00E5FF : 0xFF666666;        // 青色：就绪待机 / 灰色：已关闭
-        };
-        graphics.fill(chipX + 3, chipY + 4, chipX + 9, chipY + 10, ledColor);
-        graphics.drawString(this.font, autoEnabled ? "AUTO" : "MANU", chipX + 11, chipY + 3, autoEnabled ? 0xFFFFFFFF : 0xFFAAAAAA, false);
-
         // 7. 渲染 Plan 图纸选择覆盖面板
         if (this.planSelectionOpen) {
             renderPlanSelection(graphics, mouseX, mouseY);
@@ -385,6 +361,13 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
         graphics.fill(left + 9, top + 19, left + 167, top + 111, 0xFF2B2B2B);
 
         graphics.drawString(this.font, Component.translatable("gui.mekatfc.electric_forge.select_plan"), left + 14, top + 22, 0xFFE0E0E0, false);
+
+        // 右上角 X 关闭按钮 (x: 154, y: 20，宽 12，高 12)
+        int closeBtnX = left + 154;
+        int closeBtnY = top + 20;
+        boolean closeHovered = (mouseX >= closeBtnX && mouseX <= closeBtnX + 12 && mouseY >= closeBtnY && mouseY <= closeBtnY + 12);
+        graphics.fill(closeBtnX, closeBtnY, closeBtnX + 12, closeBtnY + 12, closeHovered ? 0xFFCC2222 : 0xFF3E3E3E);
+        graphics.drawCenteredString(this.font, "✕", closeBtnX + 6, closeBtnY + 2, 0xFFFFFFFF);
 
         if (availableRecipes.isEmpty()) {
             graphics.drawString(this.font, Component.translatable("gui.mekatfc.electric_forge.no_plans"), left + 14, top + 45, 0xFFAAAAAA, false);
@@ -686,6 +669,14 @@ public class ElectricForgeScreen extends AbstractContainerScreen<ElectricForgeMe
         if (this.planSelectionOpen) {
             int left = this.leftPos;
             int top = this.topPos;
+
+            // 检查是否点击右上角 X 关闭按钮
+            int closeBtnX = left + 154;
+            int closeBtnY = top + 20;
+            if (mouseX >= closeBtnX && mouseX <= closeBtnX + 12 && mouseY >= closeBtnY && mouseY <= closeBtnY + 12) {
+                this.planSelectionOpen = false;
+                return true;
+            }
 
             int totalRows = (int) Math.ceil((double) availableRecipes.size() / PLAN_COLS);
             int startIndex = planScrollRow * PLAN_COLS;

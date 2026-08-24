@@ -33,10 +33,40 @@ public class ModPackets {
         registrar.playToServer(ToggleRecipeLockPayload.TYPE, ToggleRecipeLockPayload.STREAM_CODEC, ToggleRecipeLockPayload::handle);
         registrar.playToServer(UpdateSideConfigPayload.TYPE, UpdateSideConfigPayload.STREAM_CODEC, UpdateSideConfigPayload::handle);
         registrar.playToServer(UninstallUpgradePayload.TYPE, UninstallUpgradePayload.STREAM_CODEC, UninstallUpgradePayload::handle);
+        registrar.playToServer(WeldActionPayload.TYPE, WeldActionPayload.STREAM_CODEC, WeldActionPayload::handle);
     }
 
     public static void sendToServer(CustomPacketPayload payload) {
         PacketDistributor.sendToServer(payload);
+    }
+
+    /**
+     * 7. 手动焊接请求 Payload
+     */
+    public record WeldActionPayload(BlockPos pos) implements CustomPacketPayload {
+        public static final Type<WeldActionPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Mekatfc.MODID, "weld_action"));
+
+        public static final StreamCodec<FriendlyByteBuf, WeldActionPayload> STREAM_CODEC = StreamCodec.composite(
+                BlockPos.STREAM_CODEC, WeldActionPayload::pos,
+                WeldActionPayload::new
+        );
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+
+        public static void handle(WeldActionPayload payload, IPayloadContext ctx) {
+            ctx.enqueueWork(() -> {
+                Player player = ctx.player();
+                if (player instanceof ServerPlayer serverPlayer && serverPlayer.level().isLoaded(payload.pos())) {
+                    BlockEntity be = serverPlayer.level().getBlockEntity(payload.pos());
+                    if (be instanceof ElectricForgeBlockEntity forgeEntity) {
+                        forgeEntity.performWeld();
+                    }
+                }
+            });
+        }
     }
 
     /**

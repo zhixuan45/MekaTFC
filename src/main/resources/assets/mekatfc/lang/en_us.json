@@ -1,4 +1,4 @@
-﻿{
+{
   "itemGroup.mekatfc": "MekaTFC",
   "block.mekatfc.electric_forge": "Electric Auto-Forge",
   "item.mekatfc.electric_forge": "Electric Auto-Forge",
@@ -19,6 +19,7 @@
   "gui.mekatfc.electric_forge.upgrade_slot": "Upgrade Slot",
   "gui.mekatfc.electric_forge.upgrade_slot.desc": "Insert upgrades to enhance electric forge functions",
   "gui.mekatfc.electric_forge.upgrade_active": "Upgrade Active: Perfect Forging Quality",
+  "gui.mekatfc.electric_forge.weld": "Weld (High Temp Metal Welding)",
   "gui.mekatfc.side_config.title": "Side Configuration",
   "gui.mekatfc.transporter_config.title": "Automation & Heat Config",
   "gui.mekatfc.upgrade_window.title": "Upgrade Management",

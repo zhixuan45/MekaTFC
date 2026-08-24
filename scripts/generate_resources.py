@@ -717,7 +717,7 @@ def update_lang_files():
     print("Updated language files.")
 
 def update_tags():
-    # forge:tags/blocks/ores/lead.json
+    # c:tags/block/ores/lead.json
     lead_ores = []
     for rock in ROCKS:
         for grade in GRADES:
@@ -726,12 +726,12 @@ def update_tags():
         {"id": "mekanism:lead_ore", "required": False},
         {"id": "mekanism:deepslate_lead_ore", "required": False}
     ])
-    p_lo = os.path.join(DATA_DIR, "forge", "tags", "blocks", "ores", "lead.json")
+    p_lo = os.path.join(DATA_DIR, "c", "tags", "block", "ores", "lead.json")
     os.makedirs(os.path.dirname(p_lo), exist_ok=True)
     with open(p_lo, "w", encoding="utf-8") as f:
         json.dump({"replace": False, "values": lead_ores}, f, indent=2)
 
-    # forge:tags/blocks/ores/uranium.json
+    # c:tags/block/ores/uranium.json
     uranium_ores = []
     for rock in ROCKS:
         for grade in GRADES:
@@ -740,13 +740,13 @@ def update_tags():
         {"id": "mekanism:uranium_ore", "required": False},
         {"id": "mekanism:deepslate_uranium_ore", "required": False}
     ])
-    p_uo = os.path.join(DATA_DIR, "forge", "tags", "blocks", "ores", "uranium.json")
+    p_uo = os.path.join(DATA_DIR, "c", "tags", "block", "ores", "uranium.json")
     os.makedirs(os.path.dirname(p_uo), exist_ok=True)
     with open(p_uo, "w", encoding="utf-8") as f:
         json.dump({"replace": False, "values": uranium_ores}, f, indent=2)
 
-    # tfc:tags/blocks/prospectable.json
-    p_prospect = os.path.join(DATA_DIR, "tfc", "tags", "blocks", "prospectable.json")
+    # tfc:tags/block/prospectable.json
+    p_prospect = os.path.join(DATA_DIR, "tfc", "tags", "block", "prospectable.json")
     os.makedirs(os.path.dirname(p_prospect), exist_ok=True)
     all_prospectable = []
     for ore in ["native_osmium", "galena", "pitchblende"]:
