@@ -16,23 +16,17 @@ import java.util.List;
 public class AutoForgeSolverTest {
 
     @Test
-    public void inspectTfcTags() throws Exception {
-        java.io.File jarFile = new java.io.File("C:\\Users\\JuziD\\.gradle\\caches\\modules-2\\files-2.1\\maven.modrinth\\terrafirmacraft\\4.2.8\\aff8713c181fa4b190f3b018216998530c734a12\\terrafirmacraft-4.2.8.jar");
-        if (jarFile.exists()) {
-            try (java.util.zip.ZipFile zip = new java.util.zip.ZipFile(jarFile)) {
-                var it = zip.entries();
-                while (it.hasMoreElements()) {
-                    var entry = it.nextElement();
-                    String name = entry.getName();
-                    if (name.startsWith("data/c/tags/item/") && (name.contains("sheet") || name.contains("ingot"))) {
-                        System.out.println("=== Tag File: " + name + " ===");
-                        try (var is = zip.getInputStream(entry)) {
-                            System.out.println(new String(is.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8));
-                        }
-                    }
-                }
-            }
-        }
+    public void testDirectHitToTargetWithoutRules() {
+        int currentWork = 50;
+        int targetWork = 52; // HIT_LIGHT (+2)
+        List<ForgeStep> steps = Collections.emptyList();
+        List<ForgeRule> rules = Collections.emptyList();
+
+        List<ForgeStep> path = AutoForgeSolver.solve(currentWork, targetWork, steps, rules);
+
+        Assertions.assertFalse(path.isEmpty(), "应当能找到解");
+        Assertions.assertEquals(1, path.size());
+        Assertions.assertEquals(ForgeStep.PUNCH, path.get(0));
     }
 
     @Test
